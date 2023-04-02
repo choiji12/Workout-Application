@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //로그아웃 버튼 눌렀을 때
-                mFirebaseAuth.signOut();
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
