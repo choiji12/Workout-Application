@@ -4,52 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="#5B5151">
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="223dp"
+        android:layout_height="255dp"
+        app:srcCompat="@drawable/ic_launcher_foreground"
+        tools:layout_editor_absoluteX="67dp"
+        tools:layout_editor_absoluteY="81dp" />
 
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
         android:ems="10"
-        android:hint="이메일을 입력하세요"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:hint="example@naver.com"
+        android:textColorHint="#9D8E8E"
+        android:background="@drawable/blueshaped_white_text"
+        tools:layout_editor_absoluteX="67dp"
+        tools:layout_editor_absoluteY="371dp" />
 
     <EditText
         android:id="@+id/txtPasswd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:ems="10"
-        android:hint="비밀번호를 입력하세요"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+        android:hint="password"
+        tools:layout_editor_absoluteX="67dp"
+        tools:layout_editor_absoluteY="449dp" />
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="로그인"
-        android:backgroundTint="@color/black"
-        android:layout_margin="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnRegister"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:background="@drawable/whiteshapedpink_button"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="513dp" />
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/txtOr"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="회원가입"
-        android:backgroundTint="@color/black"
-        android:layout_margin="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnLogin" />
+        android:text="OR"
+        tools:layout_editor_absoluteX="171dp"
+        tools:layout_editor_absoluteY="584dp" />
+
+    <ImageButton
+        android:id="@+id/btnCancle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="12dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
