@@ -30,10 +30,10 @@ public class LoginActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("workoutapp");
 
-        txtEmail = findViewById(R.id.txtEmail);
+        txtEmail = findViewById(R.id.btnLogin);
         txtPasswd = findViewById(R.id.txtPasswd);
 
-        Button btnLogin = findViewById(R.id.txtEmail);
+        Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

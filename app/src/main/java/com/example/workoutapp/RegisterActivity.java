@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("workoutapp");
 
-        txtEmail = findViewById(R.id.txtEmail);
+        txtEmail = findViewById(R.id.btnLogin);
         txtPasswd = findViewById(R.id.txtPasswd);
         btnRegister = findViewById(R.id.btnRegister);
         btnReturn = findViewById(R.id.btnReturn);
