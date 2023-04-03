@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 //sdagdasgdsagasdgadsgasdgasdgasdgasdgasgsa
                 //sdavasdvdsㄱ니기민ㅁ긴믹
+                //하이욤
             }
         });
 
