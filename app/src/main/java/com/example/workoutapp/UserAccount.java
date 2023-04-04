@@ -9,6 +9,7 @@ public class UserAccount
     private String emailId;
     private String password;
     // 닉네임, 개인정보 등 확장 가능
+    //ㅇㅇ
 
     public UserAccount() { }
     // Firebase에서 Realtime DB 에서 모델 클래스로 가져올 때 빈 생성자 필요
