@@ -25,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
-                //sdagdasgdsagasdgadsgasdgasdgasdgasdgasgsa
-                //sdavasdvdsㄱ니기민ㅁ긴믹
-                //하이욤
             }
         });
 

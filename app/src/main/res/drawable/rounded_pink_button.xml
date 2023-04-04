@@ -8,7 +8,7 @@
             <!--테두리-->
             <stroke
                 android:width="1dp"
-                android:color="@color/white"/>
+                android:color="#FF60A6"/>
             <!--둥근테두리-->
             <corners
                 android:bottomRightRadius="15dp"
@@ -23,7 +23,7 @@
             <solid android:color="#E30E6C"></solid>
             <stroke
                 android:width="1dp"
-                android:color="@color/white"></stroke>
+                android:color="#E30E6C"></stroke>
             <corners
                 android:bottomRightRadius="15dp"
                 android:bottomLeftRadius="15dp"

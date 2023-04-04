@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("workoutapp");
 
-        txtEmail = findViewById(R.id.btnLogin);
+        txtEmail = findViewById(R.id.txtEmail);
         txtPasswd = findViewById(R.id.txtPasswd);
 
         Button btnLogin = findViewById(R.id.btnLogin);
@@ -58,15 +58,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button btnResister = findViewById(R.id.btnRegister);
-        btnResister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //회원가입 버튼 누르면 회원가입 엑티비티로 이동
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-
-            }
-        });
+//        Button btnResister = findViewById(R.id.btnRegister);
+//        btnResister.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //회원가입 버튼 누르면 회원가입 엑티비티로 이동
+//                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
     }
 }

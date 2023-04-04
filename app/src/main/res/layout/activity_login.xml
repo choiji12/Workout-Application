@@ -9,57 +9,88 @@
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="223dp"
-        android:layout_height="255dp"
-        app:srcCompat="@drawable/ic_launcher_foreground"
-        tools:layout_editor_absoluteX="67dp"
-        tools:layout_editor_absoluteY="81dp" />
+        android:layout_width="210dp"
+        android:layout_height="253dp"
+        android:layout_marginStart="-80dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <EditText
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/txtEmail"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/blackroundeded_white_text"
         android:ems="10"
+        android:fontFamily="@font/jamsil_regular"
+        android:hint="   example@gmail.com"
         android:inputType="textEmailAddress"
-        android:hint="example@naver.com"
         android:textColorHint="#9D8E8E"
-        android:background="@drawable/blueshaped_white_text"
-        tools:layout_editor_absoluteX="67dp"
-        tools:layout_editor_absoluteY="371dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
 
     <EditText
         android:id="@+id/txtPasswd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/blackroundeded_white_text"
         android:ems="10"
+        android:fontFamily="@font/jamsil_regular"
+        android:hint="   password"
         android:inputType="textPassword"
-        android:hint="password"
-        tools:layout_editor_absoluteX="67dp"
-        tools:layout_editor_absoluteY="449dp" />
+        android:textColorHint="#9D8E8E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="로그인"
-        android:background="@drawable/whiteshapedpink_button"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="513dp" />
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_pink_button"
+        android:text="Login"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswd" />
 
     <TextView
         android:id="@+id/txtOr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/jamsil_regular"
         android:text="OR"
-        tools:layout_editor_absoluteX="171dp"
-        tools:layout_editor_absoluteY="584dp" />
+        android:textColor="#9D8E8E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
-    <ImageButton
-        android:id="@+id/btnCancle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="12dp" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="7dp"
+        android:background="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/txtOr"
+        app:layout_constraintTop_toTopOf="@+id/txtOr" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/grey"
+        app:layout_constraintEnd_toStartOf="@+id/txtOr"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtOr" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
