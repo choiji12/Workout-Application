@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             //로그인 성공
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, QuestionActivity1.class);
                             startActivity(intent);
                             finish(); //현재 엑티비티 파괴
                         } else {
@@ -58,15 +59,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        Button btnResister = findViewById(R.id.btnRegister);
-//        btnResister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //회원가입 버튼 누르면 회원가입 엑티비티로 이동
-//                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-//                startActivity(intent);
-//
-//            }
-//        });
+        ImageButton btnCancle = findViewById(R.id.btnCancle);
+        btnCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this,StartActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
+            }
+        });
     }
 }

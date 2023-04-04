@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:background="#5B5151">
+    android:background="@color/dark_grey">
 
     <ImageView
         android:id="@+id/imgLogo"
@@ -27,6 +27,7 @@
         android:ems="10"
         android:fontFamily="@font/jamsil_regular"
         android:hint="   example@gmail.com"
+        android:textColor="@color/black"
         android:inputType="textEmailAddress"
         android:textColorHint="#9D8E8E"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +42,7 @@
         android:background="@drawable/blackroundeded_white_text"
         android:ems="10"
         android:fontFamily="@font/jamsil_regular"
+        android:textColor="@color/black"
         android:hint="   password"
         android:inputType="textPassword"
         android:textColorHint="#9D8E8E"
@@ -92,5 +94,17 @@
         app:layout_constraintEnd_toStartOf="@+id/txtOr"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtOr" />
+
+    <ImageButton
+        android:id="@+id/btnCancle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@color/grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
