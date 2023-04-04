@@ -42,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             //회원가입 버튼을 눌렀을 때 이벤트 리스너
+            //ppt
             @Override
             public void onClick(View v) {
                 //회원가입 시작
