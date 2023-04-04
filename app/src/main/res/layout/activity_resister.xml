@@ -4,57 +4,212 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".ResisterActivity"
+    android:background="@color/dark_grey">
 
-    <EditText
-        android:id="@+id/btnLogin"
+    <TextView
+        android:id="@+id/txtWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:ems="10"
-        android:hint="이메일을 입력하세요"
-        android:inputType="textEmailAddress"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/jamsil_bold"
+        android:text="환영합니다!"
+        android:textColor="@color/pink"
+        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/txtPasswd"
+    <TextView
+        android:id="@+id/txtMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:ems="10"
-        android:hint="비밀번호를 입력하세요"
-        android:inputType="textPassword"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/jamsil_regular"
+        android:text="어플리케이션 명"
+        android:textColor="@color/white"
+        android:textSize="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/txtWelcome" />
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/txtOption1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="172dp"
-        android:text="회원가입"
-        android:backgroundTint="@color/black"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/jamsil_regular"
+        android:text="이메일"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMessage" />
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/btnReturn"
+    <TextView
+        android:id="@+id/txtOption2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/white"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/jamsil_regular"
+        android:text="비밀번호"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
+    <TextView
+        android:id="@+id/txtOption3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/jamsil_regular"
+        android:text="비밀번호 확인"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswd" />
+
+    <TextView
+        android:id="@+id/txtOption4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/jamsil_regular"
+        android:text="이름"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswdCheck" />
+
+    <TextView
+        android:id="@+id/txtOption5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/jamsil_regular"
+        android:text="전화번호 (선택)"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/txtName"
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswdCheck" />
+
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/blackroundeded_white_text"
+        android:hint="   example@gmail.com"
+        android:fontFamily="@font/jamsil_regular"
+        android:textColorHint="@color/grey"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtOption1" />
+
+    <EditText
+        android:id="@+id/txtPasswd"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/blackroundeded_white_text"
+        android:hint="   password"
+        android:fontFamily="@font/jamsil_regular"
+        android:textColorHint="@color/grey"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtOption2" />
+
+    <EditText
+        android:id="@+id/txtPasswdCheck"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/blackroundeded_white_text"
+        android:hint="   password"
+        android:fontFamily="@font/jamsil_regular"
+        android:textColorHint="@color/grey"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtOption3" />
+
+    <EditText
+        android:id="@+id/txtName"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/blackroundeded_white_text"
+        android:hint="   홍길동"
+        android:fontFamily="@font/jamsil_regular"
+        android:textColorHint="@color/grey"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtOption4" />
+
+    <EditText
+        android:id="@+id/txtPhone"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/blackroundeded_white_text"
+        android:hint="   01012345678"
+        android:fontFamily="@font/jamsil_regular"
+        android:textColorHint="@color/grey"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtName"
+        app:layout_constraintTop_toBottomOf="@+id/txtOption5" />
+
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_pink_button"
+        android:fontFamily="@font/jamsil_regular"
+        android:gravity="center"
+        android:text="회원가입"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+    <TextView
+        android:id="@+id/txtOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/jamsil_regular"
+        android:text="OR"
+        android:textColor="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/grey"
+        app:layout_constraintEnd_toStartOf="@+id/txtOr"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/grey"
+        app:layout_constraintStart_toEndOf="@+id/txtOr"
+        tools:layout_editor_absoluteY="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
