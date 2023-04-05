@@ -170,7 +170,7 @@
         android:layout_width="315dp"
         android:layout_height="48dp"
         android:layout_marginTop="50dp"
-        android:background="@drawable/rounded_pink_button"
+        android:background="@drawable/rounded_white_button"
         android:fontFamily="@font/jamsil_regular"
         android:gravity="center"
         android:text="회원가입"

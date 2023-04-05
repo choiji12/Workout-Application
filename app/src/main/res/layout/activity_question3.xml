@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:fontFamily="@font/jamsil_bold"
-        android:text="운동장소"
+        android:text="운동수준"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/jamsil_regular"
-        android:text="주로 어디에서 운동하시나요?"
+        android:text="운동 수준이 어떻게 되시나요?"
         android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +57,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/jamsil_regular"
-        android:text="운동 스타일에 맞는 운동을 추천해줘요."
+        android:text="사용자에 수준에 맞는 운동을 추천해줘요."
         android:textColor="@color/grey"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,30 +72,74 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
-            android:id="@+id/btnGym"
+            android:id="@+id/btnBegginer"
             android:layout_width="380dp"
             android:layout_height="80dp"
             android:layout_marginVertical="5dp"
             android:background="@drawable/rounded_grey_radiobutton"
             android:button="@null"
             android:fontFamily="@font/jamsil_regular"
-            android:gravity="center"
-            android:text="헬스장"
+            android:gravity="center_vertical"
+            android:bufferType="spannable"
+            android:text="\t\t입문\t\t\t\t\t\t\t\t\t\t\t\t\t운동을 아무것도 몰라요."
             android:textColor="@drawable/black_to_white_radio_text"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
         <RadioButton
-            android:id="@+id/btnHome"
+            android:id="@+id/btnLow"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginVertical="5dp"
             android:background="@drawable/rounded_grey_radiobutton"
             android:button="@null"
             android:fontFamily="@font/jamsil_regular"
-            android:gravity="center"
-            android:text="집"
+            android:gravity="center_vertical"
+            android:bufferType="spannable"
+            android:text="\t\t초급\t\t\t\t\t\t\t\t\t\t\t\t\t운동 시작한지 얼마 안됐어요."
             android:textColor="@drawable/black_to_white_radio_text"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/btnMiddle"
+            android:layout_width="380dp"
+            android:layout_height="80dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/rounded_grey_radiobutton"
+            android:button="@null"
+            android:fontFamily="@font/jamsil_regular"
+            android:gravity="center_vertical"
+            android:bufferType="spannable"
+            android:text="\t\t중급\t\t\t\t\t\t\t\t\t\t\t\t\t운동 자세를 잘 알고, 나만의 루틴이 있어요."
+            android:textColor="@drawable/black_to_white_radio_text"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/btnHigh"
+            android:layout_width="380dp"
+            android:layout_height="80dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/rounded_grey_radiobutton"
+            android:button="@null"
+            android:fontFamily="@font/jamsil_regular"
+            android:gravity="center_vertical"
+            android:bufferType="spannable"
+            android:text="\t\t고급\t\t\t\t\t\t\t\t\t\t\t\t\t운동에 관한 전문 지식을 가지고 있어요."
+            android:textColor="@drawable/black_to_white_radio_text"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/btnMaster"
+            android:layout_width="380dp"
+            android:layout_height="80dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/rounded_grey_radiobutton"
+            android:button="@null"
+            android:fontFamily="@font/jamsil_regular"
+            android:gravity="center_vertical"
+            android:bufferType="spannable"
+            android:text="\t\t전문\t\t\t\t\t\t\t\t\t\t\t\t\t운동 선수급의 지식과 경험이 있어요."
+            android:textColor="@drawable/black_to_white_radio_text"
+            android:textSize="12sp" />
 
     </RadioGroup>
 

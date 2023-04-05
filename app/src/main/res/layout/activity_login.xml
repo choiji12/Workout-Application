@@ -53,7 +53,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/rounded_pink_button"
+        android:background="@drawable/rounded_white_button"
         android:text="로그인"
         android:fontFamily="@font/jamsil_regular"
         android:textColor="@color/blue"

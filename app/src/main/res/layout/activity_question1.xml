@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_grey"
+    android:background="@drawable/main_gradation_color"
     tools:context=".QuestionActivity1">
 
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/jamsil_bold"
         android:text="성별"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -31,7 +31,8 @@
         android:layout_marginEnd="10dp"
         android:max="100"
         android:minWidth="400dp"
-        android:indeterminateTint="@color/pink"
+        android:progressBackgroundTint="@color/white"
+        android:progressTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
@@ -41,10 +42,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/jamsil_regular"
         android:text="성별이 어떻게 되시나요?"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressbarPercent" />
@@ -73,39 +74,39 @@
         <RadioButton
             android:id="@+id/btnMale"
             android:layout_width="380dp"
-            android:layout_height="48dp"
-            android:layout_marginVertical="35dp"
+            android:layout_height="80dp"
+            android:layout_marginVertical="5dp"
             android:background="@drawable/rounded_grey_radiobutton"
             android:fontFamily="@font/jamsil_regular"
             android:textSize="15sp"
             android:text="남성"
-            android:textColor="@drawable/white_to_black_raido_text"
+            android:textColor="@drawable/black_to_white_radio_text"
             android:gravity="center"
             android:button="@null"/>
 
         <RadioButton
             android:id="@+id/btnFemale"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginVertical="35dp"
+            android:layout_height="80dp"
+            android:layout_marginVertical="5dp"
             android:background="@drawable/rounded_grey_radiobutton"
             android:fontFamily="@font/jamsil_regular"
             android:textSize="15sp"
             android:text="여성"
-            android:textColor="@drawable/white_to_black_raido_text"
+            android:textColor="@drawable/black_to_white_radio_text"
             android:gravity="center"
             android:button="@null"/>
 
         <RadioButton
             android:id="@+id/btnEtc"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginVertical="35dp"
+            android:layout_height="80dp"
+            android:layout_marginVertical="5dp"
             android:textSize="15sp"
             android:background="@drawable/rounded_grey_radiobutton"
             android:fontFamily="@font/jamsil_regular"
             android:text="기타"
-            android:textColor="@drawable/white_to_black_raido_text"
+            android:textColor="@drawable/black_to_white_radio_text"
             android:gravity="center"
             android:button="@null" />
     </RadioGroup>
