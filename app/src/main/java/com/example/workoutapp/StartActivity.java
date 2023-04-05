@@ -1,8 +1,10 @@
 package com.example.workoutapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +19,15 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        Button btnLogin = findViewById(R.id.btnLogin);
 
+        ConstraintLayout view = findViewById(R.id.ConstraintLayout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) view.getBackground();
+        animationDrawable.setEnterFadeDuration(1000);
+        animationDrawable.setExitFadeDuration(2000);
+        animationDrawable.start();
+
+
+        Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,9 +49,8 @@ public class StartActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
         });
-
-
     }
+
 
     private long backKeyPressedTime = 0;
     private Toast toast;
