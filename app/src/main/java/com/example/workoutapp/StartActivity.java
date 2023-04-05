@@ -22,8 +22,8 @@ public class StartActivity extends AppCompatActivity {
 
         ConstraintLayout view = findViewById(R.id.ConstraintLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) view.getBackground();
-        animationDrawable.setEnterFadeDuration(1000);
-        animationDrawable.setExitFadeDuration(2000);
+        animationDrawable.setEnterFadeDuration(500);
+        animationDrawable.setExitFadeDuration(1000);
         animationDrawable.start();
 
 
