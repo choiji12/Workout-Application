@@ -8,11 +8,37 @@ public class UserAccount
     private String idToken; // Firebase Uid (고유id 토큰)
     private String emailId;
     private String password;
-    // 닉네임, 개인정보 등 확장 가능
-    //ㅇㅇ
+    private String name;
+    private String phone;
+    private String salt;
+
 
     public UserAccount() { }
     // Firebase에서 Realtime DB 에서 모델 클래스로 가져올 때 빈 생성자 필요
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
 
     public String getIdToken() {
