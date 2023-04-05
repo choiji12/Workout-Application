@@ -41,6 +41,16 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
+//
+//        Button btnSignIn = findViewById(R.id.btnSignin);
+//
+//        btnSignIn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(StartActivity.this,RegisterActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 }
