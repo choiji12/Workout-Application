@@ -4,7 +4,7 @@
     <item android:state_pressed="false">
         <shape>
             <!--배경-->
-            <solid android:color="@color/black"></solid>
+            <solid android:color="@color/white"></solid>
             <!--둥근테두리-->
             <corners
                 android:bottomRightRadius="15dp"
