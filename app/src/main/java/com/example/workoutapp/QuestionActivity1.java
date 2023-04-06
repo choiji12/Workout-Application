@@ -1,8 +1,11 @@
 package com.example.workoutapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,43 +21,65 @@ public class QuestionActivity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question1);
 
-        ProgressBar pb = findViewById(R.id.progressbarPercent);
-        pb.setProgress(20);
-
         Button btnMale = findViewById(R.id.btnMale);
         Button btnFemale = findViewById(R.id.btnFemale);
         Button btnEtc = findViewById(R.id.btnEtc);
 
-        Button.OnClickListener onClickListener = new Button.OnClickListener() {
+        btnMale.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-                    //첫번째 버튼 행동
-                    case R.id.btnMale:
-                        Intent intent1 = new Intent(QuestionActivity1.this, QuestionActivity2.class);
-                        startActivity(intent1);
-                        overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
-                        break;
-                    //두번째 버튼 행동
-                    case R.id.btnFemale:
-                        Intent intent2 = new Intent(QuestionActivity1.this, QuestionActivity2.class);
-                        startActivity(intent2);
-                        overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
-                        break;
-                    case R.id.btnEtc:
-                        Intent intent3 = new Intent(QuestionActivity1.this, QuestionActivity2.class);
-                        startActivity(intent3);
-                        overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
-                        break;
-                }
+            public void onClick(View view) {
+                String previousActivityClassName = "QuestionActivity1";
+                Intent intent = new Intent(QuestionActivity1.this, QuestionActivity2.class);
+                intent.putExtra("previous_activity", previousActivityClassName);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
-        };
+        });
 
-        btnMale.setOnClickListener(onClickListener);
-        btnFemale.setOnClickListener(onClickListener);
-        btnEtc.setOnClickListener(onClickListener);
+        btnFemale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String previousActivityClassName = "QuestionActivity1";
+                Intent intent = new Intent(QuestionActivity1.this, QuestionActivity2.class);
+                intent.putExtra("previous_activity", previousActivityClassName);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+            }
+        });
+
+        btnEtc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String previousActivityClassName = "QuestionActivity1";
+                Intent intent = new Intent(QuestionActivity1.this, QuestionActivity2.class);
+                intent.putExtra("previous_activity", previousActivityClassName);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+            }
+        });
+
+        String previousActivityClassName = getIntent().getStringExtra("previous_activity");
+
+        //프로그래스바 애니메이션
+        if("LoginActivity".equals(previousActivityClassName)){
+            ProgressBar pb = findViewById(R.id.progressbarPercent);
+            pb.setMax(100);
+            pb.setProgress(0);
+            ObjectAnimator animation = ObjectAnimator.ofInt(pb,"progress",0,25);
+            animation.setDuration(1000);
+            animation.start();
+        }
+
+        else{
+            ProgressBar pb = findViewById(R.id.progressbarPercent);
+            pb.setMax(100);
+            pb.setProgress(0);
+            ObjectAnimator animation = ObjectAnimator.ofInt(pb,"progress",50,25);
+            animation.setDuration(1000);
+            animation.start();
+        }
+
     }
-
     private long backKeyPressedTime = 0;
     private Toast toast;
     public void onBackPressed() {
@@ -71,10 +96,4 @@ public class QuestionActivity1 extends AppCompatActivity {
             toast.cancel();
         }
     }
-
-//    ProgressBar progressBar = findViewById(R.id.progressbarPercent);
-//    ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", 0, 100);
-//    animation
-//    animation.setInterpolator(new DecelerateInterpolator());
-//    animation.start();
 }

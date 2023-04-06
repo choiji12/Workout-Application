@@ -1,7 +1,10 @@
 package com.example.workoutapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,14 +20,12 @@ import java.util.Calendar;
 public class QuestionActivity4 extends AppCompatActivity {
     Button btnBirthday;
     DatePickerDialog datePickerDialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question4);
 
-        ProgressBar pb = findViewById(R.id.progressbarPercent);
-        pb.setProgress(80);
+
 
         btnBirthday = findViewById(R.id.btnBirthday);
         // 캘린더 팝업 띄우기
@@ -57,6 +58,18 @@ public class QuestionActivity4 extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             }
         });
+
+        //프로그래스바 애니메이션
+        String previousActivityClassName = getIntent().getStringExtra("previous_activity");
+
+        if("QuestionActivity3".equals(previousActivityClassName)) {
+            ProgressBar pb = findViewById(R.id.progressbarPercent);
+            pb.setMax(100);
+            pb.setProgress(0);
+            ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 75, 100);
+            animation.setDuration(1000);
+            animation.start();
+        }
 
     }
     private long backKeyPressedTime = 0;
