@@ -1,8 +1,10 @@
 package com.example.workoutapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,22 +13,38 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+
+    // 구글 코드
+    private SignInButton btn_google;
+    private GoogleApiClient googleApiClient;
+    private static final int REQ_SIGN_GOOGLE = 100; //구글 로그인 결과 코드
+
 
     private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증 변수
     private DatabaseReference mDatabaseRef; // 실시간 DB
     private EditText txtEmail, txtPasswd;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +55,27 @@ public class LoginActivity extends AppCompatActivity {
 
         txtEmail = findViewById(R.id.txtEmail);
         txtPasswd = findViewById(R.id.txtPasswd);
+
+        // 구글 코드 ~ 72
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
+                .build();
+
+        btn_google = findViewById(R.id.btn_google);
+        btn_google.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent, REQ_SIGN_GOOGLE);
+            }
+        });
+
 
         Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -143,5 +182,49 @@ public class LoginActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
         backKeyPressedTime = System.currentTimeMillis();
         return;
+    }
+
+
+    //구글 코드
+
+    //구글 로그인 인증을 요청했을 때 결과 값을 되돌려 받는 곳
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQ_SIGN_GOOGLE){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if(result.isSuccess()){
+                GoogleSignInAccount account = result.getSignInAccount(); //구글로그인 정보 (닉네임, 프로필, 이메일 등)
+                resultLogin(account);  //로그인 결과 갑 출력 수행하라는 메소드
+            }
+        }
+    }
+
+    private void resultLogin(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        mFirebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(LoginActivity.this, "안녕하세요.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), QuestionActivity1.class);
+
+//                            intent.putExtra("email", account.getEmail());
+//                            intent.putExtra("nickName", account.getDisplayName());
+//                            intent.putExtra("photoURL", String.valueOf(account.getPhotoUrl()));
+
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(LoginActivity.this, "로그인 실패.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
