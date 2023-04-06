@@ -112,7 +112,10 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "비밀번호 확인을 입력하세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }else if(strName.equals("")){
-                    Toast.makeText(RegisterActivity.this, "이름 입력하세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "이름을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(strPhone.equals("")){
+                    Toast.makeText(RegisterActivity.this, "전화번호를 입력하세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
