@@ -36,7 +36,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-auth:21.2.0'
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
-
+    // google login ~ 42
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.firebaseui:firebase-ui-auth:8.0.0' //4.2.1
     implementation 'com.github.bumptech.glide:glide:4.15.1'

@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         txtEmail = findViewById(R.id.txtEmail);
         txtPasswd = findViewById(R.id.txtPasswd);
 
-        // 구글 코드 ~ 72
+        // 구글 코드 ~ 77
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
