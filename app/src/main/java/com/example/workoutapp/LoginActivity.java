@@ -118,20 +118,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-//                mFirebaseAuth.signInWithEmailAndPassword(strEmail,strPasswd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()){
-//                            //로그인 성공
-//                            Intent intent = new Intent(LoginActivity.this, QuestionActivity1.class);
-//                            startActivity(intent);
-//                            finish(); //현재 엑티비티 파괴
-//                        } else {
-//                            Toast.makeText(LoginActivity.this,"로그인에 실패하였습니다",Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                    }
-//                });
             }
         });
 
