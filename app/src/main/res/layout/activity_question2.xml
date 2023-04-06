@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/jamsil_bold"
-        android:text="성별"
+        android:text="운동장소"
         android:textColor="@color/white"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,14 +23,15 @@
 
     <ProgressBar
         android:id="@+id/progressbarPercent"
-        style="@android:style/Widget.ProgressBar.Horizontal"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
-        android:layout_height="20dp"
+        android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:max="100"
         android:minWidth="400dp"
+        android:indeterminate="true"
         android:indeterminateTint="@color/pink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +44,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/jamsil_regular"
-        android:text="성별이 어떻게 되시나요?"
+        android:text="주로 어디에서 운동하시나요?"
         android:textColor="@color/white"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +57,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/jamsil_regular"
-        android:text="사용자의 정보는 외부에 공개되지 않아요."
+        android:text="운동 스타일에 맞는 운동을 추천해줘요."
         android:textColor="@color/grey"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,48 +67,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
-            android:id="@+id/btnMale"
+            android:id="@+id/btnGym"
             android:layout_width="380dp"
             android:layout_height="48dp"
             android:layout_marginVertical="35dp"
             android:background="@drawable/rounded_grey_radiobutton"
+            android:button="@null"
             android:fontFamily="@font/jamsil_regular"
-            android:textSize="15sp"
-            android:text="남성"
-            android:textColor="@drawable/white_to_black_raido_text"
             android:gravity="center"
-            android:button="@null"/>
+            android:text="헬스장"
+            android:textColor="@drawable/white_to_black_raido_text"
+            android:textSize="15sp" />
 
         <RadioButton
-            android:id="@+id/btnFemale"
+            android:id="@+id/btnHome"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginVertical="35dp"
             android:background="@drawable/rounded_grey_radiobutton"
+            android:button="@null"
             android:fontFamily="@font/jamsil_regular"
-            android:textSize="15sp"
-            android:text="여성"
-            android:textColor="@drawable/white_to_black_raido_text"
             android:gravity="center"
-            android:button="@null"/>
+            android:text="집"
+            android:textColor="@drawable/white_to_black_raido_text"
+            android:textSize="15sp" />
 
-        <RadioButton
-            android:id="@+id/btnEtc"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginVertical="35dp"
-            android:textSize="15sp"
-            android:background="@drawable/rounded_grey_radiobutton"
-            android:fontFamily="@font/jamsil_regular"
-            android:text="기타"
-            android:textColor="@drawable/white_to_black_raido_text"
-            android:gravity="center"
-            android:button="@null" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
