@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -36,6 +37,17 @@ public class QuestionActivity2 extends AppCompatActivity {
                 Intent intent = new Intent(QuestionActivity2.this,QuestionActivity3.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+            }
+        });
+
+
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(QuestionActivity2.this,QuestionActivity1.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             }
         });
 

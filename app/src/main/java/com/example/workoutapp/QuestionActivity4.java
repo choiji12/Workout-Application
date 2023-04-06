@@ -3,38 +3,41 @@ package com.example.workoutapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
-public class QuetionActivity4 extends AppCompatActivity {
+public class QuestionActivity4 extends AppCompatActivity {
     Button btnBirthday;
     DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quetion4);
+        setContentView(R.layout.activity_question4);
 
         ProgressBar pb = findViewById(R.id.progressbarPercent);
         pb.setProgress(80);
 
         btnBirthday = findViewById(R.id.btnBirthday);
-
+        // 캘린더 팝업 띄우기
         btnBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Calendar calendar = Calendar.getInstance();
+                // 년월일 저장 변수, month는 0부터 시작해서 +1해서 저장해야 됌
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
                 int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-                datePickerDialog = new DatePickerDialog(QuetionActivity4.this,
+                datePickerDialog = new DatePickerDialog(QuestionActivity4.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -45,5 +48,29 @@ public class QuetionActivity4 extends AppCompatActivity {
             }
         });
 
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(QuestionActivity4.this,QuestionActivity3.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
+            }
+        });
+
+    }
+    private long backKeyPressedTime = 0;
+    private Toast toast;
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            Intent intent = new Intent(QuestionActivity4.this,QuestionActivity3.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
+            backKeyPressedTime = System.currentTimeMillis();
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            finish();
+        }
     }
 }

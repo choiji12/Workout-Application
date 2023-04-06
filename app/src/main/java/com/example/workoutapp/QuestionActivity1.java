@@ -24,32 +24,35 @@ public class QuestionActivity1 extends AppCompatActivity {
         Button btnMale = findViewById(R.id.btnMale);
         Button btnFemale = findViewById(R.id.btnFemale);
         Button btnEtc = findViewById(R.id.btnEtc);
-        btnMale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QuestionActivity1.this,QuestionActivity2.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
-            }
-        });
 
-        btnFemale.setOnClickListener(new View.OnClickListener() {
+        Button.OnClickListener onClickListener = new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuestionActivity1.this,QuestionActivity2.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+                switch (v.getId()){
+                    //첫번째 버튼 행동
+                    case R.id.btnMale:
+                        Intent intent1 = new Intent(QuestionActivity1.this, QuestionActivity2.class);
+                        startActivity(intent1);
+                        overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+                        break;
+                    //두번째 버튼 행동
+                    case R.id.btnFemale:
+                        Intent intent2 = new Intent(QuestionActivity1.this, QuestionActivity2.class);
+                        startActivity(intent2);
+                        overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+                        break;
+                    case R.id.btnEtc:
+                        Intent intent3 = new Intent(QuestionActivity1.this, QuestionActivity2.class);
+                        startActivity(intent3);
+                        overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+                        break;
+                }
             }
-        });
+        };
 
-        btnEtc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QuestionActivity1.this,QuestionActivity2.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
-            }
-        });
+        btnMale.setOnClickListener(onClickListener);
+        btnFemale.setOnClickListener(onClickListener);
+        btnEtc.setOnClickListener(onClickListener);
     }
 
     private long backKeyPressedTime = 0;

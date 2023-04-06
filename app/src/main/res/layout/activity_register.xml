@@ -88,7 +88,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginBottom="15dp"
         android:fontFamily="@font/jamsil_regular"
-        android:text="전화번호 (선택)"
+        android:text="전화번호"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/txtPhone"
         app:layout_constraintStart_toStartOf="@+id/txtPhone" />
@@ -209,5 +209,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/jamsil_regular"
+        android:text="특수문자 포함 최소 8자"
+        android:textColor="@color/grey"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtPasswd"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
