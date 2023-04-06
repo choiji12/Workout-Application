@@ -53,10 +53,10 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/rounded_white_button"
+        android:background="@drawable/round_white_button"
         android:text="로그인"
         android:fontFamily="@font/jamsil_regular"
-        android:textColor="@color/blue"
+        android:textColor="@drawable/blue_to_white_button_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPasswd" />
