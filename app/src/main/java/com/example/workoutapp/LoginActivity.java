@@ -46,6 +46,14 @@ public class LoginActivity extends AppCompatActivity {
                 String strEmail = txtEmail.getText().toString();
                 String strPasswd = txtPasswd.getText().toString();
 
+                if(strEmail.equals("")){
+                    Toast.makeText(LoginActivity.this,"이메일을 입력 해주세요.",Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(strPasswd.equals("")){
+                    Toast.makeText(LoginActivity.this,"비밀번호를 입력 해주세요.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -55,7 +63,14 @@ public class LoginActivity extends AppCompatActivity {
                             if(strEmail.equals(accounts.getEmailId())){
                                 String salt = accounts.getSalt();
                                 String pwd = accounts.getPassword();
+                                String email = accounts.getEmailId();
                                 String pwdgetEnctypt = Encryption.getEncrypt(strPasswd, salt);
+
+                                if(!(email.equals(strEmail))){
+                                    Toast.makeText(LoginActivity.this,"존재하지 않는 이메일 입니다.",Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
                                 if(pwdgetEnctypt.equals(pwd)){
 
                                     mFirebaseAuth.signInWithEmailAndPassword(strEmail,pwdgetEnctypt).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
