@@ -74,7 +74,9 @@ public class StartActivity extends AppCompatActivity {
             return;
         }
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-            finish();
+            finishAffinity();
+            System.runFinalization();
+            System.exit(0);
             toast.cancel();
         }
     }

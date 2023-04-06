@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:fontFamily="@font/jamsil_bold"
-        android:text="성별"
+        android:text="신체정보"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,9 +42,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/jamsil_regular"
-        android:text="성별이 어떻게 되시나요?"
+        android:text="신체 정보를 알려주세요."
         android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,58 +57,52 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/jamsil_regular"
-        android:text="사용자의 정보는 외부에 공개되지 않아요."
+        android:text="사용자의 개인정보는 외부에 공개되지 않아요."
         android:textColor="@color/grey"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtQuestion" />
 
-    <RadioGroup
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:text="생년월일"
+        android:textColor="@color/black"
+        android:fontFamily="@font/jamsil_regular"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="321dp" />
 
-        <RadioButton
-            android:id="@+id/btnMale"
-            android:layout_width="380dp"
-            android:layout_height="80dp"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/rounded_white_radiobutton"
-            android:fontFamily="@font/jamsil_regular"
-            android:textSize="15sp"
-            android:text="남성"
-            android:textColor="@drawable/black_to_white_radio_text"
-            android:gravity="center"
-            android:button="@null"/>
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="키"
+        android:textColor="@color/black"
+        android:fontFamily="@font/jamsil_regular"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="399dp" />
 
-        <RadioButton
-            android:id="@+id/btnFemale"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/rounded_white_radiobutton"
-            android:fontFamily="@font/jamsil_regular"
-            android:textSize="15sp"
-            android:text="여성"
-            android:textColor="@drawable/black_to_white_radio_text"
-            android:gravity="center"
-            android:button="@null"/>
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="몸무게"
+        android:textColor="@color/black"
+        android:fontFamily="@font/jamsil_regular"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="479dp" />
 
-        <RadioButton
-            android:id="@+id/btnEtc"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginVertical="5dp"
-            android:textSize="15sp"
-            android:background="@drawable/rounded_white_radiobutton"
-            android:fontFamily="@font/jamsil_regular"
-            android:text="기타"
-            android:textColor="@drawable/black_to_white_radio_text"
-            android:gravity="center"
-            android:button="@null" />
-    </RadioGroup>
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/roundshape_white_button"
+        android:text="(어플이름)\n시작하기!"
+        android:fontFamily="@font/jamsil_regular"
+        android:gravity="center"
+        android:textColor="@drawable/blue_to_white_button_text"
+        tools:layout_editor_absoluteX="165dp"
+        tools:layout_editor_absoluteY="624dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
