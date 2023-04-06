@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.regex.Pattern;
+
 public class RegisterActivity extends AppCompatActivity {
 
     // 이메일 발송 메소드
@@ -34,6 +36,23 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private static boolean isValid(String password){
+        if(password.length() < 8){
+            return false;
+        }
+//        "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$"
+        String pattern = "^(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$";
+        if(!Pattern.matches(pattern, password)){
+            return false;
+        }
+
+        if(password.contains(" ")){
+            return false;
+        }
+
+        return true;
     }
 
     private FirebaseAuth mFirebaseAuth;
@@ -99,6 +118,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(!(strPwd.equals(strPwdCheck))){
                     Toast.makeText(RegisterActivity.this, "비밀번호가 일치 하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(!(isValid(strPwd))){
+                    Toast.makeText(RegisterActivity.this, "비밀번호가 유효하지 않습니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
