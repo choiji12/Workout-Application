@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증
+    private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증 변수
     private DatabaseReference mDatabaseRef; // 실시간 DB
     private EditText txtEmail, txtPasswd;
     @Override
