@@ -58,18 +58,18 @@ public class LoginActivity extends AppCompatActivity {
                 mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        boolean emailCheck = false; // 이메일 존재 여부 체크 변수
+
                         for(DataSnapshot snapshot1 : snapshot.getChildren()){
                             UserAccount accounts = snapshot1.getValue(UserAccount.class);
+
                             if(strEmail.equals(accounts.getEmailId())){
+                                emailCheck = true;
+
                                 String salt = accounts.getSalt();
                                 String pwd = accounts.getPassword();
-                                String email = accounts.getEmailId();
-                                String pwdgetEnctypt = Encryption.getEncrypt(strPasswd, salt);
 
-                                if(!(email.equals(strEmail))){
-                                    Toast.makeText(LoginActivity.this,"존재하지 않는 이메일 입니다.",Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
+                                String pwdgetEnctypt = Encryption.getEncrypt(strPasswd, salt);
 
                                 if(pwdgetEnctypt.equals(pwd)){
 
@@ -103,6 +103,12 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         }
+
+                        if(!emailCheck){
+                            Toast.makeText(LoginActivity.this,"존재하지 않는 이메일 입니다.",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                     }
 
                     @Override
