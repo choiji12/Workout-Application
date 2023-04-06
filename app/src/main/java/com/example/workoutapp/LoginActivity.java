@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,10 +62,18 @@ public class LoginActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()){
-                                                //로그인 성공
-                                                Intent intent = new Intent(LoginActivity.this, QuestionActivity1.class);
-                                                startActivity(intent);
-                                                finish(); //현재 엑티비티 파괴
+                                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                boolean isEmail = user.isEmailVerified();
+                                                if(isEmail){
+                                                    //로그인 성공
+                                                    Intent intent = new Intent(LoginActivity.this, QuestionActivity1.class);
+                                                    startActivity(intent);
+                                                    finish(); //현재 엑티비티 파괴
+                                                }else {
+                                                    Toast.makeText(LoginActivity.this,"이메일 인증을 해주세요.",Toast.LENGTH_SHORT).show();
+                                                    mFirebaseAuth.signOut();
+                                                }
+
                                             } else {
                                                 Toast.makeText(LoginActivity.this,"로그인에 실패하였습니다",Toast.LENGTH_SHORT).show();
                                             }
