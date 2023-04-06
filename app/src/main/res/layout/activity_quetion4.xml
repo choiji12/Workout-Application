@@ -67,7 +67,9 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="생년월일"
+        android:textColor="@color/black"
+        android:fontFamily="@font/jamsil_regular"
         tools:layout_editor_absoluteX="40dp"
         tools:layout_editor_absoluteY="321dp" />
 
@@ -75,7 +77,9 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="키"
+        android:textColor="@color/black"
+        android:fontFamily="@font/jamsil_regular"
         tools:layout_editor_absoluteX="41dp"
         tools:layout_editor_absoluteY="399dp" />
 
@@ -83,8 +87,22 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="몸무게"
+        android:textColor="@color/black"
+        android:fontFamily="@font/jamsil_regular"
         tools:layout_editor_absoluteX="43dp"
         tools:layout_editor_absoluteY="479dp" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/roundshape_white_button"
+        android:text="(어플이름)\n시작하기!"
+        android:fontFamily="@font/jamsil_regular"
+        android:gravity="center"
+        android:textColor="@drawable/blue_to_white_button_text"
+        tools:layout_editor_absoluteX="165dp"
+        tools:layout_editor_absoluteY="624dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

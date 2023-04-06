@@ -16,7 +16,7 @@
     <!--클릭했을때-->
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/dark_grey"></solid>
+            <solid android:color="@color/blue"></solid>
             <corners
                 android:bottomRightRadius="15dp"
                 android:bottomLeftRadius="15dp"
