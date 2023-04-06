@@ -70,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         mBtnRegister = findViewById(R.id.btnRegister);
 
+
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String strPwdCheck = mEtPwdCheck.getText().toString().trim();
                 String strName = mEtName.getText().toString().trim();
                 String strPhone = mEtPhone.getText().toString().trim();
+
 
                 //빈칸 알림
                 if(strEmail.equals("")){

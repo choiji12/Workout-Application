@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +46,14 @@ public class LoginActivity extends AppCompatActivity {
                 String strEmail = txtEmail.getText().toString();
                 String strPasswd = txtPasswd.getText().toString();
 
+                if(strEmail.equals("")){
+                    Toast.makeText(LoginActivity.this,"이메일을 입력 해주세요.",Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(strPasswd.equals("")){
+                    Toast.makeText(LoginActivity.this,"비밀번호를 입력 해주세요.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -54,17 +63,32 @@ public class LoginActivity extends AppCompatActivity {
                             if(strEmail.equals(accounts.getEmailId())){
                                 String salt = accounts.getSalt();
                                 String pwd = accounts.getPassword();
+                                String email = accounts.getEmailId();
                                 String pwdgetEnctypt = Encryption.getEncrypt(strPasswd, salt);
+
+                                if(!(email.equals(strEmail))){
+                                    Toast.makeText(LoginActivity.this,"존재하지 않는 이메일 입니다.",Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
                                 if(pwdgetEnctypt.equals(pwd)){
 
                                     mFirebaseAuth.signInWithEmailAndPassword(strEmail,pwdgetEnctypt).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()){
-                                                //로그인 성공
-                                                Intent intent = new Intent(LoginActivity.this, QuestionActivity1.class);
-                                                startActivity(intent);
-                                                finish(); //현재 엑티비티 파괴
+                                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                boolean isEmail = user.isEmailVerified();
+                                                if(isEmail){
+                                                    //로그인 성공
+                                                    Intent intent = new Intent(LoginActivity.this, QuestionActivity1.class);
+                                                    startActivity(intent);
+                                                    finish(); //현재 엑티비티 파괴
+                                                }else {
+                                                    Toast.makeText(LoginActivity.this,"이메일 인증을 해주세요.",Toast.LENGTH_SHORT).show();
+                                                    mFirebaseAuth.signOut();
+                                                }
+
                                             } else {
                                                 Toast.makeText(LoginActivity.this,"로그인에 실패하였습니다",Toast.LENGTH_SHORT).show();
                                             }
