@@ -8,9 +8,12 @@ import android.animation.ValueAnimator;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -24,8 +27,6 @@ public class QuestionActivity4 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question4);
-
-
 
         btnBirthday = findViewById(R.id.btnBirthday);
         // 캘린더 팝업 띄우기
@@ -49,6 +50,11 @@ public class QuestionActivity4 extends AppCompatActivity {
             }
         });
 
+        EditText txtWeight = findViewById(R.id.txtWeight);
+        EditText txtHeight = findViewById(R.id.txtHeight);
+        Button btnSubmit = findViewById(R.id.btnSubmit);
+
+
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +76,14 @@ public class QuestionActivity4 extends AppCompatActivity {
             animation.setDuration(1000);
             animation.start();
         }
+        //정보 입력 안됐으면 버튼 비활성화
+        if(txtHeight.getText().toString().replace(" ","").equals("")||txtHeight.getText().equals("-")){
+            btnSubmit.setEnabled(false);
+        }
 
+        else if(txtHeight.getText().toString().replace(" ","").equals("")||txtHeight.getText().equals("-")){
+            btnSubmit.setEnabled(false);
+        }
     }
     private long backKeyPressedTime = 0;
     private Toast toast;
