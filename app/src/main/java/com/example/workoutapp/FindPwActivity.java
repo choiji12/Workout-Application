@@ -25,4 +25,15 @@ public class FindPwActivity extends AppCompatActivity {
             }
         });
     }
+
+    private long backKeyPressedTime = 0;
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(FindPwActivity.this,FindAccountActivity.class);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
+        backKeyPressedTime = System.currentTimeMillis();
+        return;
+    }
 }

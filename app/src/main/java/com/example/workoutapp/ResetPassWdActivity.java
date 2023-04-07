@@ -26,4 +26,14 @@ public class ResetPassWdActivity extends AppCompatActivity {
             }
         });
     }
+    private long backKeyPressedTime = 0;
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ResetPassWdActivity.this,FindPwActivity.class);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
+        backKeyPressedTime = System.currentTimeMillis();
+        return;
+    }
 }

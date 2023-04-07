@@ -85,7 +85,6 @@ public class QuestionActivity2 extends AppCompatActivity {
     }
 
     private long backKeyPressedTime = 0;
-    private Toast toast;
     public void onBackPressed() {
 
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
@@ -94,9 +93,6 @@ public class QuestionActivity2 extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             backKeyPressedTime = System.currentTimeMillis();
             return;
-        }
-        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-            finish();
         }
     }
 }

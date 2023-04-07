@@ -37,4 +37,14 @@ public class FindAccountActivity extends AppCompatActivity {
             }
         });
     }
+    private long backKeyPressedTime = 0;
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(FindAccountActivity.this,StartActivity.class);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
+        backKeyPressedTime = System.currentTimeMillis();
+        return;
+    }
 }

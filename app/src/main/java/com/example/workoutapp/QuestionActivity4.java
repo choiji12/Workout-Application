@@ -116,9 +116,10 @@ public class QuestionActivity4 extends AppCompatActivity {
                 // 문자열 비교를 위한 String 형식의 체중과 키
                 String weightString = txtWeight.getText().toString();
                 String heightString = txtHeight.getText().toString();
+                String birthdayString = btnBirthday.getText().toString();
                 btnSubmit.setBackground(disnabledButtonBackground);
                 // "-"이거나 공백인 경우에 버튼 비활성화
-                if (weightString.equals("-") || heightString.equals("-") || weightString.trim().isEmpty() || heightString.trim().isEmpty()) {
+                if (weightString.equals("-") || heightString.equals("-") || birthdayString.equals("-") || weightString.trim().isEmpty() || heightString.trim().isEmpty() || birthdayString.trim().isEmpty()) {
                     btnSubmit.setEnabled(false);
                     btnSubmit.setBackground(disnabledButtonBackground);
                 } else {
@@ -140,6 +141,7 @@ public class QuestionActivity4 extends AppCompatActivity {
 
         txtWeight.addTextChangedListener(textWatcher);
         txtHeight.addTextChangedListener(textWatcher);
+        btnBirthday.addTextChangedListener(textWatcher);
 
         btnSubmit.setEnabled(false);
         // btnSubmit 클릭 시 textcolor 변경
@@ -158,7 +160,6 @@ public class QuestionActivity4 extends AppCompatActivity {
         });
     }
     private long backKeyPressedTime = 0;
-    private Toast toast;
     public void onBackPressed() {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             Intent intent = new Intent(QuestionActivity4.this,QuestionActivity3.class);
@@ -166,9 +167,6 @@ public class QuestionActivity4 extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             backKeyPressedTime = System.currentTimeMillis();
             return;
-        }
-        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-            finish();
         }
     }
 }

@@ -140,15 +140,11 @@ public class QuestionActivity3 extends AppCompatActivity {
     }
 
     private long backKeyPressedTime = 0;
-    private Toast toast;
     public void onBackPressed() {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             Intent intent = new Intent(QuestionActivity3.this,QuestionActivity2.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
-        }
-        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-            finish();
         }
     }
 }
