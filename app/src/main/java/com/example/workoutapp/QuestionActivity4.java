@@ -63,22 +63,23 @@ public class QuestionActivity4 extends AppCompatActivity {
         ImageButton btnBack = findViewById(R.id.btnBack);
 
 
+        Intent intent = getIntent();
+        String userID = intent.getStringExtra("userID");
+        String userGender = intent.getStringExtra("userGender");
+        String userLocation = intent.getStringExtra("userLocation");
+        String userClass = intent.getStringExtra("userClass");
 
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = getIntent();
-                String userID = intent.getStringExtra("userID");
                 String userName ="최지혁";
-                String userGender = intent.getStringExtra("userGender");
-                String userLocation = intent.getStringExtra("userLocation");
-                String userClass = intent.getStringExtra("userClass");
                 String userBirthday = btnBirthday.getText().toString();
                 double userWeight = Double.parseDouble(txtWeight.getText().toString());
                 double userHeight = Double.parseDouble(txtHeight.getText().toString());
-                double result = userHeight / Math.sqrt(userHeight);
+                double bmiuh = userHeight/100;
+                double result = userWeight / Math.pow(bmiuh,2);
                 String bmi = String.format("%.2f", result);
                 double userBmi = Double.parseDouble(bmi);
 
@@ -116,6 +117,13 @@ public class QuestionActivity4 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(QuestionActivity4.this,QuestionActivity3.class);
+                //getIntent().getExtras().remove(userID);
+                //getIntent().getExtras().remove(userLocation);
+                //getIntent().getExtras().remove(userGender);
+                //getIntent().getExtras().remove(userClass);
+                intent.putExtra("userID",userID);
+                intent.putExtra("userGender",userGender);
+                intent.putExtra("userLocation",userLocation);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             }

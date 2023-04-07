@@ -73,6 +73,9 @@ public class QuestionActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(QuestionActivity2.this,QuestionActivity1.class);
+                //getIntent().getExtras().remove(userID);
+                //getIntent().getExtras().remove(userGender);
+                intent.putExtra("userID",userID);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             }

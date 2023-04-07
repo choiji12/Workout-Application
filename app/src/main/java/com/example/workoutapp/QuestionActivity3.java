@@ -143,6 +143,11 @@ public class QuestionActivity3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(QuestionActivity3.this,QuestionActivity2.class);
+                //getIntent().getExtras().remove(userID);
+                //getIntent().getExtras().remove(userLocation);
+                //getIntent().getExtras().remove(userGender);
+                intent.putExtra("userID",userID);
+                intent.putExtra("userGender",userGender);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             }
