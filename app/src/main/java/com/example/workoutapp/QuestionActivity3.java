@@ -32,6 +32,16 @@ public class QuestionActivity3 extends AppCompatActivity {
         Button btnHigh = findViewById(R.id.btnHigh);
         Button btnMaster = findViewById(R.id.btnMaster);
 
+        Intent intent = getIntent();
+        String userID = intent.getStringExtra("userID");
+        String userGender = intent.getStringExtra("userGender");
+        String userLocation = intent.getStringExtra("userLocation");
+        String begginer = "입문";
+        String low = "초급";
+        String middle = "중급";
+        String high = "고급";
+        String master = "전문";
+
         //글자 꾸미기
         Spannable spanBeginner = (Spannable) btnBegginer.getText();
         spanBeginner.setSpan(new RelativeSizeSpan(1.5f),2,4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -59,6 +69,10 @@ public class QuestionActivity3 extends AppCompatActivity {
                 String previousActivityClassName = "QuestionActivity3";
                 Intent intent = new Intent(QuestionActivity3.this, QuestionActivity4.class);
                 intent.putExtra("previous_activity", previousActivityClassName);
+                intent.putExtra("userID",userID);
+                intent.putExtra("userGender",userGender);
+                intent.putExtra("userLocation",userLocation);
+                intent.putExtra("userClass",begginer);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
@@ -70,6 +84,10 @@ public class QuestionActivity3 extends AppCompatActivity {
                 String previousActivityClassName = "QuestionActivity3";
                 Intent intent = new Intent(QuestionActivity3.this, QuestionActivity4.class);
                 intent.putExtra("previous_activity", previousActivityClassName);
+                intent.putExtra("userID",userID);
+                intent.putExtra("userGender",userGender);
+                intent.putExtra("userLocation",userLocation);
+                intent.putExtra("userClass",low);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
@@ -81,6 +99,10 @@ public class QuestionActivity3 extends AppCompatActivity {
                 String previousActivityClassName = "QuestionActivity3";
                 Intent intent = new Intent(QuestionActivity3.this, QuestionActivity4.class);
                 intent.putExtra("previous_activity", previousActivityClassName);
+                intent.putExtra("userID",userID);
+                intent.putExtra("userGender",userGender);
+                intent.putExtra("userLocation",userLocation);
+                intent.putExtra("userClass",middle);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
@@ -92,6 +114,10 @@ public class QuestionActivity3 extends AppCompatActivity {
                 String previousActivityClassName = "QuestionActivity3";
                 Intent intent = new Intent(QuestionActivity3.this, QuestionActivity4.class);
                 intent.putExtra("previous_activity", previousActivityClassName);
+                intent.putExtra("userID",userID);
+                intent.putExtra("userGender",userGender);
+                intent.putExtra("userLocation",userLocation);
+                intent.putExtra("userClass",high);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
@@ -103,6 +129,10 @@ public class QuestionActivity3 extends AppCompatActivity {
                 String previousActivityClassName = "QuestionActivity3";
                 Intent intent = new Intent(QuestionActivity3.this, QuestionActivity4.class);
                 intent.putExtra("previous_activity", previousActivityClassName);
+                intent.putExtra("userID",userID);
+                intent.putExtra("userGender",userGender);
+                intent.putExtra("userLocation",userLocation);
+                intent.putExtra("userClass",master);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }

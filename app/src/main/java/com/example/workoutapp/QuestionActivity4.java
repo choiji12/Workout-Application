@@ -18,6 +18,13 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 
 public class QuestionActivity4 extends AppCompatActivity {
@@ -53,9 +60,58 @@ public class QuestionActivity4 extends AppCompatActivity {
         EditText txtWeight = findViewById(R.id.txtWeight);
         EditText txtHeight = findViewById(R.id.txtHeight);
         Button btnSubmit = findViewById(R.id.btnSubmit);
-
-
         ImageButton btnBack = findViewById(R.id.btnBack);
+
+
+
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = getIntent();
+                String userID = intent.getStringExtra("userID");
+                String userName ="최지혁";
+                String userGender = intent.getStringExtra("userGender");
+                String userLocation = intent.getStringExtra("userLocation");
+                String userClass = intent.getStringExtra("userClass");
+                String userBirthday = btnBirthday.getText().toString();
+                double userWeight = Double.parseDouble(txtWeight.getText().toString());
+                double userHeight = Double.parseDouble(txtHeight.getText().toString());
+                double result = userHeight / Math.sqrt(userHeight);
+                String bmi = String.format("%.2f", result);
+                double userBmi = Double.parseDouble(bmi);
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if(success){
+                                Toast.makeText(getApplicationContext(),"회원등록에 성공하였습니다.",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(QuestionActivity4.this, StartActivity.class);
+                                startActivity(intent);
+
+                            }else {
+                                Toast.makeText(getApplicationContext(),"회원등록에 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+
+                RegisterRequest registerRequest = new RegisterRequest(userID, userName, userGender,
+                        userBirthday ,userWeight, userHeight, userLocation, userClass, userBmi, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(QuestionActivity4.this);
+                queue.add(registerRequest);
+
+            }
+        });
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

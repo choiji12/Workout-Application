@@ -31,12 +31,23 @@ public class QuestionActivity2 extends AppCompatActivity {
         Button btnGym = findViewById(R.id.btnGym);
         Button btnHome = findViewById(R.id.btnHome);
 
+        Intent intent = getIntent();
+        String userID = intent.getStringExtra("userID");
+        String userGender = intent.getStringExtra("userGender");
+        String gym = "헬스장";
+        String home ="집";
+
+
         btnGym.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String previousActivityClassName = "QuestionActivity2";
                 Intent intent = new Intent(QuestionActivity2.this, QuestionActivity3.class);
                 intent.putExtra("previous_activity", previousActivityClassName);
+                intent.putExtra("userID",userID);
+                intent.putExtra("userGender",userGender);
+                intent.putExtra("userLocation",gym);
+
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
@@ -48,6 +59,9 @@ public class QuestionActivity2 extends AppCompatActivity {
                 String previousActivityClassName = "QuestionActivity2";
                 Intent intent = new Intent(QuestionActivity2.this, QuestionActivity3.class);
                 intent.putExtra("previous_activity", previousActivityClassName);
+                intent.putExtra("userID",userID);
+                intent.putExtra("userGender",userGender);
+                intent.putExtra("userLocation",home);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }

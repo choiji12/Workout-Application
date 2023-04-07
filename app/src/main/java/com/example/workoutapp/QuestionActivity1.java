@@ -25,12 +25,21 @@ public class QuestionActivity1 extends AppCompatActivity {
         Button btnFemale = findViewById(R.id.btnFemale);
         Button btnEtc = findViewById(R.id.btnEtc);
 
+        Intent intent = getIntent();
+        String userID = intent.getStringExtra("userID");
+        String male = "남성";
+        String female = "여성";
+
         btnMale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String previousActivityClassName = "QuestionActivity1";
                 Intent intent = new Intent(QuestionActivity1.this, QuestionActivity2.class);
                 intent.putExtra("previous_activity", previousActivityClassName);
+                intent.putExtra("userID",userID);
+                intent.putExtra("userGender",male);
+
+
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
@@ -42,6 +51,9 @@ public class QuestionActivity1 extends AppCompatActivity {
                 String previousActivityClassName = "QuestionActivity1";
                 Intent intent = new Intent(QuestionActivity1.this, QuestionActivity2.class);
                 intent.putExtra("previous_activity", previousActivityClassName);
+                intent.putExtra("userID",userID);
+                intent.putExtra("userGender",female);
+
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
