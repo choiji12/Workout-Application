@@ -49,6 +49,18 @@ public class StartActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
         });
+
+        Button btnFindAccount = findViewById(R.id.btnFindAccount);
+
+        btnFindAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(StartActivity.this, FindAccountActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+            }
+        });
     }
 
 //
