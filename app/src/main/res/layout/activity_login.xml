@@ -7,21 +7,42 @@
     tools:context=".LoginActivity"
     android:background="@drawable/main_gradation_color">
 
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="210dp"
-        android:layout_height="253dp"
-        android:layout_marginStart="-80dp"
-        android:layout_marginTop="40dp"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/aniLogin"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/login"
+        app:lottie_url="REPLACE_JSON_URL" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/aniShowPw"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onLottieButtonClick"
+        app:layout_constraintStart_toEndOf="@+id/txtPasswd"
+        app:layout_constraintTop_toTopOf="@+id/txtPasswd"
+        app:lottie_autoPlay="false"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="false"
+        app:lottie_progress="0"
+        app:lottie_rawRes="@raw/password_show"
+        app:lottie_speed="1" />
 
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="300dp"
         android:layout_height="48dp"
+        android:layout_marginStart="55dp"
         android:layout_marginTop="50dp"
         android:ems="10"
         android:fontFamily="@font/jamsil_regular"
@@ -29,14 +50,14 @@
         android:inputType="textEmailAddress"
         android:textColor="@color/black"
         android:textColorHint="#9D8E8E"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/aniLogin" />
 
     <EditText
         android:id="@+id/txtPasswd"
-        android:layout_width="300dp"
+        android:layout_width="270dp"
         android:layout_height="48dp"
+        android:layout_marginStart="55dp"
         android:layout_marginTop="50dp"
         android:ems="10"
         android:fontFamily="@font/jamsil_regular"
@@ -44,7 +65,6 @@
         android:inputType="textPassword"
         android:textColor="@color/black"
         android:textColorHint="#9D8E8E"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
@@ -136,10 +156,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

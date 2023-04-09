@@ -12,6 +12,12 @@
         android:theme="@style/Theme.WorkOutApp"
         tools:targetApi="31">
         <activity
+            android:name=".RegisterSuccessedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
             android:name=".ResetPassWdActivity"
             android:exported="false" />
         <activity

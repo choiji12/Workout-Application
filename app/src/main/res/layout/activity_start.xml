@@ -8,6 +8,19 @@
     android:background="@drawable/gradation_list"
     tools:context=".StartActivity">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/aniLogo"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/lift_up"
+        app:lottie_url="REPLACE_JSON_URL" />
+
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="0dp"
@@ -27,27 +40,27 @@
         android:id="@+id/txtExplain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="헬스 어플을 활용해서 \n목표 달성을 해봐요!"
-        android:gravity="center"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/jamsil_regular"
+        android:gravity="center"
+        android:text="헬스 어플을 활용해서 \n목표 달성을 해봐요!"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTopic" />
+        app:layout_constraintTop_toBottomOf="@+id/aniLogo" />
 
     <TextView
         android:id="@+id/txtTopic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="앱 이름"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/jamsil_bold"
+        android:text="앱 이름"
         android:textColor="@color/dark_grey"
+        app:layout_constraintBottom_toTopOf="@+id/txtExplain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtFindId"
@@ -78,19 +91,6 @@
         app:layout_constraintEnd_toStartOf="@+id/btnRegister"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtExplain" />
-
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="298dp"
-        android:layout_height="343dp"
-        android:layout_marginBottom="220dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground"
-        android:background="@android:color/transparent"/>
 
     <Button
         android:id="@+id/btnFindAccount"

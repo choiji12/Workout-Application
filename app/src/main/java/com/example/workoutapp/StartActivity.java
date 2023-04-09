@@ -19,14 +19,14 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-
+        // 배경 애니메이션
         ConstraintLayout view = findViewById(R.id.ConstraintLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) view.getBackground();
         animationDrawable.setEnterFadeDuration(500);
         animationDrawable.setExitFadeDuration(1000);
         animationDrawable.start();
 
-
+        // 화면전환 애니메이션
         Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,17 +62,6 @@ public class StartActivity extends AppCompatActivity {
             }
         });
     }
-
-//
-//        Button btnSignIn = findViewById(R.id.btnSignin);
-//
-//        btnSignIn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(StartActivity.this,RegisterActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
     private long backKeyPressedTime = 0;
     private Toast toast;

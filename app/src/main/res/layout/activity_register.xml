@@ -117,7 +117,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="99dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="80dp"
         android:layout_marginBottom="99dp"
         android:ems="10"
         android:fontFamily="@font/jamsil_regular"
@@ -135,7 +135,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="31dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="80dp"
         android:layout_marginBottom="25dp"
         android:ems="10"
         android:fontFamily="@font/jamsil_regular"
@@ -173,6 +173,7 @@
         android:ems="10"
         android:fontFamily="@font/jamsil_regular"
         android:hint="01012345678"
+        android:maxLength="11"
         android:inputType="phone"
         android:textColorHint="@color/grey"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtName"
@@ -222,5 +223,42 @@
         android:textSize="8sp"
         app:layout_constraintBottom_toTopOf="@+id/txtPasswd"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/aniShowPw"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onLottieButtonClick"
+        app:layout_constraintStart_toEndOf="@+id/txtPasswd"
+        app:layout_constraintTop_toTopOf="@+id/txtPasswd"
+        app:lottie_autoPlay="false"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="false"
+        app:lottie_progress="0"
+        app:lottie_rawRes="@raw/password_show"
+        app:lottie_speed="1" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/aniShowPw2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onLottieButtonClick"
+        app:layout_constraintStart_toEndOf="@+id/txtPasswdCheck"
+        app:layout_constraintTop_toTopOf="@+id/txtPasswdCheck"
+        app:lottie_autoPlay="false"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="false"
+        app:lottie_progress="0"
+        app:lottie_rawRes="@raw/password_show"
+        app:lottie_speed="1" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

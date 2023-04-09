@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -59,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private EditText mEtEmail, mEtPwd, mEtPwdCheck, mEtName, mEtPhone;
     private Button mBtnRegister;
+    private boolean isPasswordVisible = false;
 
 
     @Override
@@ -75,6 +79,57 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
+            }
+        });
+
+        // 비밀번호 보여주는 버튼
+
+        LottieAnimationView aniShowPw = findViewById(R.id.aniShowPw);
+        LottieAnimationView aniShowPw2 = findViewById(R.id.aniShowPw2);
+
+        aniShowPw.setAnimation(R.raw.password_show);
+
+        EditText txtPasswd = findViewById(R.id.txtPasswd);
+        EditText txtPasswdCheck = findViewById(R.id.txtPasswdCheck);
+        aniShowPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int inputType = txtPasswd.getInputType();
+                if(isPasswordVisible){
+                    //비밀번호가 보여질 때 안보이게
+                    txtPasswd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    aniShowPw.setMinAndMaxProgress(0.5f,1.0f);
+                    aniShowPw.setSpeed(-1.0f);
+                    aniShowPw.playAnimation();
+                } else{
+                    //비밀번호가 숨겨질 때 보이게
+                    txtPasswd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    aniShowPw.setMinAndMaxProgress(0.5f,1.0f);
+                    aniShowPw.setSpeed(1.0f);
+                    aniShowPw.playAnimation();
+                }
+                isPasswordVisible = !isPasswordVisible;
+            }
+        });
+
+        aniShowPw2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int inputType = txtPasswdCheck.getInputType();
+                if(isPasswordVisible){
+                    //비밀번호가 보여질 때 안보이게
+                    txtPasswdCheck.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    aniShowPw2.setMinAndMaxProgress(0.5f,1.0f);
+                    aniShowPw2.setSpeed(-1.0f);
+                    aniShowPw2.playAnimation();
+                } else{
+                    //비밀번호가 숨겨질 때 보이게
+                    txtPasswdCheck.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    aniShowPw2.setMinAndMaxProgress(0.5f,1.0f);
+                    aniShowPw2.setSpeed(1.0f);
+                    aniShowPw2.playAnimation();
+                }
+                isPasswordVisible = !isPasswordVisible;
             }
         });
 
@@ -154,7 +209,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             Toast.makeText(RegisterActivity.this, "회원가입에 성공 하셨습니다.", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(RegisterActivity.this, StartActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, RegisterSuccessedActivity.class);
                             startActivity(intent);
                             finish();
 

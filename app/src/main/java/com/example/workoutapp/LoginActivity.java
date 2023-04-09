@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -44,11 +46,41 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증 변수
     private DatabaseReference mDatabaseRef; // 실시간 DB
     private EditText txtEmail, txtPasswd;
+    private boolean isPasswordVisible = false;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //비밀번호 보이게 하기
+        LottieAnimationView aniShowPw = findViewById(R.id.aniShowPw);
+        LottieAnimationView aniShowPw2 = findViewById(R.id.aniShowPw2);
+
+        aniShowPw.setAnimation(R.raw.password_show);
+
+        EditText txtPassword = findViewById(R.id.txtPasswd);
+        EditText txtPasswdCheck = findViewById(R.id.txtPasswdCheck);
+        aniShowPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int inputType = txtPasswd.getInputType();
+                if(isPasswordVisible){
+                    //비밀번호가 보여질 때 안보이게
+                    txtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    aniShowPw.setMinAndMaxProgress(0.5f,1.0f);
+                    aniShowPw.setSpeed(-1.0f);
+                    aniShowPw.playAnimation();
+                } else{
+                    //비밀번호가 숨겨질 때 보이게
+                    txtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    aniShowPw.setMinAndMaxProgress(0.5f,1.0f);
+                    aniShowPw.setSpeed(1.0f);
+                    aniShowPw.playAnimation();
+                }
+                isPasswordVisible = !isPasswordVisible;
+            }
+        });
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("workoutapp").child("UserAccount");
