@@ -17,12 +17,6 @@
             android:name=".RegisterSuccessedActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".ResetPassWdActivity"
-            android:exported="false" />
-        <activity
             android:name=".FindPwActivity"
             android:exported="false" />
         <activity

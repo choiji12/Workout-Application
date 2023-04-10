@@ -172,6 +172,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }else if(strPhone.equals("")){
                     Toast.makeText(RegisterActivity.this, "전화번호를 입력하세요.", Toast.LENGTH_SHORT).show();
                     return;
+                }else if(!(strPhone.length() == 11)){
+                    Toast.makeText(RegisterActivity.this, "전화번호를 제대로 입력하세요.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 if(!(strPwd.equals(strPwdCheck))){
@@ -184,12 +187,8 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                //암호화 코드
-                String pwd = strPwd.trim();
-                String salt = Encryption.getSalt();
-                String pwdGetEncrypt = Encryption.getEncrypt(pwd, salt);
+                mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
 
-                mFirebaseAuth.createUserWithEmailAndPassword(strEmail, pwdGetEncrypt).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
@@ -200,10 +199,8 @@ public class RegisterActivity extends AppCompatActivity {
                             UserAccount account = new UserAccount();
                             account.setIdToken(firebaseUser.getUid());
                             account.setEmailId(firebaseUser.getEmail());
-                            account.setPassword(pwdGetEncrypt);
                             account.setName(strName);
-                            account.setPhone(strPhone); // 확인 필요함 입력이 안되어 있을 시 빈문자열이 들어가는지
-                            account.setSalt(salt);
+                            account.setPhone(strPhone); // 확인 필요함 입력이 안되어 있을 시 빈문자열이 들어가는지 확인
 
                             mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
 

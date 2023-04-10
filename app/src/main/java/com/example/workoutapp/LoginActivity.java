@@ -136,15 +136,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                             if(strEmail.equals(accounts.getEmailId())){
                                 emailCheck = true;
+                                mFirebaseAuth.signInWithEmailAndPassword(accounts.getEmailId(),strPasswd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
 
-                                String salt = accounts.getSalt();
-                                String pwd = accounts.getPassword();
-
-                                String pwdgetEnctypt = Encryption.getEncrypt(strPasswd, salt);
-
-                                if(pwdgetEnctypt.equals(pwd)){
-
-                                    mFirebaseAuth.signInWithEmailAndPassword(strEmail,pwdgetEnctypt).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()){
@@ -164,17 +157,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                 }
 
                                             } else {
-                                                Toast.makeText(LoginActivity.this,"로그인에 실패하였습니다",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LoginActivity.this,"비밀번호를 잘못 입력 하였습니다",Toast.LENGTH_SHORT).show();
+
                                             }
 
                                         }
 
                                     });
 
-                                }else{
-                                    Toast.makeText(LoginActivity.this,"비밀번호를 잘못 입력 하였습니다",Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
                             }
                         }
 
