@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     // 구글 코드
     private SignInButton btn_google;
     private GoogleApiClient googleApiClient;
-    private static final int REQ_SIGN_GOOGLE = 100; //구글 로그인 결과 코드
+    private static final int REQ_SIGN_GOOGLE = 100; //구글 로그인 결과 코드d
 
 
     private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증 변수
