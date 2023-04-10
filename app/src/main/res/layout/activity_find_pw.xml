@@ -69,7 +69,7 @@
         android:layout_marginEnd="30dp"
         android:background="@drawable/roundshape_white_button"
         android:fontFamily="@font/jamsil_regular"
-        android:text="비밀번호 찾기"
+        android:text="비밀번호 변경"
         android:textColor="@drawable/blue_to_white_button_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtId" />

@@ -104,15 +104,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                             if(strEmail.equals(accounts.getEmailId())){
                                 emailCheck = true;
+                                mFirebaseAuth.signInWithEmailAndPassword(accounts.getEmailId(),strPasswd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
 
-                                String salt = accounts.getSalt();
-                                String pwd = accounts.getPassword();
-
-                                String pwdgetEnctypt = Encryption.getEncrypt(strPasswd, salt);
-
-                                if(pwdgetEnctypt.equals(pwd)){
-
-                                    mFirebaseAuth.signInWithEmailAndPassword(strEmail,pwdgetEnctypt).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()){
@@ -129,17 +122,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                 }
 
                                             } else {
-                                                Toast.makeText(LoginActivity.this,"로그인에 실패하였습니다",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LoginActivity.this,"비밀번호를 잘못 입력 하였습니다",Toast.LENGTH_SHORT).show();
+
                                             }
 
                                         }
 
                                     });
 
-                                }else{
-                                    Toast.makeText(LoginActivity.this,"비밀번호를 잘못 입력 하였습니다",Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
                             }
                         }
 
@@ -157,20 +147,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     }
                 });
 
-//                mFirebaseAuth.signInWithEmailAndPassword(strEmail,strPasswd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()){
-//                            //로그인 성공
-//                            Intent intent = new Intent(LoginActivity.this, QuestionActivity1.class);
-//                            startActivity(intent);
-//                            finish(); //현재 엑티비티 파괴
-//                        } else {
-//                            Toast.makeText(LoginActivity.this,"로그인에 실패하였습니다",Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                    }
-//                });
             }
         });
 
@@ -196,50 +172,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
         backKeyPressedTime = System.currentTimeMillis();
         return;
-    }
-
-
-    //구글 코드
-
-    //구글 로그인 인증을 요청했을 때 결과 값을 되돌려 받는 곳
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == REQ_SIGN_GOOGLE){
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if(result.isSuccess()){
-                GoogleSignInAccount account = result.getSignInAccount(); //구글로그인 정보 (닉네임, 프로필, 이메일 등)
-                resultLogin(account);  //로그인 결과 갑 출력 수행하라는 메소드
-            }
-        }
-    }
-
-    private void resultLogin(GoogleSignInAccount account) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        mFirebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this, "안녕하세요.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), QuestionActivity1.class);
-
-//                            intent.putExtra("email", account.getEmail());
-//                            intent.putExtra("nickName", account.getDisplayName());
-//                            intent.putExtra("photoURL", String.valueOf(account.getPhotoUrl()));
-
-                            startActivity(intent);
-                        }else {
-                            Toast.makeText(LoginActivity.this, "로그인 실패.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 
 
