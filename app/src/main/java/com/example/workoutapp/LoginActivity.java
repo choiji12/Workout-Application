@@ -155,6 +155,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                     String previousActivityClassName = "LoginActivity";
                                                     Intent intent = new Intent(LoginActivity.this, QuestionActivity1.class);
                                                     intent.putExtra("previous_activity", previousActivityClassName);
+                                                    intent.putExtra("userID", strEmail);
                                                     startActivity(intent);
                                                     finish(); //현재 엑티비티 파괴
                                                 }else {
