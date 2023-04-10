@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                 if(isEmail){
                                                     //로그인 성공
                                                     String previousActivityClassName = "LoginActivity";
-                                                    Intent intent = new Intent(LoginActivity.this, QuestionActivity1.class);
+                                                    Intent intent = new Intent(LoginActivity.this, QuestionActivity0.class);
                                                     intent.putExtra("previous_activity", previousActivityClassName);
                                                     intent.putExtra("userID", strEmail);
                                                     startActivity(intent);
@@ -235,7 +235,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         if(task.isSuccessful()){
                             Toast.makeText(LoginActivity.this, "안녕하세요.", Toast.LENGTH_SHORT).show();
                             String previousActivityClassName = "LoginActivity";
-                            Intent intent = new Intent(getApplicationContext(), QuestionActivity1.class);
+                            Intent intent = new Intent(getApplicationContext(), QuestionActivity0.class);
                             intent.putExtra("previous_activity", previousActivityClassName);
                             finish(); //현재 엑티비티 파괴
                             // 재엽이형 원본 Intent intent = new Intent(getApplicationContext(), QuestionActivity1.class);

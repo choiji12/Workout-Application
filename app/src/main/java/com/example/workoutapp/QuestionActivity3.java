@@ -36,6 +36,7 @@ public class QuestionActivity3 extends AppCompatActivity {
         String userID = intent.getStringExtra("userID");
         String userGender = intent.getStringExtra("userGender");
         String userLocation = intent.getStringExtra("userLocation");
+        String userName = intent.getStringExtra("userName");
         String begginer = "입문";
         String low = "초급";
         String middle = "중급";
@@ -73,6 +74,7 @@ public class QuestionActivity3 extends AppCompatActivity {
                 intent.putExtra("userGender",userGender);
                 intent.putExtra("userLocation",userLocation);
                 intent.putExtra("userClass",begginer);
+                intent.putExtra("userName",userName);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
@@ -88,6 +90,7 @@ public class QuestionActivity3 extends AppCompatActivity {
                 intent.putExtra("userGender",userGender);
                 intent.putExtra("userLocation",userLocation);
                 intent.putExtra("userClass",low);
+                intent.putExtra("userName",userName);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
@@ -103,6 +106,7 @@ public class QuestionActivity3 extends AppCompatActivity {
                 intent.putExtra("userGender",userGender);
                 intent.putExtra("userLocation",userLocation);
                 intent.putExtra("userClass",middle);
+                intent.putExtra("userName",userName);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
@@ -118,6 +122,7 @@ public class QuestionActivity3 extends AppCompatActivity {
                 intent.putExtra("userGender",userGender);
                 intent.putExtra("userLocation",userLocation);
                 intent.putExtra("userClass",high);
+                intent.putExtra("userName",userName);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
@@ -133,6 +138,7 @@ public class QuestionActivity3 extends AppCompatActivity {
                 intent.putExtra("userGender",userGender);
                 intent.putExtra("userLocation",userLocation);
                 intent.putExtra("userClass",master);
+                intent.putExtra("userName",userName);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }

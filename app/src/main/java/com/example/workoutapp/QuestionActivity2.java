@@ -34,6 +34,7 @@ public class QuestionActivity2 extends AppCompatActivity {
         Intent intent = getIntent();
         String userID = intent.getStringExtra("userID");
         String userGender = intent.getStringExtra("userGender");
+        String userName = intent.getStringExtra("userName");
         String gym = "헬스장";
         String home ="집";
 
@@ -47,6 +48,7 @@ public class QuestionActivity2 extends AppCompatActivity {
                 intent.putExtra("userID",userID);
                 intent.putExtra("userGender",userGender);
                 intent.putExtra("userLocation",gym);
+                intent.putExtra("userName",userName);
 
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
@@ -62,6 +64,7 @@ public class QuestionActivity2 extends AppCompatActivity {
                 intent.putExtra("userID",userID);
                 intent.putExtra("userGender",userGender);
                 intent.putExtra("userLocation",home);
+                intent.putExtra("userName",userName);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }

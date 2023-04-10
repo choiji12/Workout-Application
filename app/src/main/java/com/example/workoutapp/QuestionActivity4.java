@@ -74,13 +74,14 @@ public class QuestionActivity4 extends AppCompatActivity {
         String userGender = intent.getStringExtra("userGender");
         String userLocation = intent.getStringExtra("userLocation");
         String userClass = intent.getStringExtra("userClass");
+        String userName = intent.getStringExtra("userName");
 
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String userName ="최지혁";
+
                 String userBirthday = btnBirthday.getText().toString();
                 double userWeight = Double.parseDouble(txtWeight.getText().toString());
                 double userHeight = Double.parseDouble(txtHeight.getText().toString());
@@ -193,12 +194,12 @@ public class QuestionActivity4 extends AppCompatActivity {
                     btnSubmit.setBackground(enabledButtonBackground);
                     btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
                     // btnSubmit 클릭 시 버튼 background 변경
-                    btnSubmit.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
-                        }
-                    });
+//                    btnSubmit.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
+//                        }
+//                    });
                 }
             }
             @Override
