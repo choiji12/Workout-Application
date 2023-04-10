@@ -145,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
                             account.setIdToken(firebaseUser.getUid());
                             account.setEmailId(firebaseUser.getEmail());
                             account.setName(strName);
-                            account.setPhone(strPhone); // 확인 필요함 입력이 안되어 있을 시 빈문자열이 들어가는지
+                            account.setPhone(strPhone); // 확인 필요함 입력이 안되어 있을 시 빈문자열이 들어가는지 확인
 
                             mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
 
