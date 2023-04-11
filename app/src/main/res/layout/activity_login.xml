@@ -38,6 +38,35 @@
         app:lottie_rawRes="@raw/password_show"
         app:lottie_speed="1" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/aniLoginLoading"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="0dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswd"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/login_loading"
+        app:lottie_url="REPLACE_JSON_URL" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/aniGoogleLoginLoading"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswd"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/google_login_loading"
+        app:lottie_url="REPLACE_JSON_URL" />
+
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="300dp"
@@ -94,6 +123,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     <View
+        android:id="@+id/txtOrLine1"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginStart="10dp"
@@ -105,6 +135,7 @@
         app:layout_constraintTop_toTopOf="@+id/txtOr" />
 
     <View
+        android:id="@+id/txtOrLine2"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginTop="7dp"
