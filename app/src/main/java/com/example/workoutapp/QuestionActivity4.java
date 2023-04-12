@@ -143,7 +143,7 @@ public class QuestionActivity4 extends AppCompatActivity {
             ProgressBar pb = findViewById(R.id.progressbarPercent);
             pb.setMax(100);
             pb.setProgress(0);
-            ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 75, 100);
+            ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 80, 100);
             animation.setDuration(1000);
             animation.start();
         }

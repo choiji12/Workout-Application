@@ -26,9 +26,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="41dp"
         android:clickable="true"
         android:focusable="true"
         android:onClick="onLottieButtonClick"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtPasswd"
         app:layout_constraintTop_toTopOf="@+id/txtPasswd"
         app:lottie_autoPlay="false"
@@ -71,14 +73,16 @@
         android:id="@+id/txtEmail"
         android:layout_width="300dp"
         android:layout_height="48dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="56dp"
         android:ems="10"
         android:fontFamily="@font/jamsil_regular"
         android:hint="example@naver.com"
         android:inputType="textEmailAddress"
         android:textColor="@color/black"
         android:textColorHint="#9D8E8E"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aniLogin" />
 
@@ -86,14 +90,16 @@
         android:id="@+id/txtPasswd"
         android:layout_width="270dp"
         android:layout_height="48dp"
-        android:layout_marginStart="55dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="5dp"
         android:ems="10"
         android:fontFamily="@font/jamsil_regular"
         android:hint="password"
         android:inputType="textPassword"
         android:textColor="@color/black"
         android:textColorHint="#9D8E8E"
+        app:layout_constraintEnd_toStartOf="@+id/aniShowPw"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
@@ -115,9 +121,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/jamsil_regular"
         android:text="OR"
         android:textColor="@color/grey"
+        app:layout_constraintBottom_toTopOf="@+id/btn_google"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
@@ -185,13 +193,13 @@
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btn_google"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
         android:layout_marginEnd="15dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtOr" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

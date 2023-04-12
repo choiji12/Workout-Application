@@ -166,14 +166,14 @@ public class QuestionActivity3 extends AppCompatActivity {
             ProgressBar pb = findViewById(R.id.progressbarPercent);
             pb.setMax(100);
             pb.setProgress(0);
-            ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 50, 75);
+            ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 60, 80);
             animation.setDuration(1000);
             animation.start();
         }else{
             ProgressBar pb = findViewById(R.id.progressbarPercent);
             pb.setMax(100);
             pb.setProgress(0);
-            ObjectAnimator animation = ObjectAnimator.ofInt(pb,"progress",100,75);
+            ObjectAnimator animation = ObjectAnimator.ofInt(pb,"progress",100,80);
             animation.setDuration(1000);
             animation.start();
         }
