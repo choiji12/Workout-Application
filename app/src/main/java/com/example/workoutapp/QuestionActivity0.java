@@ -9,6 +9,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,18 +19,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class QuestionActivity0 extends AppCompatActivity {
 
+    private EditText txtNick;
+    private Button btnNick;
+    private TextView txtWarning;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question0);
 
-        EditText txtNick = findViewById(R.id.txtNickname);
-
-        Button btnNick = findViewById(R.id.btnNext);
+        txtNick = findViewById(R.id.txtNickname);
+        txtWarning = findViewById(R.id.txtWarning);
+        btnNick = findViewById(R.id.btnNext);
         Intent intent = getIntent();
         String userID = intent.getStringExtra("userID");
 
@@ -69,34 +74,10 @@ public class QuestionActivity0 extends AppCompatActivity {
             animation.start();
         }
 
-        //정보 입력 안됐으면 버튼 비활성화
-        Drawable enabledButtonBackground = ResourcesCompat.getDrawable(getResources(),R.drawable.roundshape_white_button,null);
-        Drawable disnabledButtonBackground = ResourcesCompat.getDrawable(getResources(),R.drawable.roundshape_grey_button,null);
-
-        TextWatcher textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String nicknameString = txtNick.getText().toString();
-                btnNick.setEnabled(false);
-                if(nicknameString.trim().isEmpty()){
-                    btnNick.setEnabled(false);
-                    btnNick.setBackground(disnabledButtonBackground);
-                } else{
-                    btnNick.setEnabled(true);
-                    btnNick.setBackground(enabledButtonBackground);
-                    btnNick.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        };
+        // 정보 입력 안됐으면 버튼 비활성화`
+        // 닉네임 규칙 한글 2글자, 영문 4글자, 한영혼합 시 4글자 이상
+        NicknameTextWatcher textWatcher = new NicknameTextWatcher(txtNick,btnNick,txtWarning);
         txtNick.addTextChangedListener(textWatcher);
-        btnNick.setEnabled(false);
 
         //버튼 클릭 시 색상 변경
         btnNick.setOnTouchListener(new View.OnTouchListener() {
@@ -128,6 +109,42 @@ public class QuestionActivity0 extends AppCompatActivity {
             System.runFinalization();
             System.exit(0);
             toast.cancel();
+        }
+    }
+
+    private class NicknameTextWatcher implements TextWatcher{
+        private EditText txtNick;
+        private Button btnNick;
+        private TextView txtWaring;
+
+        public NicknameTextWatcher(EditText txtNick, Button btnNick, TextView txtWaring){
+            this.txtNick = txtNick;
+            this.btnNick = btnNick;
+            this.txtWaring = txtWaring;
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {        }
+        @Override
+        public void afterTextChanged(Editable s){
+            String inputText = txtNick.getText().toString();
+            Drawable enabledButtonBackground = ResourcesCompat.getDrawable(getResources(),R.drawable.roundshape_white_button,null);
+            Drawable disnabledButtonBackground = ResourcesCompat.getDrawable(getResources(),R.drawable.roundshape_grey_button,null);
+
+            // 한글 2글자, 영문 4글자, 한영혼합시 4글자 이상으로 규칙설정
+            if(inputText.matches("^[가-힣]{2,}|[a-zA-Z]{4,}|[가-힣a-zA-Z]{4,}$")){
+                btnNick.setBackground(enabledButtonBackground);
+                btnNick.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
+                txtWaring.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.green));
+                btnNick.setEnabled(true);
+            } else {
+                btnNick.setBackground(disnabledButtonBackground);
+                btnNick.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+                txtWaring.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
+                btnNick.setEnabled(false);
+            }
         }
     }
 }

@@ -2,9 +2,16 @@ package com.example.workoutapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.collection.LLRBNode;
 
 public class FindIdActivity extends AppCompatActivity {
 
@@ -61,29 +69,44 @@ public class FindIdActivity extends AppCompatActivity {
     View.OnClickListener find_info_click = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            txtID.setText("");
             mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     boolean emailCheck = false; // 이메일 존재 여부 체크 변수
 
-                    String strName = txtName.getText().toString();
-                    String strPhone = txtPhone.getText().toString();
+                    String strName = txtName.getText().toString().trim();
+                    String strPhone = txtPhone.getText().toString().trim();
 
                     for(DataSnapshot snapshot1 : snapshot.getChildren()){
                         UserAccount accounts = snapshot1.getValue(UserAccount.class);
 
                         if(strName.equals(accounts.getName()) && strPhone.equals(accounts.getPhone())){
-                            txtID.setText(accounts.getEmailId());
+                            txtID.setVisibility(View.VISIBLE);
+//                            txtID.setText(accounts.getEmailId());
+                            String targetText = accounts.getEmailId();
+                            String fullText = "사용자의 ID는\n" + targetText + "\n입니다";
+
+                            SpannableString spannableString = new SpannableString(fullText);
+                            int colorBlue = Color.rgb(108,145,250);
+                            ForegroundColorSpan colorSpan = new ForegroundColorSpan(colorBlue);
+                            spannableString.setSpan(colorSpan,9,9+targetText.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            StyleSpan styleSpan = new StyleSpan(Typeface.BOLD);
+                            spannableString.setSpan(styleSpan, 9, 9+targetText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                            txtID.setVisibility(View.VISIBLE);
+                            txtID.setText(spannableString, TextView.BufferType.SPANNABLE);
+
                             emailCheck = true;
                         }
                     }
 
                     if(!emailCheck){
+                        txtID.setVisibility(View.VISIBLE);
                         txtID.setText("존재하지 않는 정보 입니다.");
                     }
 
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     Toast.makeText(FindIdActivity.this, error.getMessage(),Toast.LENGTH_SHORT).show();
@@ -92,8 +115,6 @@ public class FindIdActivity extends AppCompatActivity {
             });
         }
     };
-
-
 
     private long backKeyPressedTime = 0;
     @Override

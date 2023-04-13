@@ -91,10 +91,24 @@
         android:background="@drawable/roundshape_grey_button"
         android:fontFamily="@font/jamsil_bold"
         android:gravity="center"
+        android:enabled="false"
         android:text="다음"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtWarning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/jamsil_regular"
+        android:text="한글 2글자 이상 또는\n영문 4글자 이상"
+        android:textColor="@color/red"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNickname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

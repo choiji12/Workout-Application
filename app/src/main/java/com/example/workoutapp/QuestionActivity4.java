@@ -148,7 +148,7 @@ public class QuestionActivity4 extends AppCompatActivity {
             animation.start();
         }
 
-        //edittext 실수값만 입력 가능하게
+        //체중과 키 실수값만 입력 가능하게
         txtHeight.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         txtWeight.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         txtHeight.setKeyListener(new DigitsKeyListener(false,true){
@@ -193,13 +193,6 @@ public class QuestionActivity4 extends AppCompatActivity {
                     btnSubmit.setEnabled(true);
                     btnSubmit.setBackground(enabledButtonBackground);
                     btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
-                    // btnSubmit 클릭 시 버튼 background 변경
-//                    btnSubmit.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
-//                        }
-//                    });
                 }
             }
             @Override
