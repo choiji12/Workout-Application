@@ -44,57 +44,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-
     // 구글 코드
     private SignInButton btn_google;
     private GoogleApiClient googleApiClient;
     private static final int REQ_SIGN_GOOGLE = 100; //구글 로그인 결과 코드
-
-
     private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증 변수
     private DatabaseReference mDatabaseRef; // 실시간 DB
     private EditText txtEmail, txtPasswd;
     private boolean isPasswordVisible = false;
-
-//  로그인 애니메이션
-//    public void loginAnimation(LottieAnimationView lottieAnimationView){
-//        Button btnLogin = findViewById(R.id.btnLogin);
-//        SignInButton btnGoogle = findViewById(R.id.btn_google);
-//        TextView txtOr = findViewById(R.id.txtOr);
-//        View txtOrLine1 = findViewById(R.id.txtOrLine1);
-//        View txtOrLine2 = findViewById(R.id.txtOrLine2);
-//
-//        ObjectAnimator btnLoginGone = ObjectAnimator.ofFloat(btnLogin, "alpha", 1f, 0f);
-//        btnLoginGone.setDuration(1000);
-//        ObjectAnimator btnGoogleGone = ObjectAnimator.ofFloat(btnGoogle, "alpha", 1f, 0f);
-//        btnGoogleGone.setDuration(1000);
-//        ObjectAnimator txtOrGone = ObjectAnimator.ofFloat(txtOr, "alpha", 1f, 0f);
-//        txtOrGone.setDuration(1000);
-//        ObjectAnimator txtOrLine1Gone = ObjectAnimator.ofFloat(txtOrLine1, "alpha", 1f, 0f);
-//        txtOrLine1Gone.setDuration(1000);
-//        ObjectAnimator txtOrLine2Gone = ObjectAnimator.ofFloat(txtOrLine2, "alpha", 1f, 0f);
-//        txtOrLine2Gone.setDuration(1000);
-//
-//        AnimatorSet animatorSet = new AnimatorSet();
-//        animatorSet.playTogether(btnLoginGone,btnGoogleGone,txtOrGone,txtOrLine1Gone,txtOrLine2Gone);
-//        animatorSet.addListener(new Animator.AnimatorListener() {
-//            @Override
-//            public void onAnimationStart(@NonNull Animator animator) {            }
-//
-//            @Override
-//            public void onAnimationEnd(@NonNull Animator animator) {
-//                lottieAnimationView.setBackgroundColor(Color.TRANSPARENT);
-//                lottieAnimationView.setVisibility(View.VISIBLE);
-//                lottieAnimationView.playAnimation();
-//            }
-//
-//            @Override
-//            public void onAnimationCancel(@NonNull Animator animator) {            }
-//
-//            @Override
-//            public void onAnimationRepeat(@NonNull Animator animator) {            }
-//        });
-//    }
 
     @SuppressLint("MissingInflatedId")
     @Override
