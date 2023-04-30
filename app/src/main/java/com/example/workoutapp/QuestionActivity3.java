@@ -154,6 +154,7 @@ public class QuestionActivity3 extends AppCompatActivity {
                 //getIntent().getExtras().remove(userGender);
                 intent.putExtra("userID",userID);
                 intent.putExtra("userGender",userGender);
+                intent.putExtra("userName",userName);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             }
@@ -183,7 +184,17 @@ public class QuestionActivity3 extends AppCompatActivity {
     private long backKeyPressedTime = 0;
     public void onBackPressed() {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            //-------------------------------------------------------back intent
+            Intent backintent = getIntent();
+            String userID = backintent.getStringExtra("userID");
+            String userName = backintent.getStringExtra("userName");
+            String userGender = backintent.getStringExtra("userGender");
+            //-------------------------------------------------------------------
+
             Intent intent = new Intent(QuestionActivity3.this,QuestionActivity2.class);
+            intent.putExtra("userID",userID);
+            intent.putExtra("userGender",userGender);
+            intent.putExtra("userName",userName);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
         }
