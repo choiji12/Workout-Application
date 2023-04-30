@@ -8,10 +8,17 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 //회원탈퇴 기능 구현 => mFirebaseAuth.getCurrentUser().delete();
@@ -25,6 +32,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent memberIntent = getIntent();
+        String userID = memberIntent.getStringExtra("userID");
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if(success){
+                        String userID = jsonObject.getString("userID");
+                        String userName = jsonObject.getString("userName");
+
+
+                    }else {
+                        Toast.makeText(getApplicationContext(),"회원정보를 읽지 못했습니다.",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        MemberRequest loginRequest = new MemberRequest(userID ,  responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        queue.add(loginRequest);
 
         init();
 

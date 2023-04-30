@@ -230,7 +230,8 @@ public class QuestionActivity4 extends AppCompatActivity {
                             boolean success = jsonObject.getBoolean("success");
                             if(success){
                                 Toast.makeText(getApplicationContext(),"회원등록에 성공하였습니다.",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(QuestionActivity4.this, StartActivity.class);
+                                Intent intent = new Intent(QuestionActivity4.this, MainActivity.class);
+                                intent.putExtra("userID",userID);
                                 startActivity(intent);
 
                             }else {
