@@ -264,14 +264,6 @@ public class QuestionActivity4 extends AppCompatActivity {
             }
         });
 
-
-
-        aniBtnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
     private long backKeyPressedTime = 0;
     public void onBackPressed() {

@@ -126,8 +126,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 aniGoogleLoginLoading.setAnimation(R.raw.google_login_loading);
                 aniGoogleLoginLoading.playAnimation();
 
-//                loginAnimation(aniGoogleLoginLoading);
-
                 startActivityForResult(intent, REQ_SIGN_GOOGLE);
             }
         });
@@ -207,24 +205,17 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                     Toast.makeText(LoginActivity.this,"이메일 인증을 해주세요.",Toast.LENGTH_SHORT).show();
                                                     mFirebaseAuth.signOut();
                                                 }
-
                                             } else {
                                                 Toast.makeText(LoginActivity.this,"비밀번호를 잘못 입력 하였습니다",Toast.LENGTH_SHORT).show();
-
                                             }
-
                                         }
-
                                     });
-
                             }
                         }
-
                         if(!emailCheck){
                             Toast.makeText(LoginActivity.this,"존재하지 않는 이메일 입니다.",Toast.LENGTH_SHORT).show();
                             return;
                         }
-
                     }
 
                     @Override
@@ -233,7 +224,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         return;
                     }
                 });
-
             }
         });
 

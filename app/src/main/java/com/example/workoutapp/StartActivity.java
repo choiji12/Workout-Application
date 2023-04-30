@@ -2,6 +2,7 @@ package com.example.workoutapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import com.example.workoutapp.ButtonClickAnimation;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -12,7 +13,7 @@ import android.widget.Toast;
 
 public class StartActivity extends AppCompatActivity {
 
-
+private Button btnLogin,btnRegister,btnFindAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,19 +28,20 @@ public class StartActivity extends AppCompatActivity {
         animationDrawable.start();
 
         // 화면전환 애니메이션
-        Button btnLogin = findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(StartActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+                ButtonClickAnimation.aniButtonClick(view);
             }
         });
 
-        Button btnRegister = findViewById(R.id.btnRegister);
-
+        btnRegister = findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +52,7 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        Button btnFindAccount = findViewById(R.id.btnFindAccount);
+        btnFindAccount = findViewById(R.id.btnFindAccount);
 
         btnFindAccount.setOnClickListener(new View.OnClickListener() {
             @Override
