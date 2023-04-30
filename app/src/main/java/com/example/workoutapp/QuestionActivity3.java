@@ -20,17 +20,27 @@ import android.widget.Toast;
 
 public class QuestionActivity3 extends AppCompatActivity {
 
+    private Button btnBegginer;
+    private Button btnLow ;
+    private Button btnMiddle ;
+    private Button btnHigh ;
+    private Button btnMaster ;
+
+    private void setSpannableText(Spannable spannable, int start, int end) {
+        spannable.setSpan(new RelativeSizeSpan(1.5f), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    }
     //text 속성변경
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question3);
 
-        Button btnBegginer = findViewById(R.id.btnBegginer);
-        Button btnLow = findViewById(R.id.btnLow);
-        Button btnMiddle = findViewById(R.id.btnMiddle);
-        Button btnHigh = findViewById(R.id.btnHigh);
-        Button btnMaster = findViewById(R.id.btnMaster);
+        btnBegginer = findViewById(R.id.btnBegginer);
+        btnLow = findViewById(R.id.btnLow);
+        btnMiddle = findViewById(R.id.btnMiddle);
+        btnHigh = findViewById(R.id.btnHigh);
+        btnMaster = findViewById(R.id.btnMaster);
 
         Intent intent = getIntent();
         String userID = intent.getStringExtra("userID");
@@ -44,26 +54,11 @@ public class QuestionActivity3 extends AppCompatActivity {
         String master = "전문";
 
         //글자 꾸미기
-        Spannable spanBeginner = (Spannable) btnBegginer.getText();
-        spanBeginner.setSpan(new RelativeSizeSpan(1.5f),2,4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spanBeginner.setSpan(new StyleSpan(Typeface.BOLD),2,4,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        Spannable spanLow = (Spannable) btnLow.getText();
-        spanLow.setSpan(new RelativeSizeSpan(1.5f),2,4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spanLow.setSpan(new StyleSpan(Typeface.BOLD),2,4,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        Spannable spanMiddle = (Spannable) btnMiddle.getText();
-        spanMiddle.setSpan(new RelativeSizeSpan(1.5f),2,4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spanMiddle.setSpan(new StyleSpan(Typeface.BOLD),2,4,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        Spannable spanHigh = (Spannable) btnHigh.getText();
-        spanHigh.setSpan(new RelativeSizeSpan(1.5f),2,4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spanHigh.setSpan(new StyleSpan(Typeface.BOLD),2,4,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        Spannable spanMaster = (Spannable) btnMaster.getText();
-        spanMaster.setSpan(new RelativeSizeSpan(1.5f),2,4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spanMaster.setSpan(new StyleSpan(Typeface.BOLD),2,4,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+        setSpannableText((Spannable) btnBegginer.getText(), 2, 2+begginer.length());
+        setSpannableText((Spannable) btnLow.getText(), 2, 2+low.length());
+        setSpannableText((Spannable) btnMiddle.getText(), 2, 2+middle.length());
+        setSpannableText((Spannable) btnHigh.getText(), 2, 2+high.length());
+        setSpannableText((Spannable) btnMaster.getText(), 2, 2+master.length());
         btnBegginer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,14 +162,14 @@ public class QuestionActivity3 extends AppCompatActivity {
             ProgressBar pb = findViewById(R.id.progressbarPercent);
             pb.setMax(100);
             pb.setProgress(0);
-            ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 50, 75);
+            ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 60, 80);
             animation.setDuration(1000);
             animation.start();
         }else{
             ProgressBar pb = findViewById(R.id.progressbarPercent);
             pb.setMax(100);
             pb.setProgress(0);
-            ObjectAnimator animation = ObjectAnimator.ofInt(pb,"progress",100,75);
+            ObjectAnimator animation = ObjectAnimator.ofInt(pb,"progress",100,80);
             animation.setDuration(1000);
             animation.start();
         }

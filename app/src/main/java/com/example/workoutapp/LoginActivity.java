@@ -4,14 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.InputType;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -36,17 +44,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-
     // 구글 코드
     private SignInButton btn_google;
     private GoogleApiClient googleApiClient;
     private static final int REQ_SIGN_GOOGLE = 100; //구글 로그인 결과 코드
-
-
     private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증 변수
     private DatabaseReference mDatabaseRef; // 실시간 DB
     private EditText txtEmail, txtPasswd;
     private boolean isPasswordVisible = false;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +61,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         //비밀번호 보이게 하기
         LottieAnimationView aniShowPw = findViewById(R.id.aniShowPw);
-        LottieAnimationView aniShowPw2 = findViewById(R.id.aniShowPw2);
-
         aniShowPw.setAnimation(R.raw.password_show);
-
         EditText txtPassword = findViewById(R.id.txtPasswd);
-        EditText txtPasswdCheck = findViewById(R.id.txtPasswdCheck);
         aniShowPw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,16 +102,35 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .build();
 
         btn_google = findViewById(R.id.btn_google);
+
+        Button btnLogin = findViewById(R.id.btnLogin);
+        LottieAnimationView aniGoogleLoginLoading = findViewById(R.id.aniGoogleLoginLoading);
         btn_google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                TextView txtOr = findViewById(R.id.txtOr);
+                View txtOrLine1 = findViewById(R.id.txtOrLine1);
+                View txtOrLine2 = findViewById(R.id.txtOrLine2);
+
+//                로그인 애니메이션
+                btnLogin.setText("");
+                btnLogin.setBackgroundColor(Color.TRANSPARENT);
+                btnLogin.setEnabled(false);
+                btn_google.setVisibility(View.GONE);
+                txtOr.setVisibility(View.GONE);
+                txtOrLine1.setVisibility(View.GONE);
+                txtOrLine2.setVisibility(View.GONE);
+                aniGoogleLoginLoading.setBackgroundColor(Color.TRANSPARENT);
+                aniGoogleLoginLoading.setVisibility(View.VISIBLE);
+                aniGoogleLoginLoading.setAnimation(R.raw.google_login_loading);
+                aniGoogleLoginLoading.playAnimation();
+
                 startActivityForResult(intent, REQ_SIGN_GOOGLE);
             }
         });
 
-
-        Button btnLogin = findViewById(R.id.btnLogin);
+        LottieAnimationView aniLoginLoading = findViewById(R.id.aniLoginLoading);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,35 +165,57 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                                 boolean isEmail = user.isEmailVerified();
                                                 if(isEmail){
+                                                    TextView txtOr = findViewById(R.id.txtOr);
+                                                    View txtOrLine1 = findViewById(R.id.txtOrLine1);
+                                                    View txtOrLine2 = findViewById(R.id.txtOrLine2);
+
+                                                    //로그인 애니메이션
+                                                    btnLogin.setVisibility(View.GONE);
+                                                    btn_google.setVisibility(View.GONE);
+                                                    txtOr.setVisibility(View.GONE);
+                                                    txtOrLine1.setVisibility(View.GONE);
+                                                    txtOrLine2.setVisibility(View.GONE);
+
+                                                    aniLoginLoading.setBackgroundColor(Color.TRANSPARENT);
+                                                    aniLoginLoading.setVisibility(View.VISIBLE);
+                                                    aniLoginLoading.setAnimation(R.raw.login_loading);
+                                                    aniLoginLoading.setSpeed(0.5f);
+                                                    aniLoginLoading.playAnimation();
                                                     //로그인 성공
-                                                    String previousActivityClassName = "LoginActivity";
-                                                    Intent intent = new Intent(LoginActivity.this, QuestionActivity0.class);
-                                                    intent.putExtra("previous_activity", previousActivityClassName);
-                                                    intent.putExtra("userID", strEmail);
-                                                    startActivity(intent);
-                                                    finish(); //현재 엑티비티 파괴
+
+                                                    //로그인 전환 애니메이션
+                                                    new Handler().postDelayed(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            String previousActivityClassName = "LoginActivity";
+                                                            Intent intent = new Intent(LoginActivity.this, QuestionActivity0.class);
+                                                            intent.putExtra("previous_activity", previousActivityClassName);
+                                                            intent.putExtra("userID", strEmail);
+                                                            startActivity(intent);
+                                                            finish(); //현재 엑티비티 파괴
+                                                        }
+                                                    },3000);
+//                                                    String previousActivityClassName = "LoginActivity";
+//                                                    Intent intent = new Intent(LoginActivity.this, QuestionActivity0.class);
+//                                                    intent.putExtra("previous_activity", previousActivityClassName);
+//                                                    intent.putExtra("userID", strEmail);
+//                                                    startActivity(intent);
+//                                                    finish(); //현재 엑티비티 파괴
                                                 }else {
                                                     Toast.makeText(LoginActivity.this,"이메일 인증을 해주세요.",Toast.LENGTH_SHORT).show();
                                                     mFirebaseAuth.signOut();
                                                 }
-
                                             } else {
                                                 Toast.makeText(LoginActivity.this,"비밀번호를 잘못 입력 하였습니다",Toast.LENGTH_SHORT).show();
-
                                             }
-
                                         }
-
                                     });
-
                             }
                         }
-
                         if(!emailCheck){
                             Toast.makeText(LoginActivity.this,"존재하지 않는 이메일 입니다.",Toast.LENGTH_SHORT).show();
                             return;
                         }
-
                     }
 
                     @Override
@@ -181,7 +224,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         return;
                     }
                 });
-
             }
         });
 
@@ -232,19 +274,33 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         if(task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this, "안녕하세요.", Toast.LENGTH_SHORT).show();
-                            String previousActivityClassName = "LoginActivity";
-                            Intent intent = new Intent(getApplicationContext(), QuestionActivity0.class);
-                            intent.putExtra("previous_activity", previousActivityClassName);
-                            finish(); //현재 엑티비티 파괴
-                            // 재엽이형 원본 Intent intent = new Intent(getApplicationContext(), QuestionActivity1.class);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(LoginActivity.this, "안녕하세요.", Toast.LENGTH_SHORT).show();
+                                    String previousActivityClassName = "LoginActivity";
+                                    Intent intent = new Intent(getApplicationContext(), QuestionActivity0.class);
+                                    intent.putExtra("previous_activity", previousActivityClassName);
+                                    finish();
+                                    startActivity(intent);
+                                }
+                            },3000);
+
+//                            백업
+//                            Toast.makeText(LoginActivity.this, "안녕하세요.", Toast.LENGTH_SHORT).show();
+//                            String previousActivityClassName = "LoginActivity";
+//                            Intent intent = new Intent(getApplicationContext(), QuestionActivity0.class);
+//                            intent.putExtra("previous_activity", previousActivityClassName);
+//                            finish();
+
 
 //                            intent.putExtra("email", account.getEmail());
 //                            intent.putExtra("nickName", account.getDisplayName());
 //                            intent.putExtra("photoURL", String.valueOf(account.getPhotoUrl()));
 
-                            startActivity(intent);
+//                            startActivity(intent);
                         }else {
                             Toast.makeText(LoginActivity.this, "로그인 실패.", Toast.LENGTH_SHORT).show();
                         }
