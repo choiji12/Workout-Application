@@ -3,6 +3,7 @@ package com.example.workoutapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -62,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private EditText mEtEmail, mEtPwd, mEtPwdCheck, mEtName, mEtPhone;
     private Button mBtnRegister;
+    private LottieAnimationView aniRegisterSuccess;
     private boolean isPasswordVisible = false;
 
 
@@ -71,6 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         ImageButton btnCancle = findViewById(R.id.btnCancle);
+        aniRegisterSuccess = findViewById(R.id.aniRegisterSuccess);
+        aniRegisterSuccess.setVisibility(View.INVISIBLE);
 
         btnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +160,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String strName = mEtName.getText().toString().trim();
                 String strPhone = mEtPhone.getText().toString().trim();
 
-
                 //빈칸 알림
                 if(strEmail.equals("")){
                     Toast.makeText(RegisterActivity.this, "이메일을 입력하세요.", Toast.LENGTH_SHORT).show();
@@ -203,22 +207,39 @@ public class RegisterActivity extends AppCompatActivity {
                             account.setPhone(strPhone); // 확인 필요함 입력이 안되어 있을 시 빈문자열이 들어가는지 확인
 
                             mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
-
+                            // 회원가입 성공 애니메이션
+                            TextView txtName = findViewById(R.id.txtOption4);
+                            TextView txtPhone = findViewById(R.id.txtOption5);
+                            mBtnRegister.setVisibility(View.INVISIBLE);
+                            mEtName.setVisibility(View.INVISIBLE);
+                            mEtPhone.setVisibility(View.INVISIBLE);
+                            txtName.setVisibility(View.INVISIBLE);
+                            txtPhone.setVisibility(View.INVISIBLE);
+                            aniRegisterSuccess.setVisibility(View.VISIBLE);
+                            aniRegisterSuccess.setAnimation(R.raw.register_success);
+                            aniRegisterSuccess.playAnimation();
+                            aniRegisterSuccess.addAnimatorListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(@NonNull Animator animator) {                                }
+                                @Override
+                                public void onAnimationEnd(@NonNull Animator animator) {
+                                    Intent intent = new Intent(RegisterActivity.this, StartActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                @Override
+                                public void onAnimationCancel(@NonNull Animator animator) {                                }
+                                @Override
+                                public void onAnimationRepeat(@NonNull Animator animator) {                               }
+                            });
                             Toast.makeText(RegisterActivity.this, "회원가입에 성공 하셨습니다.", Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(RegisterActivity.this, RegisterSuccessedActivity.class);
-                            startActivity(intent);
-                            finish();
-
                         }else {
                             Toast.makeText(RegisterActivity.this, "이미 회원가입 된 이메일 입니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-
             }
         });
-
     }
 
     private long backKeyPressedTime = 0;

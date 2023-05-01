@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -81,7 +82,6 @@ public class QuestionActivity4 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
                 String userBirthday = btnBirthday.getText().toString();
                 double userWeight = Double.parseDouble(txtWeight.getText().toString());
                 double userHeight = Double.parseDouble(txtHeight.getText().toString());
@@ -131,6 +131,7 @@ public class QuestionActivity4 extends AppCompatActivity {
                 intent.putExtra("userID",userID);
                 intent.putExtra("userGender",userGender);
                 intent.putExtra("userLocation",userLocation);
+                intent.putExtra("userName",userName);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             }
@@ -143,12 +144,12 @@ public class QuestionActivity4 extends AppCompatActivity {
             ProgressBar pb = findViewById(R.id.progressbarPercent);
             pb.setMax(100);
             pb.setProgress(0);
-            ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 75, 100);
+            ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 80, 100);
             animation.setDuration(1000);
             animation.start();
         }
 
-        //edittext 실수값만 입력 가능하게
+        //체중과 키 실수값만 입력 가능하게
         txtHeight.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         txtWeight.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         txtHeight.setKeyListener(new DigitsKeyListener(false,true){
@@ -173,6 +174,9 @@ public class QuestionActivity4 extends AppCompatActivity {
         });
 
         //정보 입력 안됐으면 버튼 비활성화
+
+        LottieAnimationView aniBtnNext = findViewById(R.id.aniBtnNext);
+        aniBtnNext.setAnimation(R.raw.next_button);
         Drawable enabledButtonBackground = ResourcesCompat.getDrawable(getResources(),R.drawable.roundshape_white_button,null);
         Drawable disnabledButtonBackground = ResourcesCompat.getDrawable(getResources(),R.drawable.roundshape_grey_button,null);
         TextWatcher textWatcher = new TextWatcher() {
@@ -187,19 +191,14 @@ public class QuestionActivity4 extends AppCompatActivity {
                 btnSubmit.setBackground(disnabledButtonBackground);
                 // "-"이거나 공백인 경우에 버튼 비활성화
                 if (weightString.equals("-") || heightString.equals("-") || birthdayString.equals("-") || weightString.trim().isEmpty() || heightString.trim().isEmpty() || birthdayString.trim().isEmpty()) {
+                    aniBtnNext.setVisibility(View.INVISIBLE);
                     btnSubmit.setEnabled(false);
                     btnSubmit.setBackground(disnabledButtonBackground);
                 } else {
+                    aniBtnNext.setVisibility(View.VISIBLE);
                     btnSubmit.setEnabled(true);
                     btnSubmit.setBackground(enabledButtonBackground);
                     btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
-                    // btnSubmit 클릭 시 버튼 background 변경
-//                    btnSubmit.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
-//                        }
-//                    });
                 }
             }
             @Override
@@ -212,6 +211,47 @@ public class QuestionActivity4 extends AppCompatActivity {
 
         btnSubmit.setEnabled(false);
         // btnSubmit 클릭 시 textcolor 변경
+        aniBtnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aniBtnNext.playAnimation();
+                String userBirthday = btnBirthday.getText().toString();
+                double userWeight = Double.parseDouble(txtWeight.getText().toString());
+                double userHeight = Double.parseDouble(txtHeight.getText().toString());
+                double bmiuh = userHeight/100;
+                double result = userWeight / Math.pow(bmiuh,2);
+                String bmi = String.format("%.2f", result);
+                double userBmi = Double.parseDouble(bmi);
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if(success){
+                                Toast.makeText(getApplicationContext(),"회원등록에 성공하였습니다.",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(QuestionActivity4.this, MainActivity.class);
+                                intent.putExtra("userID",userID);
+                                startActivity(intent);
+
+                            }else {
+                                Toast.makeText(getApplicationContext(),"회원등록에 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+
+                RegisterRequest registerRequest = new RegisterRequest(userID, userName, userGender,
+                        userBirthday ,userWeight, userHeight, userLocation, userClass, userBmi, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(QuestionActivity4.this);
+                queue.add(registerRequest);
+
+            }
+        });
         btnSubmit.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -225,11 +265,25 @@ public class QuestionActivity4 extends AppCompatActivity {
                 return false;
             }
         });
+
     }
     private long backKeyPressedTime = 0;
     public void onBackPressed() {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            //-------------------------------------------------------back intent
+            Intent backintent = getIntent();
+            String userID = backintent.getStringExtra("userID");
+            String userName = backintent.getStringExtra("userName");
+            String userGender = backintent.getStringExtra("userGender");
+            String userLocation = backintent.getStringExtra("userLocation");
+
+            //-------------------------------------------------------------------
+
             Intent intent = new Intent(QuestionActivity4.this,QuestionActivity3.class);
+            intent.putExtra("userID",userID);
+            intent.putExtra("userGender",userGender);
+            intent.putExtra("userLocation",userLocation);
+            intent.putExtra("userName",userName);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             backKeyPressedTime = System.currentTimeMillis();

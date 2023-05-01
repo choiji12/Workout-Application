@@ -31,7 +31,7 @@
         android:fontFamily="@font/jamsil_regular"
         android:text="어플리케이션 명"
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/txtWelcome"
         app:layout_constraintTop_toBottomOf="@+id/txtWelcome" />
 
@@ -259,6 +259,19 @@
         app:lottie_progress="0"
         app:lottie_rawRes="@raw/password_show"
         app:lottie_speed="1" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/aniRegisterSuccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/register_success"
+        app:lottie_url="REPLACE_JSON_URL" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

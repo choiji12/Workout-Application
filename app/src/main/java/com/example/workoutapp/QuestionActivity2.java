@@ -75,10 +75,12 @@ public class QuestionActivity2 extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //DB 입력 수정해야 됌
                 Intent intent = new Intent(QuestionActivity2.this,QuestionActivity1.class);
                 //getIntent().getExtras().remove(userID);
                 //getIntent().getExtras().remove(userGender);
                 intent.putExtra("userID",userID);
+                intent.putExtra("userName",userName);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             }
@@ -91,14 +93,14 @@ public class QuestionActivity2 extends AppCompatActivity {
             ProgressBar pb = findViewById(R.id.progressbarPercent);
             pb.setMax(100);
             pb.setProgress(0);
-            ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 25, 50);
+            ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", 40, 60);
             animation.setDuration(1000);
             animation.start();
         }else{
             ProgressBar pb = findViewById(R.id.progressbarPercent);
             pb.setMax(100);
             pb.setProgress(0);
-            ObjectAnimator animation = ObjectAnimator.ofInt(pb,"progress",75,50);
+            ObjectAnimator animation = ObjectAnimator.ofInt(pb,"progress",80,60);
             animation.setDuration(1000);
             animation.start();
         }
@@ -108,7 +110,15 @@ public class QuestionActivity2 extends AppCompatActivity {
     public void onBackPressed() {
 
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            //-------------------------------------------------------back intent
+            Intent backintent = getIntent();
+            String userID = backintent.getStringExtra("userID");
+            String userName = backintent.getStringExtra("userName");
+            //-------------------------------------------------------------------
+
             Intent intent = new Intent(QuestionActivity2.this,QuestionActivity1.class);
+            intent.putExtra("userID",userID);
+            intent.putExtra("userName",userName);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             backKeyPressedTime = System.currentTimeMillis();

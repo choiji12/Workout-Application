@@ -4,53 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/white">
 
-    <TabHost
-        android:layout_width="200dip"
-        android:layout_height="300dip"
-        tools:layout_editor_absoluteX="82dp"
-        tools:layout_editor_absoluteY="98dp">
+    <FrameLayout
+        android:id="@+id/main_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_navigator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    </FrameLayout>
 
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/main_navigator"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:background="@color/white"
+        app:itemTextColor="@color/main_nevigator_color"
+        app:itemIconSize="40dp"
+        app:itemIconTint="@color/main_nevigator_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/main_menu_bottom" />
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:id="@+id/tab1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
 </androidx.constraintlayout.widget.ConstraintLayout>
