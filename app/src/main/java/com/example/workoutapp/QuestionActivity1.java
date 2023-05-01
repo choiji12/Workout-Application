@@ -117,7 +117,11 @@ public class QuestionActivity1 extends AppCompatActivity {
     public void onBackPressed() {
 
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            Intent backintent = getIntent();
+            String userID = backintent.getStringExtra("userID");
+
             Intent intent = new Intent(QuestionActivity1.this,QuestionActivity0.class);
+            intent.putExtra("userID",userID);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
             backKeyPressedTime = System.currentTimeMillis();
