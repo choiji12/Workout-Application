@@ -170,13 +170,13 @@ public class AnalysisFragment extends Fragment {
 
         LineDataSet dataSet = new LineDataSet(values,"weight");
         dataSet.setColor(Color.parseColor("#6C91FA"));
-        dataSet.setCircleColor(Color.BLACK);
-        dataSet.setCircleHoleColor(Color.parseColor("#6C91FA"));
+        dataSet.setCircleColor(Color.parseColor("#6C91FA"));
+        dataSet.setCircleHoleColor(Color.WHITE);
         dataSet.setValueTextColor(Color.BLACK);
-        dataSet.setLineWidth(1.5f);
-        dataSet.enableDashedLine(10f,5f,0f);
+        dataSet.setLineWidth(2.0f);
+//        dataSet.enableDashedLine(10f,5f,0f);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        dataSet.setCubicIntensity(0.2f);
+//        dataSet.setCubicIntensity(0.2f);
         dataSet.setDrawFilled(true);
         dataSet.setFillDrawable(ContextCompat.getDrawable(getContext(), R.drawable.main_gradation_color_alpha50));
         dataSet.setValueTextSize(10);

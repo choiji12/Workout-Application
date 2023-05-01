@@ -2,11 +2,18 @@ package com.example.workoutapp;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+
+import com.google.android.material.datepicker.MaterialCalendar;
+import com.google.android.material.shape.MaterialShapeDrawable;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,11 +61,35 @@ public class CalendarFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    private CalendarView calendar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+        View view = inflater.inflate(R.layout.fragment_analysis, container,false);
+//        calendar = view.findViewById(R.id.calendar);
+        MaterialShapeDrawable shapeDrawable = new MaterialShapeDrawable();
+        shapeDrawable.setFillColor(ContextCompat.getColorStateList(requireContext(), R.color.blue));
+        shapeDrawable.setCornerSize(16f);
+//
+//        // Set today's date color to purple
+//        calendar.addDe(new TodayDecorator(ContextCompat.getColor(requireContext(), R.color.purple_500)));
+//
+//        // Set selected date border
+//        calendar.addDecorator(new SelectedDateDecorator(ContextCompat.getColor(requireContext(), R.color.black), 4f));
+//
+//        // Set blue text for Saturdays
+//        calendar.addDecorator(new WeekdayTextDecorator(ContextCompat.getColor(requireContext(), R.color.blue), Calendar.SATURDAY));
+//
+//        // Set red text for every week
+//        calendar.addDecorator(new WeekdayTextDecorator(ContextCompat.getColor(requireContext(), R.color.red), Calendar.DAY_OF_WEEK));
+//
+//        // Set font and text color
+//        calendar.setTypeface(ResourcesCompat.getFont(requireContext(), R.font.jamsil_regular));
+//        calendar.setTileTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+
+
+        return view;
     }
 }
