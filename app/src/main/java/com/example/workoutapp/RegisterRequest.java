@@ -16,7 +16,8 @@ public class RegisterRequest extends StringRequest {
 
 
     public RegisterRequest(String userID, String userName, String userGender,  String userBirthday, double userWeight,
-                           double userHeight, String userLocation, String userClass, double userBmi,Response.Listener<String> listener) {
+                           double userHeight, String userLocation, String userClass,
+                           double userBmi, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
@@ -25,10 +26,10 @@ public class RegisterRequest extends StringRequest {
         map.put("userGender", userGender);
         map.put("userBirthday", userBirthday);
         map.put("userWeight", userWeight + "");
-        map.put("userHeight", userHeight+"");
+        map.put("userHeight", userHeight + "");
         map.put("userLocation", userLocation);
         map.put("userClass", userClass);
-        map.put("userBmi", userBmi+"");
+        map.put("userBmi", userBmi + "");
 
     }
 

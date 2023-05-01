@@ -90,6 +90,7 @@ public class QuestionActivity4 extends AppCompatActivity {
                 String bmi = String.format("%.2f", result);
                 double userBmi = Double.parseDouble(bmi);
 
+                // 디비 처리 코드
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -112,6 +113,7 @@ public class QuestionActivity4 extends AppCompatActivity {
                     }
                 };
 
+                // 서버로 Volley를 이용해서 요청을 하는 코드
                 RegisterRequest registerRequest = new RegisterRequest(userID, userName, userGender,
                         userBirthday ,userWeight, userHeight, userLocation, userClass, userBmi, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(QuestionActivity4.this);
