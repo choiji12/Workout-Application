@@ -176,9 +176,6 @@ public class QuestionActivity4 extends AppCompatActivity {
         });
 
         //정보 입력 안됐으면 버튼 비활성화
-
-        LottieAnimationView aniBtnNext = findViewById(R.id.aniBtnNext);
-        aniBtnNext.setAnimation(R.raw.next_button);
         Drawable enabledButtonBackground = ResourcesCompat.getDrawable(getResources(),R.drawable.roundshape_white_button,null);
         Drawable disnabledButtonBackground = ResourcesCompat.getDrawable(getResources(),R.drawable.roundshape_grey_button,null);
         TextWatcher textWatcher = new TextWatcher() {
@@ -193,11 +190,9 @@ public class QuestionActivity4 extends AppCompatActivity {
                 btnSubmit.setBackground(disnabledButtonBackground);
                 // "-"이거나 공백인 경우에 버튼 비활성화
                 if (weightString.equals("-") || heightString.equals("-") || birthdayString.equals("-") || weightString.trim().isEmpty() || heightString.trim().isEmpty() || birthdayString.trim().isEmpty()) {
-                    aniBtnNext.setVisibility(View.INVISIBLE);
                     btnSubmit.setEnabled(false);
                     btnSubmit.setBackground(disnabledButtonBackground);
                 } else {
-                    aniBtnNext.setVisibility(View.VISIBLE);
                     btnSubmit.setEnabled(true);
                     btnSubmit.setBackground(enabledButtonBackground);
                     btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
@@ -213,10 +208,24 @@ public class QuestionActivity4 extends AppCompatActivity {
 
         btnSubmit.setEnabled(false);
         // btnSubmit 클릭 시 textcolor 변경
-        aniBtnNext.setOnClickListener(new View.OnClickListener() {
+        btnSubmit.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (btnSubmit.isEnabled()) {
+                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                        btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+                    } else if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                        btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
+                    }
+                }
+                return false;
+            }
+
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                aniBtnNext.playAnimation();
                 String userBirthday = btnBirthday.getText().toString();
                 double userWeight = Double.parseDouble(txtWeight.getText().toString());
                 double userHeight = Double.parseDouble(txtHeight.getText().toString());
@@ -251,20 +260,6 @@ public class QuestionActivity4 extends AppCompatActivity {
                         userBirthday ,userWeight, userHeight, userLocation, userClass, userBmi, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(QuestionActivity4.this);
                 queue.add(registerRequest);
-
-            }
-        });
-        btnSubmit.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (btnSubmit.isEnabled()) {
-                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                        btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-                    } else if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
-                        btnSubmit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
-                    }
-                }
-                return false;
             }
         });
 
