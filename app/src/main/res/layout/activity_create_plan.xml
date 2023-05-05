@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreatePlanActivity">
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/weekCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_gradation_color_alpha50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:mcv_calendarMode="week"
+        app:mcv_dateTextAppearance="@font/jamsil_regular"
+        app:mcv_selectionColor="@color/blue"
+        app:mcv_selectionMode="single"
+        app:mcv_showWeekDays="true" />
+
+    <Button
+        android:id="@+id/btnCreatePlan"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/weekCalendar"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/round_white_button_2"
+        android:fontFamily="@font/jamsil_bold"
+        android:text="운동 계획 생성"
+        android:textColor="@color/white_to_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="200dp" />
+
+    <Button
+        android:id="@+id/btnRest"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/round_white_button_2"
+        android:fontFamily="@font/jamsil_bold"
+        android:text="휴식"
+        android:textColor="@color/white_to_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+
+    <Button
+        android:id="@+id/btnLoadPlan"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/round_white_button_2"
+        android:fontFamily="@font/jamsil_bold"
+        android:text="운동 계획 불러오기"
+        android:textColor="@color/white_to_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="🔥 기존에 있던 운동계획을 불러올래요."
+        android:fontFamily="@font/jamsil_regular"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/btnLoadPlan"
+        app:layout_constraintTop_toBottomOf="@+id/btnLoadPlan" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="😌 오늘은 쉴래요."
+        android:fontFamily="@font/jamsil_regular"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/btnRest"
+        app:layout_constraintTop_toBottomOf="@+id/btnRest" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="💪 새로운 운동을 계획할래요."
+        android:fontFamily="@font/jamsil_regular"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@+id/btnCreatePlan"
+        app:layout_constraintTop_toBottomOf="@+id/btnCreatePlan" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
