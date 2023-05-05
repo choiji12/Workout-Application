@@ -1,19 +1,24 @@
 package com.example.workoutapp;
 
+import android.graphics.Color;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 
-import com.google.android.material.datepicker.MaterialCalendar;
-import com.google.android.material.shape.MaterialShapeDrawable;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
-import java.util.Calendar;
+import java.util.Date;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,35 +66,36 @@ public class CalendarFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    private CalendarView calendar;
 
+    private MaterialCalendarView calendar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_analysis, container,false);
-//        calendar = view.findViewById(R.id.calendar);
-        MaterialShapeDrawable shapeDrawable = new MaterialShapeDrawable();
-        shapeDrawable.setFillColor(ContextCompat.getColorStateList(requireContext(), R.color.blue));
-        shapeDrawable.setCornerSize(16f);
-//
-//        // Set today's date color to purple
-//        calendar.addDe(new TodayDecorator(ContextCompat.getColor(requireContext(), R.color.purple_500)));
-//
-//        // Set selected date border
-//        calendar.addDecorator(new SelectedDateDecorator(ContextCompat.getColor(requireContext(), R.color.black), 4f));
-//
-//        // Set blue text for Saturdays
-//        calendar.addDecorator(new WeekdayTextDecorator(ContextCompat.getColor(requireContext(), R.color.blue), Calendar.SATURDAY));
-//
-//        // Set red text for every week
-//        calendar.addDecorator(new WeekdayTextDecorator(ContextCompat.getColor(requireContext(), R.color.red), Calendar.DAY_OF_WEEK));
-//
-//        // Set font and text color
-//        calendar.setTypeface(ResourcesCompat.getFont(requireContext(), R.font.jamsil_regular));
-//        calendar.setTileTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+        View view = inflater.inflate(R.layout.fragment_calendar, container,false);
+        calendar = view.findViewById(R.id.calendar);
 
+        calendar.setSelectedDate(CalendarDay.today());
 
+        calendar.addDecorator(new DayViewDecorator() {
+            @Override
+            public boolean shouldDecorate(CalendarDay day) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(day.getDate());
+                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY;
+            }
+
+            @Override
+            public void decorate(DayViewFacade view) {
+                int dayOfWeek = view.getDay().getCalendar().get(Calendar.DAY_OF_WEEK);
+                if (dayOfWeek == Calendar.SATURDAY) {
+                    view.addSpan(new ForegroundColorSpan(Color.BLUE));
+                } else if (dayOfWeek == Calendar.SUNDAY) {
+                    view.addSpan(new ForegroundColorSpan(Color.RED));
+                }
+            }
+        });
         return view;
     }
 }
