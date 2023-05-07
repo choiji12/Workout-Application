@@ -1,6 +1,8 @@
 package com.example.workoutapp;
 
+import android.animation.ObjectAnimator;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -105,7 +107,7 @@ public class AnalysisFragment extends Fragment {
 
         if (peroidCheckedId == R.id.btnWeek && functionCheckedId == R.id.btnWeight) {
             // 주간 체중 변화량 그래프
-            float[] weights = new float[]{(float) 43.3, (float) 44.1, (float) 43.2, (float) 42.6, (float) 42.4, (float) 43.2, (float) 43.6};
+            float[] weights = new float[]{(float) 43.3, (float) 44.1, (float) 43.2, (float) 42.6, (float) 42.4, (float) 43.2, (float) 43.6,(float) 40.6,(float) 42.6,(float) 46.6};
             setChart(updateChart,weights,"week","weight");
         } else if (peroidCheckedId == R.id.btnMonth && functionCheckedId == R.id.btnWeight) {
             // 월간 체중 변화량 그래프
@@ -118,16 +120,15 @@ public class AnalysisFragment extends Fragment {
             setChart(updateChart,weights,"year","weight");
         } else if (peroidCheckedId == R.id.btnWeek && functionCheckedId == R.id.btnCalory) {
             // 주간 칼로리 소모량 그래프
-            float[] calorys = new float[]{(float) 440.3, (float) 400.1, (float) 500.2, (float) 350.6, (float) 210.4, (float) 750.2, (float) 100.6};
+            float[] calorys = new float[]{(float) 440.3, (float) 400.1, (float) 500.2};
             setChart(updateChart,calorys,"week","calory");
         } else if (peroidCheckedId == R.id.btnMonth && functionCheckedId == R.id.btnCalory) {
             // 월간 칼로리 소모량 그래프
-            float[] calorys = new float[]{(float) 400.2, (float) 341.1, (float) 239.5, (float) 742.2};
+            float[] calorys = new float[]{(float) 400.2, (float) 341.1};
             setChart(updateChart,calorys,"month","calory");
         } else if (peroidCheckedId == R.id.btnYear && functionCheckedId == R.id.btnCalory){
             // 연간 칼로리 소모량 그래프
-            float[] calorys = new float[]{(float) 501.3, (float) 302.1, (float) 445.2, (float) 148.6, (float) 30.4, (float) 600.2,
-                    (float) 800.6,(float) 900.3, (float) 1000.1, (float) 700.2, (float) 500.2, (float) 600.1, (float) 570.2};
+            float[] calorys = new float[]{(float) 501.3, (float) 302.1, (float) 445.2, (float) 148.6, (float) 30.4, (float) 600.2};
             setChart(updateChart,calorys,"year","calory");
         }
 
@@ -167,32 +168,46 @@ public class AnalysisFragment extends Fragment {
                 }
             }
         }
+//        Typeface font = Typeface.createFromAsset(asset);
 
         LineDataSet dataSet = new LineDataSet(values,"weight");
         dataSet.setColor(Color.parseColor("#6C91FA"));
         dataSet.setCircleColor(Color.parseColor("#6C91FA"));
-        dataSet.setCircleHoleColor(Color.WHITE);
+        dataSet.setCircleHoleColor(Color.parseColor("#6C91FA"));
         dataSet.setValueTextColor(Color.BLACK);
-        dataSet.setLineWidth(2.0f);
-//        dataSet.enableDashedLine(10f,5f,0f);
+        dataSet.setLineWidth(3.0f);
+        dataSet.setCircleSize(5.0f);
+//        dataSet.setDrawCircles(false);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 //        dataSet.setCubicIntensity(0.2f);
         dataSet.setDrawFilled(true);
         dataSet.setFillDrawable(ContextCompat.getDrawable(getContext(), R.drawable.main_gradation_color_alpha50));
-        dataSet.setValueTextSize(10);
+        dataSet.setValueTextSize(12);
+
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
 
+        /** X축 label을 날짜를 추가하는 기능 추가해야됌... */
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
         if(peroid.equals("week") ) {
+            chart.setVisibleXRangeMinimum(3);
+            chart.setVisibleXRangeMaximum(7);
+            chart.moveViewToX(dataSet.getXMax());
+            // X축 데이터에 날짜 추가하는 곳
             xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]
                     {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}));
         } else if(peroid.equals("month")){
+            chart.setVisibleXRangeMinimum(3);
+            chart.setVisibleXRangeMaximum(7);
+            chart.moveViewToX(dataSet.getXMax());
             xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]
                     {"Week 1", "Week 2", "Week 3", "Week 4"}));
         } else if(peroid.equals("year")){
+            chart.setVisibleXRangeMinimum(3);
+            chart.setVisibleXRangeMaximum(5);
+            chart.moveViewToX(dataSet.getXMax());
             xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]
                     {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
         }
@@ -214,6 +229,10 @@ public class AnalysisFragment extends Fragment {
         chart.getDescription().setEnabled(false);
         chart.invalidate();
         chart.getLegend().setEnabled(false);
-        chart.animateY(1000);
+
+        chart.animateY(1000,Easing.EaseInOutQuad);
+//        ObjectAnimator animator = ObjectAnimator.ofFloat(chart,"scaleX",0f,1f);
+//        animator.setDuration(1000);
+//        animator.start();
     }
 }

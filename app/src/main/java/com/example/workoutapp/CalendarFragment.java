@@ -112,14 +112,13 @@ public class CalendarFragment extends Fragment {
                 txtDate.setText(selectedDate);
             }
         });
-
+        // CreatePlan 엑티비티로 반환하기 위한 LocalTime 변수로 변환, 실제로 반환되는 변수는 dateFor
         dateFor = LocalDate.of(selectedyear,selectedmonth,seletedday);
 
         /** 운동하기 버튼 누르면 엑티비티 이동 */
         btnExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
                 Intent intent = new Intent(getActivity(),CreatePlanActivity.class);
                 intent.putExtra("Date",dateFor.toString());
                 startActivity(intent);

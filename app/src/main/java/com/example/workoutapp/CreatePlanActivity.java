@@ -46,6 +46,7 @@ public class CreatePlanActivity extends AppCompatActivity {
         selectedmonth = Integer.parseInt(dateArray[1]);
         seletedday = Integer.parseInt(dateArray[2]);
 
+        // 달력에 표시하기 위해 CalendarDay 변수로 변환
         CalendarDay date = CalendarDay.from(selectedyear, selectedmonth, seletedday);
 
         calendar.setSelectedDate(date);
@@ -82,19 +83,16 @@ public class CreatePlanActivity extends AppCompatActivity {
             view.addSpan(new ForegroundColorSpan(color));
         }
     }
-/** 뒤로가기 버튼 기능 구현... 계속 에러 발생 수정필요
+    /** 뒤로가기 버튼 기능 구현 */
     private long backKeyPressedTime = 0;
     @Override
     public void onBackPressed() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        CalendarFragment calendarFragment = new CalendarFragment();
-        fragmentTransaction.add(R.id.fragment_container,calendarFragment).commit();
-
+        Intent intent = new Intent(CreatePlanActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
         overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
         backKeyPressedTime = System.currentTimeMillis();
         return;
     }
-    */
+
 }
