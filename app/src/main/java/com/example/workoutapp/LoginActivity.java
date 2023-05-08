@@ -23,6 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -43,7 +46,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+
     // 구글 코드
     private SignInButton btn_google;
     private GoogleApiClient googleApiClient;
@@ -61,8 +68,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         //비밀번호 보이게 하기
         LottieAnimationView aniShowPw = findViewById(R.id.aniShowPw);
+        LottieAnimationView aniShowPw2 = findViewById(R.id.aniShowPw2);
+
         aniShowPw.setAnimation(R.raw.password_show);
+
         EditText txtPassword = findViewById(R.id.txtPasswd);
+        EditText txtPasswdCheck = findViewById(R.id.txtPasswdCheck);
         aniShowPw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,6 +235,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         return;
                     }
                 });
+
             }
         });
 
@@ -279,13 +291,42 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(LoginActivity.this, "안녕하세요.", Toast.LENGTH_SHORT).show();
-                                    String previousActivityClassName = "LoginActivity";
-                                    Intent intent = new Intent(getApplicationContext(), QuestionActivity0.class);
-                                    intent.putExtra("previous_activity", previousActivityClassName);
-                                    intent.putExtra("userID", account.getEmail());
-                                    finish();
-                                    startActivity(intent);
+                                    // 로그인시 화면 이동 2가지
+                                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(response);
+                                                boolean success = jsonObject.getBoolean("success");
+                                                if(success){
+                                                    Toast.makeText(LoginActivity.this, "안녕하세요.", Toast.LENGTH_SHORT).show();
+                                                    String previousActivityClassName = "LoginActivity";
+                                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                    intent.putExtra("previous_activity", previousActivityClassName);
+
+                                                    startActivity(intent);
+                                                    finish(); //현재 엑티비티 파괴
+
+                                                }else{
+                                                    Toast.makeText(LoginActivity.this, "안녕하세요.", Toast.LENGTH_SHORT).show();
+                                                    String previousActivityClassName = "LoginActivity";
+                                                    Intent intent = new Intent(LoginActivity.this, QuestionActivity0.class);
+                                                    intent.putExtra("previous_activity", previousActivityClassName);
+                                                    intent.putExtra("userID", account.getEmail());
+
+                                                    startActivity(intent);
+                                                    finish(); //현재 엑티비티 파괴
+                                                }
+                                            } catch (JSONException e) {
+                                                throw new RuntimeException(e);
+                                            }
+
+                                        }
+                                    };
+
+                                    MemberRequest memberRequest = new MemberRequest(account.getEmail(), responseListener);
+                                    RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+                                    queue.add(memberRequest);
                                 }
                             },3000);
 
