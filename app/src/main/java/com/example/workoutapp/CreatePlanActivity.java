@@ -11,9 +11,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -36,7 +37,6 @@ public class CreatePlanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_plan);
 
         calendar = findViewById(R.id.weekCalendar);
-        AndroidThreeTen.init(this);
 
 
         /** 이전 프레그먼트에서 데이터 가져오기,  */
@@ -59,6 +59,16 @@ public class CreatePlanActivity extends AppCompatActivity {
                 selectedyear = date.getYear();
                 selectedmonth = date.getMonth();
                 seletedday = date.getDay();
+            }
+        });
+
+        Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
+        btnCreatePlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreatePlanActivity.this,SelectExercise.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
