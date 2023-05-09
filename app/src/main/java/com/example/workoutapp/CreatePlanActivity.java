@@ -11,9 +11,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -30,13 +31,14 @@ public class CreatePlanActivity extends AppCompatActivity {
     private int selectedmonth;
     private int seletedday;
 
+    private LocalDate dateForIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_plan);
 
         calendar = findViewById(R.id.weekCalendar);
-        AndroidThreeTen.init(this);
 
 
         /** 이전 프레그먼트에서 데이터 가져오기,  */
@@ -49,6 +51,9 @@ public class CreatePlanActivity extends AppCompatActivity {
         // 달력에 표시하기 위해 CalendarDay 변수로 변환
         CalendarDay date = CalendarDay.from(selectedyear, selectedmonth, seletedday);
 
+        // CreatePlan 엑티비티로 반환하기 위한 LocalTime 변수로 변환, 실제로 반환되는 변수는 dateFor
+        dateForIntent = LocalDate.of(selectedyear,selectedmonth,seletedday);
+
         calendar.setSelectedDate(date);
         calendar.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
 
@@ -59,6 +64,21 @@ public class CreatePlanActivity extends AppCompatActivity {
                 selectedyear = date.getYear();
                 selectedmonth = date.getMonth();
                 seletedday = date.getDay();
+                dateForIntent = LocalDate.of(selectedyear,selectedmonth,seletedday);
+            }
+        });
+
+        dateForIntent = LocalDate.of(selectedyear,selectedmonth,seletedday);
+
+        Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
+        btnCreatePlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreatePlanActivity.this,SelectExercise.class);
+                intent.putExtra("Date",dateForIntent.toString());
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
         });
     }
