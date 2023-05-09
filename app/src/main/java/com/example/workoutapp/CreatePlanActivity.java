@@ -31,6 +31,8 @@ public class CreatePlanActivity extends AppCompatActivity {
     private int selectedmonth;
     private int seletedday;
 
+    private LocalDate dateForIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,9 @@ public class CreatePlanActivity extends AppCompatActivity {
         // 달력에 표시하기 위해 CalendarDay 변수로 변환
         CalendarDay date = CalendarDay.from(selectedyear, selectedmonth, seletedday);
 
+        // CreatePlan 엑티비티로 반환하기 위한 LocalTime 변수로 변환, 실제로 반환되는 변수는 dateFor
+        dateForIntent = LocalDate.of(selectedyear,selectedmonth,seletedday);
+
         calendar.setSelectedDate(date);
         calendar.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
 
@@ -59,16 +64,21 @@ public class CreatePlanActivity extends AppCompatActivity {
                 selectedyear = date.getYear();
                 selectedmonth = date.getMonth();
                 seletedday = date.getDay();
+                dateForIntent = LocalDate.of(selectedyear,selectedmonth,seletedday);
             }
         });
+
+        dateForIntent = LocalDate.of(selectedyear,selectedmonth,seletedday);
 
         Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
         btnCreatePlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreatePlanActivity.this,SelectExercise.class);
+                intent.putExtra("Date",dateForIntent.toString());
                 startActivity(intent);
                 finish();
+                overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
         });
     }
