@@ -124,8 +124,6 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             if(view.getId() == idx){
                 int ID = idx - 10000;
                 CheckBox checkBox = (CheckBox) findViewById(ID);
-//                checkBox.setId(ID);
-////                checkBox.getText();
                 TextView tv = findViewById(R.id.tv_text1);
                 tv.setText(checkBox.getText());
 
