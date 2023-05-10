@@ -3,9 +3,7 @@ package com.example.workoutapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.Button;
@@ -57,7 +55,7 @@ public class SelectExercise extends AppCompatActivity {
 //            chkExercise.setBackground(getResources().getDrawable(R.drawable.rounded_grey_radiobutton));
 //            checkBox 크기 설정
             LinearLayout.LayoutParams paramsExercise = new LinearLayout.LayoutParams
-                    ((int) (350 * getResources().getDisplayMetrics().density),(int) (60 * getResources().getDisplayMetrics().density));
+                    ((int) (350 * getResources().getDisplayMetrics().density),(int) (80 * getResources().getDisplayMetrics().density));
             paramsExercise.setMargins(5,5,5,5);
             chkExercise.setLayoutParams(paramsExercise);
 
@@ -67,9 +65,9 @@ public class SelectExercise extends AppCompatActivity {
             contentsLayout.addView(btnExplain);
 
             btnExplain.setId(i+10001);
-            btnExplain.setBackground(getResources().getDrawable(R.drawable.explan_circle_unchecked));
-            btnExplain.setAllCaps(false);
-            btnExplain.setText("i");
+            btnExplain.setBackground(getResources().getDrawable(R.drawable.info));
+//            btnExplain.setAllCaps(false);
+//            btnExplain.setText("i");
             btnExplain.setTextSize(12f);
 
             LinearLayout.LayoutParams paramsExplain = new LinearLayout.LayoutParams
@@ -81,17 +79,17 @@ public class SelectExercise extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){
-                        contentsLayout.setBackgroundColor(getResources().getColor(R.color.blue));
-                        btnExplain.setBackground(getResources().getDrawable(R.drawable.explan_circle_checked));
+                        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_checked));
+//                        btnExplain.setBackground(getResources().getDrawable(R.drawable.explan_circle_checked));
 
                     } else {
-                        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox));
-                        btnExplain.setBackground(getResources().getDrawable(R.drawable.explan_circle_unchecked));
+                        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+//                        btnExplain.setBackground(getResources().getDrawable(R.drawable.explan_circle_unchecked));
                     }
                 }
             });
 
-            contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox));
+            contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
             LinearLayout.LayoutParams paramsContents = new LinearLayout.LayoutParams
                     (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             paramsContents.setMargins(10, 5, 10, 5);

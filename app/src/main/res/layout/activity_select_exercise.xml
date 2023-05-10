@@ -10,11 +10,11 @@
         android:id="@+id/txtDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:text="0월 00일"
         android:textColor="@color/blue"
         android:fontFamily="@font/jamsil_regular"
-        android:textSize="17sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +23,7 @@
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,27 +36,122 @@
 
     </SearchView>
 
+    <RadioGroup
+        android:id="@+id/groupTarget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView">
+
+        <RadioButton
+            android:id="@+id/btnLeg"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
+            android:button="@color/fui_transparent"
+            android:fontFamily="@font/jamsil_regular"
+            android:text="하체"
+            android:textColor="@drawable/black_to_white_radio_text"
+            android:textSize="15sp"
+            android:checked="true"
+            android:gravity="center"
+            android:background="@drawable/target_radiobutton"/>
+
+        <RadioButton
+            android:id="@+id/btnChest"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
+            android:button="@color/fui_transparent"
+            android:fontFamily="@font/jamsil_regular"
+            android:text="가슴"
+            android:textColor="@drawable/black_to_white_radio_text"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="@drawable/target_radiobutton"/>
+
+        <RadioButton
+            android:id="@+id/btnBack"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="3dp"
+            android:button="@color/fui_transparent"
+            android:fontFamily="@font/jamsil_regular"
+            android:text="등"
+            android:textColor="@drawable/black_to_white_radio_text"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="@drawable/target_radiobutton"/>
+
+        <RadioButton
+            android:id="@+id/btnShoulder"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="3dp"
+            android:button="@color/fui_transparent"
+            android:fontFamily="@font/jamsil_regular"
+            android:text="어깨"
+            android:textColor="@drawable/black_to_white_radio_text"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="@drawable/target_radiobutton"/>
+
+        <RadioButton
+            android:id="@+id/btnCardio"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="3dp"
+            android:button="@color/fui_transparent"
+            android:fontFamily="@font/jamsil_regular"
+            android:text="유산소"
+            android:textColor="@drawable/black_to_white_radio_text"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="@drawable/target_radiobutton"/>
+    </RadioGroup>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="120dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnStartExercise"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
+        app:layout_constraintTop_toBottomOf="@+id/groupTarget">
 
         <LinearLayout
             android:id="@+id/exerciseLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/contentsLayout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="horizontal"></LinearLayout>-->
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/contentsLayout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:orientation="horizontal"></LinearLayout>-->
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btnStartExercise"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
+        android:text="운동 선택 완료"
+        android:textSize="17sp"
+        android:fontFamily="@font/jamsil_bold"
+        android:textColor="@drawable/white_to_black_button_text"
+        android:background="@drawable/round_blue_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
