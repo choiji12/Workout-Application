@@ -27,8 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
-
-
 public class SelectExercise extends AppCompatActivity implements View.OnClickListener {
 
     private int selectedyear;
@@ -43,12 +41,12 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
     private RadioButton btnCardio;
     private RadioButton btnAbs;
 
-    public  String eventExercise;
-
     private LinearLayout contentsLayout;
 
     private CheckBox chkExercise;
+    private String eventExercise;
 
+    private JSONObject jsonObject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,10 +82,8 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
             chkExercise = new CheckBox(this);
             chkExercise.setId(i + 1);
-            chkExercise.setText("ㄱ");
 
             Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
-                String eventExercise = null;
                 @Override
                 public void onResponse(String response) {
                     try {
@@ -96,7 +92,10 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                         if(success){
                             eventExercise = jsonObject.getString("eventExercise");
                             Log.d("user","uesrName" +eventExercise);
-                            chkExercise.setText("\t" + eventExercise);
+
+                        }
+                        else {
+
                         }
 
                     } catch (JSONException e){
@@ -108,7 +107,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
             queue.add(infoRequest);
 
-
+            chkExercise.setText(eventExercise);
             chkExercise.setTextColor(getResources().getColorStateList(R.drawable.black_to_white_radio_text));
             chkExercise.setTypeface(mainFont);
             chkExercise.setTextSize(15);
