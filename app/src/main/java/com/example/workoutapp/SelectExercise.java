@@ -143,13 +143,13 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
                     if(success){
                         eventExercise = jsonObject.getString("eventExercise");
-                        for(int i=0; i<100; i++){
+                        String eventNo = jsonObject.getString("eventNo");
 
-                        CheckBox checkBox = (CheckBox) findViewById(i+1);
+                        CheckBox checkBox = (CheckBox) findViewById(Integer.parseInt(eventNo));
 
                         checkBox.setText(eventExercise);
                         Log.d("user","uesrName" +eventExercise);
-                        }
+                        Log.d("user","uesrName" +eventNo);
 
                     }
                     else {
