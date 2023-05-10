@@ -19,7 +19,7 @@
             android:exported="true" />
         <activity
             android:name=".SelectExercise"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".CreatePlanActivity"
             android:exported="false" />
