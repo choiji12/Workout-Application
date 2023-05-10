@@ -18,9 +18,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+
 
 public class SelectExercise extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,6 +42,8 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
     private RadioButton btnShoulder;
     private RadioButton btnCardio;
     private RadioButton btnAbs;
+
+    public  String eventExercise;
 
     private LinearLayout contentsLayout;
 
@@ -75,7 +84,31 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
             chkExercise = new CheckBox(this);
             chkExercise.setId(i + 1);
-            chkExercise.setText("\t" + Integer.toString(i));
+            chkExercise.setText("ㄱ");
+
+            Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
+                String eventExercise = null;
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean success = jsonObject.getBoolean("success");
+                        if(success){
+                            eventExercise = jsonObject.getString("eventExercise");
+                            Log.d("user","uesrName" +eventExercise);
+                            chkExercise.setText("\t" + eventExercise);
+                        }
+
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                }
+            };
+            InfoRequest infoRequest = new InfoRequest(Integer.toString(i+1), infoResponseListener);
+            RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
+            queue.add(infoRequest);
+
+
             chkExercise.setTextColor(getResources().getColorStateList(R.drawable.black_to_white_radio_text));
             chkExercise.setTypeface(mainFont);
             chkExercise.setTextSize(15);
