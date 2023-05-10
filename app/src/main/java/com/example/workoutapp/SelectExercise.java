@@ -221,6 +221,8 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                     });
                 }
             }
+
+            //ㅏㅓ
             else if (btnChest.isChecked()) {
                 for (int i=101; i<201; i++){
                     LinearLayout layout = (LinearLayout) findViewById(i);
