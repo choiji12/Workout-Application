@@ -83,29 +83,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             chkExercise = new CheckBox(this);
             chkExercise.setId(i + 1);
 
-            Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean success = jsonObject.getBoolean("success");
-                        if(success){
-                            eventExercise = jsonObject.getString("eventExercise");
-                            Log.d("user","uesrName" +eventExercise);
 
-                        }
-                        else {
-
-                        }
-
-                    } catch (JSONException e){
-                        e.printStackTrace();
-                    }
-                }
-            };
-            InfoRequest infoRequest = new InfoRequest(Integer.toString(i+1), infoResponseListener);
-            RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
-            queue.add(infoRequest);
 
             chkExercise.setText(eventExercise);
             chkExercise.setTextColor(getResources().getColorStateList(R.drawable.black_to_white_radio_text));
@@ -155,6 +133,38 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             mainLayout.addView(contentsLayout);
 
         }
+        Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+
+
+                    if(success){
+                        eventExercise = jsonObject.getString("eventExercise");
+                        for(int i=0; i<100; i++){
+
+                        CheckBox checkBox = (CheckBox) findViewById(i+1);
+
+                        checkBox.setText(eventExercise);
+                        Log.d("user","uesrName" +eventExercise);
+                        }
+
+                    }
+                    else {
+
+                    }
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        for (int i = 0; i < 100; i++){
+        InfoRequest infoRequest = new InfoRequest(Integer.toString(i+1), infoResponseListener);
+        RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
+        queue.add(infoRequest);}
 
         for (int j = 1; j < 101; j++) {
             int id = j + 100;
@@ -223,7 +233,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             }
 
             //ㅏㅓ
-            else if (btnChest.isChecked()) {
+          else if (btnChest.isChecked()) {
                 for (int i=101; i<201; i++){
                     LinearLayout layout = (LinearLayout) findViewById(i);
                     layout.setVisibility(View.GONE);
