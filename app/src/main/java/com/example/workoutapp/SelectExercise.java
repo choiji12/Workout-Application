@@ -1,18 +1,25 @@
 package com.example.workoutapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class SelectExercise extends AppCompatActivity {
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import org.w3c.dom.Text;
+
+public class SelectExercise extends AppCompatActivity implements View.OnClickListener {
 
     private int selectedyear;
     private int selectedmonth;
@@ -70,6 +77,11 @@ public class SelectExercise extends AppCompatActivity {
 //            btnExplain.setText("i");
             btnExplain.setTextSize(12f);
 
+            // 테스트 ------------------------------------------------------------------------------------------
+            btnExplain.setOnClickListener(this);
+
+            // 테스트 ------------------------------------------------------------------------------------------
+
             LinearLayout.LayoutParams paramsExplain = new LinearLayout.LayoutParams
                     ((int) (30 * getResources().getDisplayMetrics().density),(int) (30 * getResources().getDisplayMetrics().density));
             paramsExplain.gravity = Gravity.CENTER;
@@ -101,6 +113,29 @@ public class SelectExercise extends AppCompatActivity {
 
 
     }
+
+    // 테스트 ------------------------------------------------------------------------------------------
+    @Override
+    public void onClick(View view){
+        int idx = 10001;
+        while(true){
+            if(view.getId() == idx){
+                int ID = idx - 10000;
+                CheckBox checkBox = (CheckBox) findViewById(ID);
+                TextView tv = findViewById(R.id.tv_text1);
+                tv.setText(checkBox.getText());
+
+
+                SlidingUpPanelLayout slidingLayout = findViewById(R.id.main_frame);
+
+                slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
+                break;
+            }
+
+            idx++;
+        }
+    }
+    // 테스트 ------------------------------------------------------------------------------------------
 
     /** 뒤로가기 버튼 기능 구현 */
     private long backKeyPressedTime = 0;
