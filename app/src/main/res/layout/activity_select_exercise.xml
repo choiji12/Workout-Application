@@ -8,7 +8,8 @@
     android:layout_height="match_parent"
     tools:context=".SelectExercise"
     android:gravity="bottom"
-    app:umanoPanelHeight="0dp">
+    app:umanoPanelHeight="0dp"
+    app:umanoDragView="@id/back_layout">
 
 
 <androidx.constraintlayout.widget.ConstraintLayout
