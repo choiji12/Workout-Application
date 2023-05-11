@@ -127,7 +127,6 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
         for (int j = 1; j < 101; j++) {
             int id = j + 100;
             LinearLayout LegLayout = (LinearLayout) findViewById(id);
-            Log.d("Leg Id", "LEGID :" +LegLayout.getId());
             LegLayout.setVisibility(View.VISIBLE);
 
             int chkId = j;
@@ -171,7 +170,6 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 for (int j = 0; j < LegLength; j++) {
                     int id = j + 101;
                     LinearLayout LegLayout = (LinearLayout) findViewById(id);
-                    Log.d("Leg Id", "LEGID :" +LegLayout.getId());
                     LegLayout.setVisibility(View.VISIBLE);
 
                     int chkId = j+101-100;
@@ -316,6 +314,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             }
         }
     };
+
 
     /** 슬라이딩 업 , 운동 설명과 운동DB */
     @Override
