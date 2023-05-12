@@ -198,41 +198,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                     new Handler().postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            // 로그인시 화면 이동 2가지
-                                                            Response.Listener<String> responseListener = new Response.Listener<String>() {
-                                                                @Override
-                                                                public void onResponse(String response) {
-                                                                    try {
-                                                                        JSONObject jsonObject = new JSONObject(response);
-                                                                        boolean success = jsonObject.getBoolean("success");
-                                                                        if(success){
-
-                                                                            String previousActivityClassName = "LoginActivity";
-                                                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                                                            intent.putExtra("previous_activity", previousActivityClassName);
-
-                                                                            startActivity(intent);
-                                                                            finish(); //현재 엑티비티 파괴
-
-                                                                        }else{
-                                                                            String previousActivityClassName = "LoginActivity";
-                                                                            Intent intent = new Intent(LoginActivity.this, QuestionActivity0.class);
-                                                                            intent.putExtra("previous_activity", previousActivityClassName);
-                                                                            intent.putExtra("userID", strEmail);
-
-                                                                            startActivity(intent);
-                                                                            finish(); //현재 엑티비티 파괴
-                                                                        }
-                                                                    } catch (JSONException e) {
-                                                                        throw new RuntimeException(e);
-                                                                    }
-
-                                                                }
-                                                            };
-
-                                                            MemberRequest memberRequest = new MemberRequest(strEmail, responseListener);
-                                                            RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-                                                            queue.add(memberRequest);
+                                                            String previousActivityClassName = "LoginActivity";
+                                                            Intent intent = new Intent(LoginActivity.this, QuestionActivity0.class);
+                                                            intent.putExtra("previous_activity", previousActivityClassName);
+                                                            intent.putExtra("userID", strEmail);
+                                                            startActivity(intent);
+                                                            finish(); //현재 엑티비티 파괴
                                                         }
                                                     },3000);
 //                                                    String previousActivityClassName = "LoginActivity";
