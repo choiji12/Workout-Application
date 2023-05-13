@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent memberIntent = getIntent();
         String userID = memberIntent.getStringExtra("userID");
+        Log.d("User Id","User Id" + userID);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -44,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     if(success){
                         String userID = jsonObject.getString("userID");
                         String userName = jsonObject.getString("userName");
-
-
+//                        Log.d("User Id","User Id" + userID);
                     }else {
                         Toast.makeText(getApplicationContext(),"회원정보를 읽지 못했습니다.",Toast.LENGTH_SHORT).show();
                         return;
