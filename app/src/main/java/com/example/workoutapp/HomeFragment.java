@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ public class HomeFragment extends Fragment {
     private int selectedmonth;
     private int seletedday;
     private LocalDate dateFor;
+    private String userID;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,11 +83,20 @@ public class HomeFragment extends Fragment {
         // txtToday 꾸미는 함수
         setTxtToday();
 
+        /** MainActivty에서 넘긴 UserID Fragment에서 호출 및 할당 */
+        Bundle bundle = getArguments();
+        if (bundle !=null) {
+            userID = bundle.getString("userID");
+        }
+        Log.d("user ID","User ID :" + userID);
+
+        /** 오늘 운동하기 버튼 누르면, 오늘 날짜 Intent로 넘어감 */
         btnExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LocalDate today = LocalDate.now();
                 Intent intent = new Intent(getActivity(),CreatePlanActivity.class);
+                intent.putExtra("userID",userID);
                 intent.putExtra("Date",today.toString());
                 startActivity(intent);
                 getActivity().finish();

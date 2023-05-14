@@ -32,6 +32,7 @@ public class CreatePlanActivity extends AppCompatActivity {
     private int seletedday;
 
     private LocalDate dateForIntent;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +43,14 @@ public class CreatePlanActivity extends AppCompatActivity {
 
 
         /** 이전 프레그먼트에서 데이터 가져오기,  */
+        userID = getIntent().getStringExtra("userID");
         String dateFor = getIntent().getStringExtra("Date");
         String[] dateArray = dateFor.split("-");
         selectedyear = Integer.parseInt(dateArray[0]);
         selectedmonth = Integer.parseInt(dateArray[1]);
         seletedday = Integer.parseInt(dateArray[2]);
+
+        Log.d("user ID","User ID :" + userID);
 
         // 달력에 표시하기 위해 CalendarDay 변수로 변환
         CalendarDay date = CalendarDay.from(selectedyear, selectedmonth, seletedday);
@@ -75,6 +79,7 @@ public class CreatePlanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreatePlanActivity.this,SelectExercise.class);
+                intent.putExtra("userID",userID);
                 intent.putExtra("Date",dateForIntent.toString());
                 startActivity(intent);
                 finish();
@@ -108,6 +113,7 @@ public class CreatePlanActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(CreatePlanActivity.this,MainActivity.class);
+        intent.putExtra("userID",userID);
         startActivity(intent);
         finish();
         overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
