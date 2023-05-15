@@ -110,7 +110,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             chkExercise.setLayoutParams(paramsExercise);
 
             contentsLayout.addView(chkExercise);
-
+//
             Button btnExplain = new Button(this);
             contentsLayout.addView(btnExplain);
 
@@ -163,6 +163,9 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                         CheckBox checkBox = (CheckBox) findViewById(Integer.parseInt(eventNo));
 
                         checkBox.setText(eventExercise);
+                        Log.d("user","uesrName" +eventExercise);
+                        Log.d("user","uesrName" +eventNo);
+
                     }
                     else {
 
@@ -240,6 +243,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 for (int j = 0; j < LegLength; j++) {
                     int id = j + 101;
                     LinearLayout LegLayout = (LinearLayout) findViewById(id);
+                    Log.d("Leg Id", "LEGID :" +LegLayout.getId());
                     LegLayout.setVisibility(View.VISIBLE);
 
                     int chkId = j+101-100;
@@ -415,25 +419,69 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
     /** 슬라이딩 업 , 운동 설명과 운동DB */
     @Override
     public void onClick(View view){
+
+
+
         int idx = 10001;
         while(true){
+
+
             if(view.getId() == idx){
                 int ID = idx - 10000;
                 CheckBox checkBox = (CheckBox) findViewById(ID);
                 TextView tv = findViewById(R.id.txtExerciseName);
+                TextView explan = findViewById(R.id.txtExerciseExplain);
+
                 tv.setText(checkBox.getText());
+
+                String idd= Integer.toString(checkBox.getId());
+
+                Log.d("user","uesrName" +idd);
+
+                Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+
+
+                            if(success){
+                                String eventExplan = jsonObject.getString("eventExplan");
+                                String eventNo = jsonObject.getString("eventNo");
+
+
+                                Log.d("user","uesrName" +eventExplan);
+
+
+                                explan.setText(eventExplan);
+
+
+                            }
+
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                InfoRequest infoRequest = new InfoRequest(idd, infoResponseListener);
+                RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
+                queue.add(infoRequest);
+
+
 
                 SlidingUpPanelLayout slidingLayout = findViewById(R.id.main_frame);
 
                 slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
                 break;
             }
+
             idx++;
         }
     }
 
     /** 뒤로가기 버튼 기능 구현 */
-    //asdasdsad
     private long backKeyPressedTime = 0;
     @Override
     public void onBackPressed() {
