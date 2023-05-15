@@ -168,6 +168,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 //                        Log.d("user","uesrName" +eventExercise);
 //                        Log.d("user","uesrName" +eventNo);
 
+
                     }
                     else {
 
@@ -246,6 +247,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 for (int j = 0; j < LegLength; j++) {
                     int id = j + 101;
                     LinearLayout LegLayout = (LinearLayout) findViewById(id);
+                    Log.d("Leg Id", "LEGID :" +LegLayout.getId());
                     LegLayout.setVisibility(View.VISIBLE);
 
                     int chkId = j+101-100;
