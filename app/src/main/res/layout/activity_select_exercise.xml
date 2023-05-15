@@ -183,6 +183,22 @@
         android:layout_height="700dp"
         android:background="@drawable/exercise_sliding_up_view">
 
+        <Button
+            android:id="@+id/btnYoutube"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/round_red_button"
+            android:fontFamily="@font/jamsil_bold"
+            android:text="▶  유튜브 검색하기"
+            android:textColor="@color/white_to_blue"
+            android:textSize="18sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/txtExerciseName"
             android:layout_width="wrap_content"
@@ -191,7 +207,7 @@
             android:fontFamily="@font/jamsil_bold"
             android:text="Exercise Name"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -200,14 +216,18 @@
             android:id="@+id/txtExerciseExplain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="100dp"
             android:fontFamily="@font/jamsil_regular"
             android:text="Exercise Explain"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtExerciseName" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 

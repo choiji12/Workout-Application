@@ -77,6 +77,8 @@ public class CalendarFragment extends Fragment {
     private String selectedDate;
 
     private LocalDate dateFor;
+
+    private String userID;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,6 +94,13 @@ public class CalendarFragment extends Fragment {
         calendar.addDecorator(new TodayDecorator(CalendarDay.today(),Color.MAGENTA));
 
         LocalDate now = LocalDate.now();
+
+        /** MainActivty에서 넘긴 UserID Fragment에서 호출 및 할당 */
+        Bundle bundle = getArguments();
+        if (bundle !=null) {
+            userID = bundle.getString("userID");
+        }
+        Log.d("user ID","User ID :" + userID);
 
         /** 사용자가 선택 안할 시 자동으로 오늘 날짜 지정 */
         selectedyear = Integer.parseInt(String.valueOf(now.getYear()));
@@ -115,11 +124,12 @@ public class CalendarFragment extends Fragment {
         // CreatePlan 엑티비티로 반환하기 위한 LocalTime 변수로 변환, 실제로 반환되는 변수는 dateFor
         dateFor = LocalDate.of(selectedyear,selectedmonth,seletedday);
 
-        /** 운동하기 버튼 누르면 엑티비티 이동 */
+        /** 운동하기 버튼 누르면 엑티비티 이동, userID와 선택한 날짜가 intent로 넘어감 */
         btnExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(),CreatePlanActivity.class);
+                intent.putExtra("userID",userID);
                 intent.putExtra("Date",dateFor.toString());
                 startActivity(intent);
                 getActivity().finish();
