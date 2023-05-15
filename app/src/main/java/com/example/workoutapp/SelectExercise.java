@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -42,6 +43,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
     private RadioButton btnShoulder;
     private RadioButton btnCardio;
     private RadioButton btnAbs;
+    private Button btnYoutube;
 
     private LinearLayout contentsLayout;
 
@@ -223,7 +225,10 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
         btnShoulder.setOnClickListener(rdoScreen);
         btnCardio.setOnClickListener(rdoScreen);
         btnAbs.setOnClickListener(rdoScreen);
+
+
     }
+
 
     View.OnClickListener rdoScreen = new View.OnClickListener() {
         @Override
@@ -431,6 +436,8 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 CheckBox checkBox = (CheckBox) findViewById(ID);
                 TextView tv = findViewById(R.id.txtExerciseName);
                 TextView explan = findViewById(R.id.txtExerciseExplain);
+                btnYoutube = findViewById(R.id.btnYoutube);
+                btnYoutube.setOnClickListener(youtubeSearch);
 
                 tv.setText(checkBox.getText());
 
@@ -469,17 +476,28 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
                 queue.add(infoRequest);
 
-
-
                 SlidingUpPanelLayout slidingLayout = findViewById(R.id.main_frame);
 
                 slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
                 break;
+
             }
 
             idx++;
         }
+
+
     }
+
+
+    View.OnClickListener youtubeSearch = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            TextView ExerciseName = findViewById(R.id.txtExerciseName);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=" + ExerciseName.getText()));
+            startActivity(intent);
+        }
+    };
 
     /** 뒤로가기 버튼 기능 구현 */
     private long backKeyPressedTime = 0;
