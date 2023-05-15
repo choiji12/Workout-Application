@@ -2,9 +2,12 @@ package com.example.workoutapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -44,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
                     if(success){
                         String userID = jsonObject.getString("userID");
                         String userName = jsonObject.getString("userName");
-
-
                     }else {
                         Toast.makeText(getApplicationContext(),"회원정보를 읽지 못했습니다.",Toast.LENGTH_SHORT).show();
                         return;
@@ -59,28 +60,50 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(loginRequest);
 
+
         init();
+
+        /** UserID Fragment로 전달 */
+
+        Bundle bundle = new Bundle();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        bundle.putString("userID",userID);
+        homeFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.main_layout,homeFragment).commit();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.tab_home: {
-                        getSupportFragmentManager().beginTransaction().
-                                replace(R.id.main_layout,new HomeFragment())
-                                .commit();
+                        Bundle bundle = new Bundle();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        bundle.putString("userID",userID);
+                        homeFragment.setArguments(bundle);
+                        fragmentTransaction.replace(R.id.main_layout,homeFragment).commit();
                         return true;
                     }
                     case R.id.tab_analysis: {
-                        getSupportFragmentManager().beginTransaction().
-                                replace(R.id.main_layout,new AnalysisFragment())
-                                .commit();
+                        Bundle bundle = new Bundle();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        bundle.putString("userID",userID);
+                        analysisFragment.setArguments(bundle);
+                        fragmentTransaction.replace(R.id.main_layout,analysisFragment).commit();
                         return true;
                     }
                     case R.id.tab_calander: {
-                        getSupportFragmentManager().beginTransaction().
-                                replace(R.id.main_layout,new CalendarFragment())
-                                .commit();
+                        Bundle bundle = new Bundle();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        bundle.putString("userID",userID);
+                        calendarFragment.setArguments(bundle);
+                        fragmentTransaction.replace(R.id.main_layout,calendarFragment).commit();
                         return true;
                     }
                 }
@@ -89,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /** 초기화 */
     private void init(){
         homeFragment = new HomeFragment();
         analysisFragment = new AnalysisFragment();
@@ -99,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_layout,homeFragment).commitAllowingStateLoss();
     }
 
+    /** 뒤로가기 버튼 구현 */
     private long backKeyPressedTime = 0;
     private Toast toast;
     public void onBackPressed() {

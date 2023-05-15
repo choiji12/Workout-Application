@@ -27,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class SelectExercise extends AppCompatActivity implements View.OnClickListener {
 
     private int selectedyear;
@@ -43,8 +45,12 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
     private LinearLayout contentsLayout;
 
+    private Button btnStartExercise;
     private CheckBox chkExercise;
     private String eventExercise;
+    private String userID;
+
+    private ArrayList selectedExercise;
 
     private JSONObject jsonObject;
     @Override
@@ -53,11 +59,14 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_select_exercise);
 
         /** 이전 프레그먼트에서 데이터 가져오기,  */
+        userID = getIntent().getStringExtra("userID");
         dateFor = getIntent().getStringExtra("Date");
         String[] dateArray = dateFor.split("-");
         selectedyear = Integer.parseInt(dateArray[0]);
         selectedmonth = Integer.parseInt(dateArray[1]);
         seletedday = Integer.parseInt(dateArray[2]);
+
+        Log.d("user ID","User ID :" + userID);
 
         TextView txtDate = findViewById(R.id.txtDate);
         txtDate.setText(selectedmonth + "월 " +seletedday +"일");
@@ -68,6 +77,8 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
         LinearLayout mainLayout = findViewById(R.id.exerciseLayout);
 
+        btnStartExercise = findViewById(R.id.btnStartExercise);
+
         btnLeg = findViewById(R.id.btnLeg);
         btnChest = findViewById(R.id.btnChest);
         btnBack = findViewById(R.id.btnBack);
@@ -75,11 +86,16 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
         btnCardio = findViewById(R.id.btnCardio);
         btnAbs = findViewById(R.id.btnAbs);
 
+        /** 선택된 운동 ID를 저장할 ArrayList */
+        selectedExercise = new ArrayList();
+
         for(int i=0; i<exerciseLength; i++) {
+            /** Contents LinearLayout ID는 101~ 201 */
             contentsLayout = new LinearLayout(this);
             contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
             contentsLayout.setId(i + 101);
 
+            /** 운동 CheckBox ID는 1~ 101 */
             chkExercise = new CheckBox(this);
             chkExercise.setId(i + 1);
 
@@ -90,7 +106,6 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             chkExercise.setTypeface(mainFont);
             chkExercise.setTextSize(15);
             chkExercise.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-//            checkBox 크기 설정
             LinearLayout.LayoutParams paramsExercise = new LinearLayout.LayoutParams
                     ((int) (350 * getResources().getDisplayMetrics().density), (int) (80 * getResources().getDisplayMetrics().density));
             paramsExercise.setMargins(5, 5, 5, 5);
@@ -100,6 +115,8 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 //
             Button btnExplain = new Button(this);
             contentsLayout.addView(btnExplain);
+
+            /** 운동설명 Button ID는 10001 ~  */
 
             btnExplain.setId(i + 10001);
             btnExplain.setBackground(getResources().getDrawable(R.drawable.info));
@@ -179,13 +196,29 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_checked));
+                        selectedExercise.add(chkId);
 
                     } else {
                         LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+                        if (selectedExercise.contains(chkId)){
+                            selectedExercise.remove(Integer.valueOf(chkId));
+                        }
                     }
                 }
             });
         }
+
+        btnStartExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SelectExercise.this, SetExerciseActivity.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("Date",dateFor);
+                intent.putExtra("SelectedList",selectedExercise);
+                Log.d("Selected Exercise","Selected Exercise :" + selectedExercise);
+                startActivity(intent);
+            }
+        });
 
         btnLeg.setOnClickListener(rdoScreen);
         btnChest.setOnClickListener(rdoScreen);
@@ -213,7 +246,6 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 for (int j = 0; j < LegLength; j++) {
                     int id = j + 101;
                     LinearLayout LegLayout = (LinearLayout) findViewById(id);
-                    Log.d("Leg Id", "LEGID :" +LegLayout.getId());
                     LegLayout.setVisibility(View.VISIBLE);
 
                     int chkId = j+101-100;
@@ -223,9 +255,13 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                             if (isChecked) {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_checked));
+                                selectedExercise.add(chkId);
 
                             } else {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+                                if (selectedExercise.contains(chkId)){
+                                    selectedExercise.remove(Integer.valueOf(chkId));
+                                }
                             }
                         }
                     });
@@ -250,9 +286,13 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                             if (isChecked) {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_checked));
+                                selectedExercise.add(chkId);
 
                             } else {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+                                if (selectedExercise.contains(chkId)){
+                                    selectedExercise.remove(Integer.valueOf(chkId));
+                                }
                             }
                         }
                     });
@@ -275,9 +315,13 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                             if (isChecked) {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_checked));
+                                selectedExercise.add(chkId);
 
                             } else {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+                                if (selectedExercise.contains(chkId)){
+                                    selectedExercise.remove(Integer.valueOf(chkId));
+                                }
                             }
                         }
                     });
@@ -300,9 +344,13 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                             if (isChecked) {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_checked));
+                                selectedExercise.add(chkId);
 
                             } else {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+                                if (selectedExercise.contains(chkId)){
+                                    selectedExercise.remove(Integer.valueOf(chkId));
+                                }
                             }
                         }
                     });
@@ -325,9 +373,13 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                             if (isChecked) {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_checked));
+                                selectedExercise.add(chkId);
 
                             } else {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+                                if (selectedExercise.contains(chkId)){
+                                    selectedExercise.remove(Integer.valueOf(chkId));
+                                }
                             }
                         }
                     });
@@ -350,9 +402,13 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                             if (isChecked) {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_checked));
+                                selectedExercise.add(chkId);
 
                             } else {
                                 LegLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+                                if (selectedExercise.contains(chkId)){
+                                    selectedExercise.remove(Integer.valueOf(chkId));
+                                }
                             }
                         }
                     });
@@ -360,6 +416,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             }
         }
     };
+
 
     /** 슬라이딩 업 , 운동 설명과 운동DB */
     @Override
@@ -431,6 +488,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(SelectExercise.this,CreatePlanActivity.class);
+        intent.putExtra("userID",userID);
         intent.putExtra("Date",dateFor.toString());
         startActivity(intent);
         finish();

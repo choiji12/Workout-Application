@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,11 +69,19 @@ public class AnalysisFragment extends Fragment {
     private RadioGroup peroid;
     private RadioGroup function;
     private LineChart chart;
+    private String userID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_analysis, container,false);
+
+        /** UserID mainActivity에서 호출 및 할당 */
+        Bundle bundle = getArguments();
+        if (bundle !=null) {
+            userID = bundle.getString("userID");
+        }
+        Log.d("user ID","User ID :" + userID);
 
         peroid = view.findViewById(R.id.radioGroupPeriod);
         function = view.findViewById(R.id.radioGroupFunction);
@@ -83,6 +92,7 @@ public class AnalysisFragment extends Fragment {
         btnWeek.setChecked(true);
         btnWeight.setChecked(true);
 
+        /** 버튼 누르면 Chart Update */
         updateGraph(chart);
         peroid.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -231,8 +241,5 @@ public class AnalysisFragment extends Fragment {
         chart.getLegend().setEnabled(false);
 
         chart.animateY(1000,Easing.EaseInOutQuad);
-//        ObjectAnimator animator = ObjectAnimator.ofFloat(chart,"scaleX",0f,1f);
-//        animator.setDuration(1000);
-//        animator.start();
     }
 }
