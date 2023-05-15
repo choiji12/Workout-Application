@@ -97,7 +97,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             chkExercise.setLayoutParams(paramsExercise);
 
             contentsLayout.addView(chkExercise);
-
+//
             Button btnExplain = new Button(this);
             contentsLayout.addView(btnExplain);
 
