@@ -13,16 +13,23 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -44,6 +51,9 @@ public class CreatePlanActivity extends AppCompatActivity {
     private int year;
     private int month;
     private int day;
+
+    private String calenderDate ="2023-05-15";
+    private String userMail = "rlawo5219@gmail.com";
     //----------------------------------------
 
     @Override
@@ -252,6 +262,56 @@ public class CreatePlanActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
         });
+
+
+        Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+
+
+                    if(success){
+                        //String calenderMessage = jsonObject.getString("calenderMessage");
+                        String calenderRoutine = jsonObject.getString("calenderRoutine");
+                        String calenderTime = jsonObject.getString("calenderTime");
+                        String calenderWeight = jsonObject.getString("calenderWeight");
+
+
+                        Log.d("user","uesrName" +calenderRoutine);
+                        Log.d("user","uesrName" +calenderTime);
+                        Log.d("user","uesrName" +calenderWeight);
+
+                        TextView textView22 = findViewById(R.id.textView22);
+                        TextView textView23 = findViewById(R.id.textView23);
+                        TextView textView24 = findViewById(R.id.textView24);
+                        TextView textView25 = findViewById(R.id.textView25);
+                        TextView textView26 = findViewById(R.id.textView26);
+                        TextView textView27 = findViewById(R.id.textView27);
+                        ScrollView scrollView = findViewById(R.id.scrollView2);
+
+                        textView23.setText(calenderRoutine);
+                        textView25.setText(calenderWeight + "kg");
+                        textView27.setText(calenderTime);
+
+
+
+                    }
+                    else {
+
+                    }
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        CalenderRequest calenderRequest = new CalenderRequest(calenderDate, userMail, infoResponseListener);
+        RequestQueue queue = Volley.newRequestQueue(CreatePlanActivity.this);
+        queue.add(calenderRequest);
+
+
     }
 
     /** 오늘 날짜 색깔 지정 Decorator */
