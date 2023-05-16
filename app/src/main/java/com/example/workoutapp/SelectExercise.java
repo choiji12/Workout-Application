@@ -182,9 +182,10 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             }
         };
         for (int i = 0; i < 100; i++){
-        InfoRequest infoRequest = new InfoRequest(Integer.toString(i+1), infoResponseListener);
-        RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
-        queue.add(infoRequest);}
+            InfoRequest infoRequest = new InfoRequest(Integer.toString(i+1), infoResponseListener);
+            RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
+            queue.add(infoRequest);
+        }
 
         for (int j = 1; j < 101; j++) {
             int id = j + 100;

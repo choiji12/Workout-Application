@@ -58,7 +58,7 @@ public class SetExerciseActivity extends AppCompatActivity {
 
 
             /** 운동 이름 추가하시면 됩니다~ */
-            btnSetExercise.setText(String.valueOf(i));
+//            btnSetExercise.setText(String.valueOf(i));
             btnSetExercise.setTypeface(mainFont);
             btnSetExercise.setTextSize(15);
             btnSetExercise.setBackground(getResources().getDrawable(R.drawable.round_white_button_2));
