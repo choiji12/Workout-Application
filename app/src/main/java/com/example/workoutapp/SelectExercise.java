@@ -54,11 +54,17 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
     private ArrayList selectedExercise;
 
+    private ArrayList testArray;
+    private ArrayList testArray2;
+
+    int requestCount = 100;
     private JSONObject jsonObject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_exercise);
+
+        testArray = new ArrayList();
 
         /** 이전 프레그먼트에서 데이터 가져오기,  */
         userID = getIntent().getStringExtra("userID");
@@ -150,6 +156,8 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             mainLayout.addView(contentsLayout);
 
         }
+        testArray2 = new ArrayList();
+
         Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -157,32 +165,38 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                     JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
 
-
                     if(success){
-                        eventExercise = jsonObject.getString("eventExercise");
+                        String eventExercise = jsonObject.getString("eventExercise");
                         String eventNo = jsonObject.getString("eventNo");
 
                         CheckBox checkBox = (CheckBox) findViewById(Integer.parseInt(eventNo));
 
                         checkBox.setText(eventExercise);
-                        Log.d("user","uesrName" +eventExercise);
-                        Log.d("user","uesrName" +eventNo);
-
+                        testArray.add(eventExercise);
                     }
-                    else {
-
-                    }
-
                 } catch (JSONException e){
                     e.printStackTrace();
+                } finally {
+                    requestCount--;
+                    if (requestCount == 0) {
+                        Log.d("TestArray", "userName" + testArray);
+                        testArray = testArray;
+                    }
                 }
             }
         };
         for (int i = 0; i < 100; i++){
-        InfoRequest infoRequest = new InfoRequest(Integer.toString(i+1), infoResponseListener);
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            InfoRequest infoRequest = new InfoRequest(Integer.toString(i+1), infoResponseListener);
         RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
         queue.add(infoRequest);}
 
+
+        Log.d("TestArray","uesrName" + testArray);
         for (int j = 1; j < 101; j++) {
             int id = j + 100;
             LinearLayout LegLayout = (LinearLayout) findViewById(id);

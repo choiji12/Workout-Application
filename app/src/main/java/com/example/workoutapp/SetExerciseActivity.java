@@ -24,6 +24,8 @@ public class SetExerciseActivity extends AppCompatActivity {
     private String date;
     private ArrayList selectedExercise;
     private Typeface mainFont;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
+    private int exerciseLength;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +36,9 @@ public class SetExerciseActivity extends AppCompatActivity {
         userID = getIntent().getStringExtra("userID");
         date = getIntent().getStringExtra("Date");
         selectedExercise =(ArrayList) intent.getSerializableExtra("SelectedList");
-        Collections.sort(selectedExercise);
         Log.d("Selected Exercise","Selected Exercise :" + selectedExercise);
 
-        int exerciseLength = selectedExercise.size();
+        exerciseLength = selectedExercise.size();
         LinearLayout exerciseLayout = findViewById(R.id.exerciseLayout);
         mainFont = getResources().getFont(R.font.jamsil_regular);
 
@@ -62,35 +63,36 @@ public class SetExerciseActivity extends AppCompatActivity {
             exerciseLayout.addView(btnSetExercise);
         }
 
-        SlidingUpPanelLayout slidingUpPanelLayout = findViewById(R.id.main_frame);
+        slidingUpPanelLayout = findViewById(R.id.main_frame);
 
         for (int i=0; i<exerciseLength; i++){
             int buttonId = i + 101;
             Button btnSetExercise = (Button) findViewById(buttonId);
-            btnSetExercise.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
-                }
-            });
+            btnSetExercise.setOnClickListener(slidingAction);
         }
     }
 
-    private void setSlidingUpLayout(LinearLayout linearLayout){
-        int setCnt = 3;
+    /** btnExercise OnclickListener */
+    View.OnClickListener slidingAction = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
-        TextView txtExerciseName = findViewById(R.id.txtExerciseName);
-        txtExerciseName.setText("운동 이름 추가해");
+            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
+        }
+    };
 
-        LinearLayout contentLayout = new LinearLayout(this);
-        contentLayout.setOrientation(LinearLayout.HORIZONTAL);
-        contentLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+    private void initSlidingUp(){
+        for (int i=0; i<exerciseLength; i++){
+            int buttonId = i + 101;
+            Button btnSetExercise = (Button) findViewById(buttonId);
+            TextView txtExerciseName = findViewById(R.id.txtExerciseName);
+            txtExerciseName.setText(btnSetExercise.getText());
 
-        for (int i=0; i<setCnt; i++){
-            TextView txtSetCnt = new TextView(this);
-            txtSetCnt.setText(setCnt + "세트");
-            txtSetCnt.setTypeface(mainFont);
-            txtSetCnt.setTextSize(15);
+
+            LinearLayout contentsLayout = new LinearLayout(this);
+            contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            TextView txtSetCnt = new TextView();
 
         }
     }
