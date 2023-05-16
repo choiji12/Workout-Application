@@ -101,6 +101,8 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             chkExercise = new CheckBox(this);
             chkExercise.setId(i + 1);
 
+
+
             chkExercise.setText(eventExercise);
             chkExercise.setTextColor(getResources().getColorStateList(R.drawable.black_to_white_radio_text));
             chkExercise.setTypeface(mainFont);
@@ -165,8 +167,9 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                         CheckBox checkBox = (CheckBox) findViewById(Integer.parseInt(eventNo));
 
                         checkBox.setText(eventExercise);
-                        Log.d("user","uesrName" +eventExercise);
-                        Log.d("user","uesrName" +eventNo);
+//                        Log.d("user","uesrName" +eventExercise);
+//                        Log.d("user","uesrName" +eventNo);
+
 
                     }
                     else {
@@ -186,6 +189,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
         for (int j = 1; j < 101; j++) {
             int id = j + 100;
             LinearLayout LegLayout = (LinearLayout) findViewById(id);
+            Log.d("Leg Id", "LEGID :" +LegLayout.getId());
             LegLayout.setVisibility(View.VISIBLE);
 
             int chkId = j;

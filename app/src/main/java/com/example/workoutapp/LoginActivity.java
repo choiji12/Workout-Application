@@ -206,6 +206,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                                         JSONObject jsonObject = new JSONObject(response);
                                                                         boolean success = jsonObject.getBoolean("success");
                                                                         if(success){
+
                                                                             String previousActivityClassName = "LoginActivity";
                                                                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                                                             intent.putExtra("previous_activity", previousActivityClassName);
@@ -332,7 +333,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                     String previousActivityClassName = "LoginActivity";
                                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                                     intent.putExtra("previous_activity", previousActivityClassName);
-                                                    intent.putExtra("userID", account.getEmail());
+
                                                     startActivity(intent);
                                                     finish(); //현재 엑티비티 파괴
 
