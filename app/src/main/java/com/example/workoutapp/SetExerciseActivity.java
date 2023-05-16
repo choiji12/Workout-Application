@@ -28,6 +28,9 @@ public class SetExerciseActivity extends AppCompatActivity {
     private ArrayList selectedExercise;
     private Typeface mainFont;
     private int exerciseLength;
+
+    private LinearLayout exerciseLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,178 +44,88 @@ public class SetExerciseActivity extends AppCompatActivity {
         Log.d("Selected Exercise","Selected Exercise :" + selectedExercise);
 
         exerciseLength = selectedExercise.size();
-        LinearLayout exerciseLayout = findViewById(R.id.exerciseLayout);
+        exerciseLayout = findViewById(R.id.exerciseLayout);
         mainFont = getResources().getFont(R.font.jamsil_regular);
+
+
 
         /** 세트 수 설정하는 버튼 생성 */
         for (int i=0; i<exerciseLength; i++){
-            Button btnSetExercise = new Button(this);
-            /** 세트 수 설정하는 button ID는 1~ */
-            btnSetExercise.setId(i + 1);
+            TextView txtExerciseName = new TextView(this);
+            /** 운동이름 보여주는 textView ID는 1~ */
+            txtExerciseName.setId(i + 1);
 
             /** 운동 이름 추가하시면 됩니다~ */
-            btnSetExercise.setText(String.valueOf(i));
-            btnSetExercise.setTypeface(mainFont);
-            btnSetExercise.setTextSize(15);
-            btnSetExercise.setBackground(getResources().getDrawable(R.drawable.round_white_button_2));
-            btnSetExercise.setTextColor(getResources().getColorStateList(R.drawable.white_to_blue_button_text));
-            btnSetExercise.setGravity(Gravity.CENTER);
+            txtExerciseName.setText(String.valueOf(i));
+            txtExerciseName.setTypeface(mainFont);
+            txtExerciseName.setTextSize(20);
+//            txtExerciseName.setBackground(getResources().getDrawable(R.drawable.round_white_button_2));
+            txtExerciseName.setTextColor(getResources().getColor(R.color.blue));
+            txtExerciseName.setGravity(Gravity.LEFT);
             LinearLayout.LayoutParams paramsExercise = new LinearLayout.LayoutParams
-                    (LinearLayout.LayoutParams.MATCH_PARENT, (int) (80 * getResources().getDisplayMetrics().density));
-            paramsExercise.setMargins(30, 0, 30, 130);
-            btnSetExercise.setLayoutParams(paramsExercise);
-            exerciseLayout.addView(btnSetExercise);
+                    (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsExercise.setMargins(0, 0, 30, 130);
+            txtExerciseName.setLayoutParams(paramsExercise);
+            exerciseLayout.addView(txtExerciseName);
         }
 
-        for (int i=0; i<exerciseLength; i++){
-            int buttonId = i + 1;
-            Button btnSetExercise = (Button) findViewById(buttonId);
-            btnSetExercise.setOnClickListener(slidingAction);
+        /** 초기 생성 시에만 호출됌 */
+        for (int i=1; i<=exerciseLength; i++) {
+            exerciseLayout.addView(addContent(1), 1+(i-1)*2);
         }
     }
 
-    /** btnExercise OnclickListener */
-    View.OnClickListener slidingAction = new View.OnClickListener() {
-        private boolean isFirstClick = true;
-        private SlidingUpPanelLayout slidingUpPanelLayout;
-        @Override
-        public void onClick(View v) {
-            int clickedId = v.getId();
+    private LinearLayout addContent(int setCnt){
 
-            if(isFirstClick) {
-                slidingUpPanelLayout = addSlidingUpPanel(clickedId);
-                addSet(clickedId, 1);
-                isFirstClick = false;
-            }
+        LinearLayout frameLayout = new LinearLayout(this);
+        frameLayout.setOrientation(LinearLayout.VERTICAL);
 
-            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
+        LinearLayout contentsLayout = new LinearLayout(this);
+        contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        }
-    };
+        TextView txtSetcnt = new TextView(this);
+        txtSetcnt.setText(setCnt + "세트");
+        contentsLayout.addView(txtSetcnt);
 
-    private SlidingUpPanelLayout addSlidingUpPanel(int clickedId) {
+        EditText edtWeight = new EditText(this);
+        edtWeight.setHint("KG");
+        contentsLayout.addView(edtWeight);
 
-        ConstraintLayout mainConstraint = findViewById(R.id.mainConstraint);
-        SlidingUpPanelLayout slidingUpPanelLayout = new SlidingUpPanelLayout(this);
-        slidingUpPanelLayout.setId(clickedId + 100);
+        EditText edtTimes = new EditText(this);
+        edtTimes.setHint("회");
+        contentsLayout.addView(edtTimes);
 
-        int panelHeight = (int) (getResources().getDisplayMetrics().heightPixels * 0.7);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        );
-        slidingUpPanelLayout.setLayoutParams(layoutParams);
+        Button btnDeleteSet = new Button(this);
+        btnDeleteSet.setText("세트 삭제");
+        contentsLayout.addView(btnDeleteSet);
 
-        Button btnClosePanel = new Button(this);
-        btnClosePanel.setText("패널 닫기");
-        btnClosePanel.setOnClickListener(new View.OnClickListener() {
+        btnDeleteSet.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
+            public void onClick(View view) {
+                int lastIndex = frameLayout.getChildCount()-2;
+                if (lastIndex >= 0) {
+                    View lastChild = frameLayout.getChildAt(lastIndex);
+                    frameLayout.removeView(lastChild);
+                }
             }
         });
-        slidingUpPanelLayout.addView(btnClosePanel);
 
+        Button btnAddSet = new Button(this);
+        btnAddSet.setText("세트 추가");
 
-        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
-        mainConstraint.addView(slidingUpPanelLayout);
-        return slidingUpPanelLayout;
+        btnAddSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                frameLayout.removeView(btnAddSet);
+                frameLayout.addView(addContent(setCnt +1));
+
+            }
+        });
+
+        frameLayout.addView(contentsLayout);
+        frameLayout.addView(btnAddSet);
+
+        return frameLayout;
     }
-
-    private void addSet(int clickedId, int setCnt) {
-        SlidingUpPanelLayout slidingUpPanelLayout = findViewById(clickedId + 100);
-        if (slidingUpPanelLayout != null) {
-            LinearLayout contentsLayout = new LinearLayout(this);
-            contentsLayout.setOrientation(LinearLayout.VERTICAL);
-
-            LinearLayout.LayoutParams contentsLayoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            contentsLayout.setLayoutParams(contentsLayoutParams);
-
-            TextView txtSetcnt = new TextView(this);
-            txtSetcnt.setText(setCnt + "세트");
-            contentsLayout.addView(txtSetcnt);
-
-            EditText edtWeight = new EditText(this);
-            edtWeight.setHint("KG");
-            contentsLayout.addView(edtWeight);
-
-            EditText edtTimes = new EditText(this);
-            edtTimes.setHint("회");
-            contentsLayout.addView(edtTimes);
-
-            Button btnDeleteSet = new Button(this);
-            btnDeleteSet.setText("세트 삭제");
-            contentsLayout.addView(btnDeleteSet);
-
-            Button btnClosePanel = new Button(this);
-            btnClosePanel.setText("패널 닫기");
-            btnClosePanel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
-                }
-            });
-            contentsLayout.addView(btnClosePanel);
-
-            slidingUpPanelLayout.addView(contentsLayout);
-        }
-    }
-
-
-//    private void addSet(int clickedId, int setCnt) {
-//        SlidingUpPanelLayout slidingUpPanelLayout = findViewById(clickedId + 100);
-//        if (slidingUpPanelLayout != null) {
-//            LinearLayout contentsLayout = new LinearLayout(this);
-//            contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
-//
-//            LinearLayout.LayoutParams contentsLayoutParams = new LinearLayout.LayoutParams(
-//                    LinearLayout.LayoutParams.MATCH_PARENT,
-//                    LinearLayout.LayoutParams.WRAP_CONTENT
-//            );
-//            contentsLayout.setLayoutParams(contentsLayoutParams);
-//
-//
-//            TextView txtSetcnt = new TextView(this);
-//            txtSetcnt.setText(setCnt + "세트");
-//            contentsLayout.addView(txtSetcnt);
-//
-//            EditText edtWeight = new EditText(this);
-//            edtWeight.setHint("KG");
-//            contentsLayout.addView(edtWeight);
-//
-//            EditText edtTimes = new EditText(this);
-//            edtTimes.setHint("회");
-//            contentsLayout.addView(edtTimes);
-//
-//            Button btnDeleteSet = new Button(this);
-//            btnDeleteSet.setText("세트 삭제");
-//            contentsLayout.addView(btnDeleteSet);
-//
-//            Button btnClosePanel = new Button(this);
-//            btnClosePanel.setText("패널 닫기");
-//            btnClosePanel.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
-//                }
-//            });
-//            slidingUpPanelLayout.addView(btnClosePanel);
-//
-//            Button btnAddSet = new Button(this);
-//            btnAddSet.setText("세트 추가하기");
-//            LinearLayout.LayoutParams addButtonParams = new LinearLayout.LayoutParams(
-//                    LinearLayout.LayoutParams.WRAP_CONTENT,
-//                    LinearLayout.LayoutParams.WRAP_CONTENT
-//            );
-//            addButtonParams.weight = 1;
-//            contentsLayout.addView(btnAddSet, addButtonParams);
-//
-//            slidingUpPanelLayout.addView(contentsLayout);
-////            slidingUpPanelLayout.addView(btnAddSet);
-//        }
-//    }
 
 }
