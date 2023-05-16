@@ -22,7 +22,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
 
         <TextView
-            android:id="@+id/textView34"
+            android:id="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -30,8 +30,8 @@
             android:text="Welcome Back 수정해수정해수정해"
             android:textColor="@color/black"
             android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
 
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewLine" />
 
@@ -46,7 +46,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView34">
+            app:layout_constraintTop_toBottomOf="@+id/welcome">
 
             <TextView
                 android:id="@+id/textView1"
@@ -141,9 +141,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Calory  "
                 android:fontFamily="@font/jamsil_regular"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                tools:text="Calory" />
 
             <TextView
                 android:id="@+id/txtUserCalory"

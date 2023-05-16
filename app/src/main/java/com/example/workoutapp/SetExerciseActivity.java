@@ -9,10 +9,17 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,7 +53,9 @@ public class SetExerciseActivity extends AppCompatActivity {
         for (int i=0; i<exerciseLength; i++){
             Button btnSetExercise = new Button(this);
             /** 세트 수 설정하는 button ID는 101~ */
-            btnSetExercise.setId(i + 101);
+            btnSetExercise.setId((int) selectedExercise.get(i));
+
+
 
             /** 운동 이름 추가하시면 됩니다~ */
             btnSetExercise.setText(String.valueOf(i));
@@ -62,10 +71,14 @@ public class SetExerciseActivity extends AppCompatActivity {
             exerciseLayout.addView(btnSetExercise);
         }
 
+
+
+
         SlidingUpPanelLayout slidingUpPanelLayout = findViewById(R.id.main_frame);
 
         for (int i=0; i<exerciseLength; i++){
-            int buttonId = i + 101;
+            int buttonId = (int) selectedExercise.get(i);
+            //int buttonId = i + 101;
             Button btnSetExercise = (Button) findViewById(buttonId);
             btnSetExercise.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,6 +87,39 @@ public class SetExerciseActivity extends AppCompatActivity {
                 }
             });
         }
+        Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+
+
+                    if(success){
+                        String eventExercise = jsonObject.getString("eventExercise");
+                        String eventNo = jsonObject.getString("eventNo");
+
+                        Button btnSetExercise = (Button) findViewById(Integer.parseInt(eventNo));
+
+                        btnSetExercise.setText(eventExercise);
+                        Log.d("user","uesrName" +eventExercise);
+                        Log.d("user","uesrName" +eventNo);
+
+
+                    }
+                    else {
+
+                    }
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        for (int j = 0; j<exerciseLength; j++){
+            InfoRequest infoRequest = new InfoRequest(Integer.toString((int) selectedExercise.get(j)), infoResponseListener);
+            RequestQueue queue = Volley.newRequestQueue(SetExerciseActivity.this);
+            queue.add(infoRequest);}
     }
 
     private void setSlidingUpLayout(LinearLayout linearLayout){

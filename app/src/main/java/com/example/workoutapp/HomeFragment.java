@@ -16,6 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -66,6 +74,7 @@ public class HomeFragment extends Fragment {
     }
 
     private TextView txtToday;
+    private TextView welcome;
     private Button btnExercise;
     private int selectedyear;
     private int selectedmonth;
@@ -78,9 +87,14 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        welcome = view.findViewById(R.id.welcome);
         txtToday = view.findViewById(R.id.txtToday);
         btnExercise = view.findViewById(R.id.btnExerciseToday);
         // txtToday 꾸미는 함수
+
+
+
+
         setTxtToday();
 
         /** MainActivty에서 넘긴 UserID Fragment에서 호출 및 할당 */
@@ -89,6 +103,35 @@ public class HomeFragment extends Fragment {
             userID = bundle.getString("userID");
         }
         Log.d("user ID","User ID :" + userID);
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if(success){
+                        String userID = jsonObject.getString("userID");
+                        String userName = jsonObject.getString("userName");
+
+                        Log.d("user ID","User ID :" + userName);
+
+                        welcome.setText(userName+"님 화이팅!!!");
+
+                    }else {
+
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        MemberRequest loginRequest = new MemberRequest(userID ,  responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(loginRequest);
+
+
 
         /** 오늘 운동하기 버튼 누르면, 오늘 날짜 Intent로 넘어감 */
         btnExercise.setOnClickListener(new View.OnClickListener() {
