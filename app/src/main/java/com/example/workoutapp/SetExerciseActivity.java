@@ -1,6 +1,7 @@
 package com.example.workoutapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -8,8 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,6 +34,10 @@ public class SetExerciseActivity extends AppCompatActivity {
     private String date;
     private ArrayList selectedExercise;
     private Typeface mainFont;
+    private int exerciseLength;
+
+    private LinearLayout exerciseLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,101 +51,89 @@ public class SetExerciseActivity extends AppCompatActivity {
         Collections.sort(selectedExercise);
         Log.d("Selected Exercise","Selected Exercise :" + selectedExercise);
 
-        int exerciseLength = selectedExercise.size();
-        LinearLayout exerciseLayout = findViewById(R.id.exerciseLayout);
+        exerciseLength = selectedExercise.size();
+        exerciseLayout = findViewById(R.id.exerciseLayout);
         mainFont = getResources().getFont(R.font.jamsil_regular);
+
 
 
         /** 세트 수 설정하는 버튼 생성 */
         for (int i=0; i<exerciseLength; i++){
-            Button btnSetExercise = new Button(this);
-            /** 세트 수 설정하는 button ID는 101~ */
-            btnSetExercise.setId((int) selectedExercise.get(i));
-
-
+            TextView txtExerciseName = new TextView(this);
+            /** 운동이름 보여주는 textView ID는 1~ */
+            txtExerciseName.setId(i + 1);
 
             /** 운동 이름 추가하시면 됩니다~ */
-//            btnSetExercise.setText(String.valueOf(i));
-            btnSetExercise.setTypeface(mainFont);
-            btnSetExercise.setTextSize(15);
-            btnSetExercise.setBackground(getResources().getDrawable(R.drawable.round_white_button_2));
-            btnSetExercise.setTextColor(getResources().getColorStateList(R.drawable.white_to_blue_button_text));
-            btnSetExercise.setGravity(Gravity.CENTER);
+            txtExerciseName.setText(String.valueOf(i));
+            txtExerciseName.setTypeface(mainFont);
+            txtExerciseName.setTextSize(20);
+//            txtExerciseName.setBackground(getResources().getDrawable(R.drawable.round_white_button_2));
+            txtExerciseName.setTextColor(getResources().getColor(R.color.blue));
+            txtExerciseName.setGravity(Gravity.LEFT);
             LinearLayout.LayoutParams paramsExercise = new LinearLayout.LayoutParams
-                    (LinearLayout.LayoutParams.MATCH_PARENT, (int) (80 * getResources().getDisplayMetrics().density));
-            paramsExercise.setMargins(30, 0, 30, 130);
-            btnSetExercise.setLayoutParams(paramsExercise);
-            exerciseLayout.addView(btnSetExercise);
+                    (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsExercise.setMargins(0, 0, 30, 130);
+            txtExerciseName.setLayoutParams(paramsExercise);
+            exerciseLayout.addView(txtExerciseName);
         }
 
-
-
-
-        SlidingUpPanelLayout slidingUpPanelLayout = findViewById(R.id.main_frame);
-
-        for (int i=0; i<exerciseLength; i++){
-            int buttonId = (int) selectedExercise.get(i);
-            //int buttonId = i + 101;
-            Button btnSetExercise = (Button) findViewById(buttonId);
-            btnSetExercise.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
-                }
-            });
+        /** 초기 생성 시에만 호출됌 */
+        for (int i=1; i<=exerciseLength; i++) {
+            exerciseLayout.addView(addContent(1), 1+(i-1)*2);
         }
-        Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean success = jsonObject.getBoolean("success");
-
-
-                    if(success){
-                        String eventExercise = jsonObject.getString("eventExercise");
-                        String eventNo = jsonObject.getString("eventNo");
-
-                        Button btnSetExercise = (Button) findViewById(Integer.parseInt(eventNo));
-
-                        btnSetExercise.setText(eventExercise);
-                        Log.d("user","uesrName" +eventExercise);
-                        Log.d("user","uesrName" +eventNo);
-
-
-                    }
-                    else {
-
-                    }
-
-                } catch (JSONException e){
-                    e.printStackTrace();
-                }
-            }
-        };
-        for (int j = 0; j<exerciseLength; j++){
-            InfoRequest infoRequest = new InfoRequest(Integer.toString((int) selectedExercise.get(j)), infoResponseListener);
-            RequestQueue queue = Volley.newRequestQueue(SetExerciseActivity.this);
-            queue.add(infoRequest);}
     }
 
-    private void setSlidingUpLayout(LinearLayout linearLayout){
-        int setCnt = 3;
+    private LinearLayout addContent(int setCnt){
 
-        TextView txtExerciseName = findViewById(R.id.txtExerciseName);
-        txtExerciseName.setText("운동 이름 추가해");
+        LinearLayout frameLayout = new LinearLayout(this);
+        frameLayout.setOrientation(LinearLayout.VERTICAL);
 
-        LinearLayout contentLayout = new LinearLayout(this);
-        contentLayout.setOrientation(LinearLayout.HORIZONTAL);
-        contentLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+        LinearLayout contentsLayout = new LinearLayout(this);
+        contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        for (int i=0; i<setCnt; i++){
-            TextView txtSetCnt = new TextView(this);
-            txtSetCnt.setText(setCnt + "세트");
-            txtSetCnt.setTypeface(mainFont);
-            txtSetCnt.setTextSize(15);
+        TextView txtSetcnt = new TextView(this);
+        txtSetcnt.setText(setCnt + "세트");
+        contentsLayout.addView(txtSetcnt);
 
-        }
+        EditText edtWeight = new EditText(this);
+        edtWeight.setHint("KG");
+        contentsLayout.addView(edtWeight);
+
+        EditText edtTimes = new EditText(this);
+        edtTimes.setHint("회");
+        contentsLayout.addView(edtTimes);
+
+        Button btnDeleteSet = new Button(this);
+        btnDeleteSet.setText("세트 삭제");
+        contentsLayout.addView(btnDeleteSet);
+
+        btnDeleteSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int lastIndex = frameLayout.getChildCount()-2;
+                if (lastIndex >= 0) {
+                    View lastChild = frameLayout.getChildAt(lastIndex);
+                    frameLayout.removeView(lastChild);
+                }
+            }
+        });
+
+        Button btnAddSet = new Button(this);
+        btnAddSet.setText("세트 추가");
+
+        btnAddSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                frameLayout.removeView(btnAddSet);
+                frameLayout.addView(addContent(setCnt +1));
+
+            }
+        });
+
+        frameLayout.addView(contentsLayout);
+        frameLayout.addView(btnAddSet);
+
+        return frameLayout;
     }
 
 
