@@ -36,6 +36,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import java.util.Observable;
+import java.util.Observer;
+
 public class CreatePlanActivity extends AppCompatActivity {
 
     private MaterialCalendarView calendar;
@@ -46,15 +49,121 @@ public class CreatePlanActivity extends AppCompatActivity {
     private LocalDate dateForIntent;
     private String userID;
 
-    //----------------------------------------
+
     private String selectedDate;
     private int year;
     private int month;
     private int day;
 
-    private String calenderDate ="2023-05-15";
+    private LocalDate calenderDate;
     private String userMail = "rlawo5219@gmail.com";
-    //----------------------------------------
+
+    private void todayWidgetVisible(){
+        Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
+        Button btnLoadPlan = findViewById(R.id.btnLoadPlan);
+        Button btnRest = findViewById(R.id.btnRest);
+        TextView textView18 = findViewById(R.id.textView18);
+        TextView textView19 = findViewById(R.id.textView19);
+        TextView textView20 = findViewById(R.id.textView20);
+
+        btnCreatePlan.setVisibility(View.VISIBLE);
+        btnLoadPlan.setVisibility(View.VISIBLE);
+        btnRest.setVisibility(View.VISIBLE);
+        textView18.setVisibility(View.VISIBLE);
+        textView19.setVisibility(View.VISIBLE);
+        textView20.setVisibility(View.VISIBLE);
+    }
+
+    private void todayWidgetGone(){
+        Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
+        Button btnLoadPlan = findViewById(R.id.btnLoadPlan);
+        Button btnRest = findViewById(R.id.btnRest);
+        TextView textView18 = findViewById(R.id.textView18);
+        TextView textView19 = findViewById(R.id.textView19);
+        TextView textView20 = findViewById(R.id.textView20);
+
+        btnCreatePlan.setVisibility(View.GONE);
+        btnLoadPlan.setVisibility(View.GONE);
+        btnRest.setVisibility(View.GONE);
+        textView18.setVisibility(View.GONE);
+        textView19.setVisibility(View.GONE);
+        textView20.setVisibility(View.GONE);
+    }
+
+    private void pastAndFutureGone(){
+        TextView textView22 = findViewById(R.id.textView22);
+        TextView textView23 = findViewById(R.id.textView23);
+        TextView textView24 = findViewById(R.id.textView24);
+        TextView textView25 = findViewById(R.id.textView25);
+        TextView textView26 = findViewById(R.id.textView26);
+        TextView textView27 = findViewById(R.id.textView27);
+        TextView textView28 = findViewById(R.id.textView28);
+        ScrollView scrollView = findViewById(R.id.scrollView2);
+
+        textView22.setVisibility(View.GONE);
+        textView23.setVisibility(View.GONE);
+        textView24.setVisibility(View.GONE);
+        textView25.setVisibility(View.GONE);
+        textView26.setVisibility(View.GONE);
+        textView27.setVisibility(View.GONE);
+        textView28.setVisibility(View.GONE);
+        scrollView.setVisibility(View.GONE);
+
+        textView23.setText("");
+        textView25.setText("");
+        textView27.setText("");
+    }
+
+    private void pastGoneFutureVisible(){
+        TextView textView22 = findViewById(R.id.textView22);
+        TextView textView23 = findViewById(R.id.textView23);
+        TextView textView24 = findViewById(R.id.textView24);
+        TextView textView25 = findViewById(R.id.textView25);
+        TextView textView26 = findViewById(R.id.textView26);
+        TextView textView27 = findViewById(R.id.textView27);
+        ScrollView scrollView = findViewById(R.id.scrollView2);
+
+        textView22.setVisibility(View.GONE);
+        textView23.setVisibility(View.GONE);
+        textView24.setVisibility(View.GONE);
+        textView25.setVisibility(View.GONE);
+        textView26.setVisibility(View.GONE);
+        textView27.setVisibility(View.GONE);
+        scrollView.setVisibility(View.GONE);
+
+
+        TextView textView28 = findViewById(R.id.textView28);
+        textView28.setVisibility(View.VISIBLE);
+
+        textView23.setText("");
+        textView25.setText("");
+        textView27.setText("");
+    }
+    private void pastVisibleFutureGone(){
+        TextView textView22 = findViewById(R.id.textView22);
+        TextView textView23 = findViewById(R.id.textView23);
+        TextView textView24 = findViewById(R.id.textView24);
+        TextView textView25 = findViewById(R.id.textView25);
+        TextView textView26 = findViewById(R.id.textView26);
+        TextView textView27 = findViewById(R.id.textView27);
+        ScrollView scrollView = findViewById(R.id.scrollView2);
+
+        textView22.setVisibility(View.VISIBLE);
+        textView23.setVisibility(View.VISIBLE);
+        textView24.setVisibility(View.VISIBLE);
+        textView25.setVisibility(View.VISIBLE);
+        textView26.setVisibility(View.VISIBLE);
+        textView27.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.VISIBLE);
+
+        TextView textView28 = findViewById(R.id.textView28);
+        textView28.setVisibility(View.GONE);
+
+        textView23.setText("");
+        textView25.setText("");
+        textView27.setText("");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +180,6 @@ public class CreatePlanActivity extends AppCompatActivity {
         selectedyear = Integer.parseInt(dateArray[0]);
         selectedmonth = Integer.parseInt(dateArray[1]);
         seletedday = Integer.parseInt(dateArray[2]);
-        //-----------------------------------------------------------------------------------------------------------
-        year = Integer.parseInt(dateArray[0]);
-        month = Integer.parseInt(dateArray[1]);
-        day = Integer.parseInt(dateArray[2]);
-        //-----------------------------------------------------------------------------------------------------------
 
         Log.d("user ID","User ID :" + userID);
 
@@ -84,42 +188,49 @@ public class CreatePlanActivity extends AppCompatActivity {
 
         // CreatePlan 엑티비티로 반환하기 위한 LocalTime 변수로 변환, 실제로 반환되는 변수는 dateFor
         dateForIntent = LocalDate.of(selectedyear,selectedmonth,seletedday);
+        calenderDate = LocalDate.of(selectedyear,selectedmonth,seletedday);
 
         calendar.setSelectedDate(date);
         calendar.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
 
-        //==============================================================
-        //텍스트뷰 22 ~ 27
-        //scoll scrollView2
 
-        TextView textView22 = findViewById(R.id.textView22);
-        TextView textView23 = findViewById(R.id.textView23);
-        TextView textView24 = findViewById(R.id.textView24);
-        TextView textView25 = findViewById(R.id.textView25);
-        TextView textView26 = findViewById(R.id.textView26);
-        TextView textView27 = findViewById(R.id.textView27);
-        ScrollView scrollView = findViewById(R.id.scrollView2);
+        LocalDate now = LocalDate.now();
 
-        textView22.setVisibility(View.GONE);
-        textView23.setVisibility(View.GONE);
-        textView24.setVisibility(View.GONE);
-        textView25.setVisibility(View.GONE);
-        textView26.setVisibility(View.GONE);
-        textView27.setVisibility(View.GONE);
-        scrollView.setVisibility(View.GONE);
-        //==============================================================
+
+        year = Integer.parseInt(String.valueOf(now.getYear()));
+        month = Integer.parseInt(String.valueOf(now.getMonth().getValue()));
+        day = Integer.parseInt(String.valueOf(now.getDayOfMonth()));
+        selectedDate = year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day);
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        if(LocalDate.parse(selectedDate, formatter).compareTo(dateForIntent) == 0){  //오늘
+            todayWidgetVisible();
+            pastAndFutureGone();
+
+        }else if(LocalDate.parse(selectedDate, formatter).compareTo(dateForIntent) < 0){ //내일
+            todayWidgetGone();
+            pastGoneFutureVisible();
+
+        }else if(LocalDate.parse(selectedDate, formatter).compareTo(dateForIntent) > 0 ){ //과거
+            todayWidgetGone();
+            pastVisibleFutureGone();
+
+        }
 
 
         /** 사용자가 선택한 날짜 저장 */
         calendar.setOnDateChangedListener(new OnDateSelectedListener() {
+
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+
                 selectedyear = date.getYear();
                 selectedmonth = date.getMonth();
                 seletedday = date.getDay();
                 dateForIntent = LocalDate.of(selectedyear,selectedmonth,seletedday);
 
-                //-------------------------------------------------------------------------------------
                 LocalDate now = LocalDate.now();
 
                 /** 사용자가 선택 안할 시 자동으로 오늘 날짜 지정 */
@@ -132,116 +243,74 @@ public class CreatePlanActivity extends AppCompatActivity {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
                 if(LocalDate.parse(selectedDate, formatter).compareTo(dateForIntent) == 0){  //오늘
-                    Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
-                    Button btnLoadPlan = findViewById(R.id.btnLoadPlan);
-                    Button btnRest = findViewById(R.id.btnRest);
-                    TextView textView18 = findViewById(R.id.textView18);
-                    TextView textView19 = findViewById(R.id.textView19);
-                    TextView textView20 = findViewById(R.id.textView20);
-
-                    btnCreatePlan.setVisibility(View.VISIBLE);
-                    btnLoadPlan.setVisibility(View.VISIBLE);
-                    btnRest.setVisibility(View.VISIBLE);
-                    textView18.setVisibility(View.VISIBLE);
-                    textView19.setVisibility(View.VISIBLE);
-                    textView20.setVisibility(View.VISIBLE);
-
-                    //==============================================================
-                    //텍스트뷰 22 ~ 27
-                    //scoll scrollView2
-
-                    TextView textView22 = findViewById(R.id.textView22);
-                    TextView textView23 = findViewById(R.id.textView23);
-                    TextView textView24 = findViewById(R.id.textView24);
-                    TextView textView25 = findViewById(R.id.textView25);
-                    TextView textView26 = findViewById(R.id.textView26);
-                    TextView textView27 = findViewById(R.id.textView27);
-                    ScrollView scrollView = findViewById(R.id.scrollView2);
-
-                    textView22.setVisibility(View.GONE);
-                    textView23.setVisibility(View.GONE);
-                    textView24.setVisibility(View.GONE);
-                    textView25.setVisibility(View.GONE);
-                    textView26.setVisibility(View.GONE);
-                    textView27.setVisibility(View.GONE);
-                    scrollView.setVisibility(View.GONE);
-                    //==============================================================
+                    todayWidgetVisible();
+                    pastAndFutureGone();
 
                 }else if(LocalDate.parse(selectedDate, formatter).compareTo(dateForIntent) < 0){ //내일
-                    Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
-                    Button btnLoadPlan = findViewById(R.id.btnLoadPlan);
-                    Button btnRest = findViewById(R.id.btnRest);
-                    TextView textView18 = findViewById(R.id.textView18);
-                    TextView textView19 = findViewById(R.id.textView19);
-                    TextView textView20 = findViewById(R.id.textView20);
-
-                    btnCreatePlan.setVisibility(View.GONE);
-                    btnLoadPlan.setVisibility(View.GONE);
-                    btnRest.setVisibility(View.GONE);
-                    textView18.setVisibility(View.GONE);
-                    textView19.setVisibility(View.GONE);
-                    textView20.setVisibility(View.GONE);
-
-                    //==============================================================
-                    //텍스트뷰 22 ~ 27
-                    //scoll scrollView2
-
-                    TextView textView22 = findViewById(R.id.textView22);
-                    TextView textView23 = findViewById(R.id.textView23);
-                    TextView textView24 = findViewById(R.id.textView24);
-                    TextView textView25 = findViewById(R.id.textView25);
-                    TextView textView26 = findViewById(R.id.textView26);
-                    TextView textView27 = findViewById(R.id.textView27);
-                    ScrollView scrollView = findViewById(R.id.scrollView2);
-
-                    textView22.setVisibility(View.GONE);
-                    textView23.setVisibility(View.GONE);
-                    textView24.setVisibility(View.GONE);
-                    textView25.setVisibility(View.GONE);
-                    textView26.setVisibility(View.GONE);
-                    textView27.setVisibility(View.GONE);
-                    scrollView.setVisibility(View.GONE);
-                    //==============================================================
+                    todayWidgetGone();
+                    pastGoneFutureVisible();
 
                 }else if(LocalDate.parse(selectedDate, formatter).compareTo(dateForIntent) > 0){ //과거
-                    Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
-                    Button btnLoadPlan = findViewById(R.id.btnLoadPlan);
-                    Button btnRest = findViewById(R.id.btnRest);
-                    TextView textView18 = findViewById(R.id.textView18);
-                    TextView textView19 = findViewById(R.id.textView19);
-                    TextView textView20 = findViewById(R.id.textView20);
+                    todayWidgetGone();
+                    pastVisibleFutureGone();
 
-                    btnCreatePlan.setVisibility(View.GONE);
-                    btnLoadPlan.setVisibility(View.GONE);
-                    btnRest.setVisibility(View.GONE);
-                    textView18.setVisibility(View.GONE);
-                    textView19.setVisibility(View.GONE);
-                    textView20.setVisibility(View.GONE);
-
-                    //==============================================================
-                    //텍스트뷰 22 ~ 27
-                    //scoll scrollView2
-
-                    TextView textView22 = findViewById(R.id.textView22);
-                    TextView textView23 = findViewById(R.id.textView23);
-                    TextView textView24 = findViewById(R.id.textView24);
-                    TextView textView25 = findViewById(R.id.textView25);
-                    TextView textView26 = findViewById(R.id.textView26);
-                    TextView textView27 = findViewById(R.id.textView27);
-                    ScrollView scrollView = findViewById(R.id.scrollView2);
-
-                    textView22.setVisibility(View.VISIBLE);
-                    textView23.setVisibility(View.VISIBLE);
-                    textView24.setVisibility(View.VISIBLE);
-                    textView25.setVisibility(View.VISIBLE);
-                    textView26.setVisibility(View.VISIBLE);
-                    textView27.setVisibility(View.VISIBLE);
-                    scrollView.setVisibility(View.VISIBLE);
-                    //==============================================================
                 }
 
+                Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
 
-                //-------------------------------------------------------------------------------------
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+
+
+                            if(success){
+                                //String calenderMessage = jsonObject.getString("calenderMessage");
+                                String calenderRoutine = jsonObject.getString("calenderRoutine");
+                                String calenderTime = jsonObject.getString("calenderTime");
+                                String calenderWeight = jsonObject.getString("calenderWeight");
+
+                                Log.d("user","uesrName" +calenderRoutine);
+                                Log.d("user","uesrName" +calenderTime);
+                                Log.d("user","uesrName" +calenderWeight);
+
+                                TextView textView22 = findViewById(R.id.textView22);
+                                TextView textView23 = findViewById(R.id.textView23);
+                                TextView textView24 = findViewById(R.id.textView24);
+                                TextView textView25 = findViewById(R.id.textView25);
+                                TextView textView26 = findViewById(R.id.textView26);
+                                TextView textView27 = findViewById(R.id.textView27);
+                                ScrollView scrollView = findViewById(R.id.scrollView2);
+
+                                textView23.setText(calenderRoutine);
+                                textView25.setText(calenderWeight + "kg");
+                                textView27.setText(calenderTime);
+
+                            }
+                            else {
+                                TextView textView22 = findViewById(R.id.textView22);
+                                TextView textView23 = findViewById(R.id.textView23);
+                                TextView textView24 = findViewById(R.id.textView24);
+                                TextView textView25 = findViewById(R.id.textView25);
+                                TextView textView26 = findViewById(R.id.textView26);
+                                TextView textView27 = findViewById(R.id.textView27);
+                                ScrollView scrollView = findViewById(R.id.scrollView2);
+
+                                textView23.setText("");
+                                textView25.setText("");
+                                textView27.setText("");
+                            }
+
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                CalenderRequest calenderRequest = new CalenderRequest(String.valueOf(dateForIntent), userMail, infoResponseListener);
+                RequestQueue queue = Volley.newRequestQueue(CreatePlanActivity.this);
+                queue.add(calenderRequest);
 
             }
         });
@@ -299,7 +368,17 @@ public class CreatePlanActivity extends AppCompatActivity {
 
                     }
                     else {
+                        TextView textView22 = findViewById(R.id.textView22);
+                        TextView textView23 = findViewById(R.id.textView23);
+                        TextView textView24 = findViewById(R.id.textView24);
+                        TextView textView25 = findViewById(R.id.textView25);
+                        TextView textView26 = findViewById(R.id.textView26);
+                        TextView textView27 = findViewById(R.id.textView27);
+                        ScrollView scrollView = findViewById(R.id.scrollView2);
 
+                        textView23.setText("");
+                        textView25.setText("");
+                        textView27.setText("");
                     }
 
                 } catch (JSONException e){
@@ -307,7 +386,7 @@ public class CreatePlanActivity extends AppCompatActivity {
                 }
             }
         };
-        CalenderRequest calenderRequest = new CalenderRequest(calenderDate, userMail, infoResponseListener);
+        CalenderRequest calenderRequest = new CalenderRequest(String.valueOf(calenderDate), userMail, infoResponseListener);
         RequestQueue queue = Volley.newRequestQueue(CreatePlanActivity.this);
         queue.add(calenderRequest);
 
