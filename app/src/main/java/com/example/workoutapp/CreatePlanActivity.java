@@ -56,7 +56,6 @@ public class CreatePlanActivity extends AppCompatActivity {
     private int day;
 
     private LocalDate calenderDate;
-    private String userMail = "rlawo5219@gmail.com";
 
     private void todayWidgetVisible(){
         Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
@@ -308,7 +307,7 @@ public class CreatePlanActivity extends AppCompatActivity {
                     }
                 };
 
-                CalenderRequest calenderRequest = new CalenderRequest(String.valueOf(dateForIntent), userMail, infoResponseListener);
+                CalenderRequest calenderRequest = new CalenderRequest(String.valueOf(dateForIntent), userID, infoResponseListener);
                 RequestQueue queue = Volley.newRequestQueue(CreatePlanActivity.this);
                 queue.add(calenderRequest);
 
@@ -386,7 +385,7 @@ public class CreatePlanActivity extends AppCompatActivity {
                 }
             }
         };
-        CalenderRequest calenderRequest = new CalenderRequest(String.valueOf(calenderDate), userMail, infoResponseListener);
+        CalenderRequest calenderRequest = new CalenderRequest(String.valueOf(calenderDate), userID, infoResponseListener);
         RequestQueue queue = Volley.newRequestQueue(CreatePlanActivity.this);
         queue.add(calenderRequest);
 
