@@ -42,7 +42,7 @@ public class SetExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_exercise);
-
+//co
         /** 이전 엑티비티에서 data 가져오기 */
         Intent intent = getIntent();
         userID = getIntent().getStringExtra("userID");
