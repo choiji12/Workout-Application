@@ -37,6 +37,7 @@ public class SetExerciseActivity extends AppCompatActivity {
     private int exerciseLength;
 
     private LinearLayout exerciseLayout;
+    private LinearLayout contentsLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,8 @@ public class SetExerciseActivity extends AppCompatActivity {
 
         /** 초기 생성 시에만 호출됌 */
         for (int i=1; i<=exerciseLength; i++) {
-            exerciseLayout.addView(addContent(1), 1+(i-1)*2);
+            LinearLayout contentLayout = addContent(1);
+            exerciseLayout.addView(contentLayout, 1+(i-1)*2);
         }
 
         Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
@@ -118,7 +120,7 @@ public class SetExerciseActivity extends AppCompatActivity {
         LinearLayout frameLayout = new LinearLayout(this);
         frameLayout.setOrientation(LinearLayout.VERTICAL);
 
-        LinearLayout contentsLayout = new LinearLayout(this);
+        contentsLayout = new LinearLayout(this);
         contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView txtSetcnt = new TextView(this);
@@ -133,37 +135,41 @@ public class SetExerciseActivity extends AppCompatActivity {
         edtTimes.setHint("회");
         contentsLayout.addView(edtTimes);
 
+        frameLayout.addView(contentsLayout);
+        createButtons(frameLayout);
+
+        return frameLayout;
+    }
+
+    private LinearLayout createButtons(LinearLayout parentLayout) {
+        LinearLayout buttonLayout = new LinearLayout(this);
+        buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
+
         Button btnDeleteSet = new Button(this);
         btnDeleteSet.setText("세트 삭제");
-        contentsLayout.addView(btnDeleteSet);
-
         btnDeleteSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int lastIndex = frameLayout.getChildCount()-2;
-                if (lastIndex >= 0) {
-                    View lastChild = frameLayout.getChildAt(lastIndex);
-                    frameLayout.removeView(lastChild);
-                }
+                parentLayout.removeView((View) view.getParent().getParent());
             }
         });
 
         Button btnAddSet = new Button(this);
         btnAddSet.setText("세트 추가");
-
         btnAddSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                frameLayout.removeView(btnAddSet);
-                frameLayout.addView(addContent(setCnt +1));
-
+                parentLayout.removeView(parentLayout.getChildAt(parentLayout.getChildCount()-1));
+                parentLayout.addView(addContent(1));
             }
         });
 
-        frameLayout.addView(contentsLayout);
-        frameLayout.addView(btnAddSet);
+        buttonLayout.addView(btnAddSet);
+        buttonLayout.addView(btnDeleteSet);
 
-        return frameLayout;
+        parentLayout.addView(buttonLayout);
+
+        return buttonLayout;
     }
 
 
