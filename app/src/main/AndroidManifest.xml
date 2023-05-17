@@ -14,6 +14,7 @@
         android:theme="@style/Theme.WorkOutApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
             android:name=".SetExerciseActivity"
             android:exported="false" />

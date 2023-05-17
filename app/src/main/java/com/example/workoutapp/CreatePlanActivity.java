@@ -28,6 +28,7 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -262,18 +263,9 @@ public class CreatePlanActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             boolean success = jsonObject.getBoolean("success");
-
+                            JSONArray tuples = jsonObject.getJSONArray("tuples"); // 튜플 배열을 가져옵니다.
 
                             if(success){
-                                //String calenderMessage = jsonObject.getString("calenderMessage");
-                                String calenderRoutine = jsonObject.getString("calenderRoutine");
-                                String calenderTime = jsonObject.getString("calenderTime");
-                                String calenderWeight = jsonObject.getString("calenderWeight");
-
-                                Log.d("user","uesrName" +calenderRoutine);
-                                Log.d("user","uesrName" +calenderTime);
-                                Log.d("user","uesrName" +calenderWeight);
-
                                 TextView textView22 = findViewById(R.id.textView22);
                                 TextView textView23 = findViewById(R.id.textView23);
                                 TextView textView24 = findViewById(R.id.textView24);
@@ -282,10 +274,33 @@ public class CreatePlanActivity extends AppCompatActivity {
                                 TextView textView27 = findViewById(R.id.textView27);
                                 ScrollView scrollView = findViewById(R.id.scrollView2);
 
-                                textView23.setText(calenderRoutine);
-                                textView25.setText(calenderWeight + "kg");
-                                textView27.setText(calenderTime);
+                                String routine = "";
+                                int time = 0;
+                                String weight = "";
 
+                                String calenderRoutine;
+                                String calenderTime;
+                                String calenderWeight;
+
+                                for (int i = 0; i < tuples.length(); i++) {
+                                    JSONObject tuple = tuples.getJSONObject(i);
+
+                                    //String calenderMessage = jsonObject.getString("calenderMessage");
+                                    calenderRoutine = tuple.getString("calenderRoutine");
+                                    calenderTime = tuple.getString("calenderTime");
+                                    calenderWeight = tuple.getString("calenderWeight");
+
+                                    routine += "\n" + calenderRoutine + "\n";
+                                    time += Integer.parseInt(calenderTime);
+                                    weight = calenderWeight;
+                                }
+
+                                int hour = time / 60;
+                                int minute = time % 60;
+
+                                textView23.setText(routine);
+                                textView25.setText((weight.equals("")) ? "" : weight + "kg");
+                                textView27.setText((time == 0) ? "" : hour + "H " + minute + "M");
                             }
                             else {
                                 TextView textView22 = findViewById(R.id.textView22);
@@ -338,19 +353,9 @@ public class CreatePlanActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
-
+                    JSONArray tuples = jsonObject.getJSONArray("tuples"); // 튜플 배열을 가져옵니다.
 
                     if(success){
-                        //String calenderMessage = jsonObject.getString("calenderMessage");
-                        String calenderRoutine = jsonObject.getString("calenderRoutine");
-                        String calenderTime = jsonObject.getString("calenderTime");
-                        String calenderWeight = jsonObject.getString("calenderWeight");
-
-
-                        Log.d("user","uesrName" +calenderRoutine);
-                        Log.d("user","uesrName" +calenderTime);
-                        Log.d("user","uesrName" +calenderWeight);
-
                         TextView textView22 = findViewById(R.id.textView22);
                         TextView textView23 = findViewById(R.id.textView23);
                         TextView textView24 = findViewById(R.id.textView24);
@@ -359,11 +364,33 @@ public class CreatePlanActivity extends AppCompatActivity {
                         TextView textView27 = findViewById(R.id.textView27);
                         ScrollView scrollView = findViewById(R.id.scrollView2);
 
-                        textView23.setText(calenderRoutine);
-                        textView25.setText(calenderWeight + "kg");
-                        textView27.setText(calenderTime);
+                        String routine = "";
+                        int time = 0;
+                        String weight = "";
 
+                        String calenderRoutine;
+                        String calenderTime;
+                        String calenderWeight;
 
+                        for (int i = 0; i < tuples.length(); i++) {
+                            JSONObject tuple = tuples.getJSONObject(i);
+
+                            //String calenderMessage = jsonObject.getString("calenderMessage");
+                            calenderRoutine = tuple.getString("calenderRoutine");
+                            calenderTime = tuple.getString("calenderTime");
+                            calenderWeight = tuple.getString("calenderWeight");
+
+                            routine += "\n" + calenderRoutine + "\n";
+                            time += Integer.parseInt(calenderTime);
+                            weight = calenderWeight;
+                        }
+
+                        int hour = time / 60;
+                        int minute = time % 60;
+
+                        textView23.setText(routine);
+                        textView25.setText((weight.equals("")) ? "" : weight + "kg");
+                        textView27.setText((time == 0) ? "" : hour + "H " + minute + "M");
 
                     }
                     else {

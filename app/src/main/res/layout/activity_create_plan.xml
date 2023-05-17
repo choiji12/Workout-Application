@@ -200,7 +200,7 @@
     android:id="@+id/textView28"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="40dp"
+    android:layout_marginEnd="20dp"
     android:fontFamily="@font/jamsil_regular"
     android:gravity="center"
     android:text="당일에만 운동을 계획할 수 있어요. \n\n다음날 시도 하세요."
