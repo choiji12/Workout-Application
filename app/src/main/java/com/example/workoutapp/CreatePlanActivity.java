@@ -109,9 +109,9 @@ public class CreatePlanActivity extends AppCompatActivity {
         textView28.setVisibility(View.GONE);
         scrollView.setVisibility(View.GONE);
 
-        textView23.setText("");
-        textView25.setText("");
-        textView27.setText("");
+//        textView23.setText("");
+//        textView25.setText("");
+//        textView27.setText("");
     }
 
     private void pastGoneFutureVisible(){
@@ -135,9 +135,9 @@ public class CreatePlanActivity extends AppCompatActivity {
         TextView textView28 = findViewById(R.id.textView28);
         textView28.setVisibility(View.VISIBLE);
 
-        textView23.setText("");
-        textView25.setText("");
-        textView27.setText("");
+//        textView23.setText("");
+//        textView25.setText("");
+//        textView27.setText("");
     }
     private void pastVisibleFutureGone(){
         TextView textView22 = findViewById(R.id.textView22);
@@ -159,9 +159,9 @@ public class CreatePlanActivity extends AppCompatActivity {
         TextView textView28 = findViewById(R.id.textView28);
         textView28.setVisibility(View.GONE);
 
-        textView23.setText("");
-        textView25.setText("");
-        textView27.setText("");
+//        textView23.setText("");
+//        textView25.setText("");
+//        textView27.setText("");
     }
 
 
@@ -298,9 +298,9 @@ public class CreatePlanActivity extends AppCompatActivity {
                                 int hour = time / 60;
                                 int minute = time % 60;
 
-                                textView23.setText(routine);
-                                textView25.setText((weight.equals("")) ? "" : weight + "kg");
-                                textView27.setText((time == 0) ? "" : hour + "H " + minute + "M");
+                                textView23.setText((routine.equals("")) ? "\n\n\n\n\n이날은 운동을 하지 않았습니다." : routine);
+                                textView25.setText((weight.equals("")) ? "0kg" : weight + "kg");
+                                textView27.setText((time == 0) ? "0H 0M" : hour + "H " + minute + "M");
                             }
                             else {
                                 TextView textView22 = findViewById(R.id.textView22);
@@ -388,9 +388,9 @@ public class CreatePlanActivity extends AppCompatActivity {
                         int hour = time / 60;
                         int minute = time % 60;
 
-                        textView23.setText(routine);
-                        textView25.setText((weight.equals("")) ? "" : weight + "kg");
-                        textView27.setText((time == 0) ? "" : hour + "H " + minute + "M");
+                        textView23.setText((routine.equals("")) ? "\n\n\n\n\n이날은 운동을 하지 않았습니다." : routine);
+                        textView25.setText((weight.equals("")) ? "0kg" : weight + "kg");
+                        textView27.setText((time == 0) ? "0H 0M" : hour + "H " + minute + "M");
 
                     }
                     else {
