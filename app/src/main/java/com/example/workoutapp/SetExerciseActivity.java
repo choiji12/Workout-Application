@@ -48,7 +48,6 @@ public class SetExerciseActivity extends AppCompatActivity {
         userID = getIntent().getStringExtra("userID");
         date = getIntent().getStringExtra("Date");
         selectedExercise =(ArrayList) intent.getSerializableExtra("SelectedList");
-        Collections.sort(selectedExercise);
         Log.d("Selected Exercise","Selected Exercise :" + selectedExercise);
 
         exerciseLength = selectedExercise.size();
@@ -61,7 +60,7 @@ public class SetExerciseActivity extends AppCompatActivity {
         for (int i=0; i<exerciseLength; i++){
             TextView txtExerciseName = new TextView(this);
             /** 운동이름 보여주는 textView ID는 1~ */
-            txtExerciseName.setId(i + 1);
+            txtExerciseName.setId((int) selectedExercise.get(i));
 
             /** 운동 이름 추가하시면 됩니다~ */
             txtExerciseName.setText(String.valueOf(i));
@@ -81,6 +80,37 @@ public class SetExerciseActivity extends AppCompatActivity {
         for (int i=1; i<=exerciseLength; i++) {
             exerciseLayout.addView(addContent(1), 1+(i-1)*2);
         }
+
+        Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+
+                    if(success){
+                        String eventExercise = jsonObject.getString("eventExercise");
+                        String eventNO = jsonObject.getString("eventNo");
+                        Log.d("user","userdd"+eventExercise);
+
+                        TextView  txtExerciseName = (TextView)findViewById(Integer.parseInt(eventNO));
+
+                        txtExerciseName.setText(eventExercise);
+                    }
+                    else {
+
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        for (int j =0; j<exerciseLength; j++){
+            InfoRequest infoRequest = new InfoRequest(Integer.toString((int) selectedExercise.get(j)),infoResponseListener);
+            RequestQueue queue = Volley.newRequestQueue(SetExerciseActivity.this);
+            queue.add(infoRequest);
+        }
+
     }
 
     private LinearLayout addContent(int setCnt){
