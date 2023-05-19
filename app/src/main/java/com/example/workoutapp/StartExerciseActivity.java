@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,10 @@ public class StartExerciseActivity extends AppCompatActivity {
     private int exerciseLength;
 
     private Button btnFinishSet;
+    private TextView txtExerciseName;
+
+    private LinearLayout mainLayout;
+    private int exerciseCount = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,15 +42,11 @@ public class StartExerciseActivity extends AppCompatActivity {
         totalTimesList = (ArrayList) intent.getSerializableExtra("timesList");
         selectedExercise = (ArrayList) intent.getSerializableExtra("exerciseList");
 
-//
-//        Log.d("Selected Exercise", "Selected Exercise :" + userID);
-//        Log.d("Selected Exercise", "Selected Exercise :" + date);
-//        Log.d("Selected Exercise", "Selected Exercise :" + selectedExercise);
-//        Log.d("Selected Exercise", "Selected Exercise :" + totalWeightList);
-//        Log.d("Selected Exercise", "Selected Exercise :" + totalTimesList);
-
+        mainLayout = findViewById(R.id.mainLayout);
 
         btnFinishSet = findViewById(R.id.btnFinishSet);
+
+        addFirstExercise();
         btnFinishSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,5 +62,31 @@ public class StartExerciseActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void addFirstExercise(){
+        int setCount = totalWeightList.get(0).size();
+        for (int i=0; i<setCount; i++){
+            LinearLayout contentsLayout = new LinearLayout(this);
+            contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            TextView txtSetNum = new TextView(this);
+            txtSetNum.setText(i+1);
+
+            TextView txtWeight = new TextView(this);
+            int weight = totalWeightList.get(0).get(i);
+            txtWeight.setText(weight);
+
+            TextView txtTimes = new TextView(this);
+            int times = totalTimesList.get(0).get(i);
+            txtTimes.setText(times);
+
+            contentsLayout.addView(txtSetNum);
+            contentsLayout.addView(txtWeight);
+            contentsLayout.addView(txtTimes);
+
+            mainLayout.addView(contentsLayout);
+
+        }
     }
 }
