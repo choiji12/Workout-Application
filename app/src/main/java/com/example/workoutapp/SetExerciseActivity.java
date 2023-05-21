@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+
 public class SetExerciseActivity extends AppCompatActivity {
 
     private String userID;
@@ -120,8 +123,6 @@ public class SetExerciseActivity extends AppCompatActivity {
                         String eventNO = jsonObject.getString("eventNo");
                         TextView txtExerciseName = (TextView) findViewById(Integer.parseInt(eventNO));
 
-                        exerciseNameList.add(eventExercise);
-
                         txtExerciseName.setText(eventExercise);
                     } else {
 
@@ -131,25 +132,29 @@ public class SetExerciseActivity extends AppCompatActivity {
                 } finally {
                     requestCount--;
                     if (requestCount == 0) {
-                        exerciseNameList = exerciseNameList;
-
+                        // 이름 가져오기
+                        for(int idx=0; idx<exerciseLength; idx++){
+                            TextView tvName = findViewById((int) selectedExercise.get(idx));
+                            exerciseNameList.add(tvName.getText());
+                        }
+                        Log.d("Selected Exercise", "Selected :" + exerciseNameList);
                     }
                 }
             }
         };
+
         for (int j = 0; j < exerciseLength; j++) {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             InfoRequest infoRequest = new InfoRequest(Integer.toString((int) selectedExercise.get(j)), infoResponseListener);
             RequestQueue queue = Volley.newRequestQueue(SetExerciseActivity.this);
             queue.add(infoRequest);
+
         }
+
+
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("Selected Exercise", "Selected :" + exerciseNameList);
                 Intent intent = new Intent(SetExerciseActivity.this,StartExerciseActivity.class);
                 intent.putExtra("timesList",totalTimesList);
                 intent.putExtra("weightList",totalWeightList);

@@ -196,8 +196,9 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 throw new RuntimeException(e);
             }
             InfoRequest infoRequest = new InfoRequest(Integer.toString(i+1), infoResponseListener);
-        RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
-        queue.add(infoRequest);}
+            RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
+            queue.add(infoRequest);
+        }
 
 
         Log.d("TestArray","FinalTest" + testArray);
