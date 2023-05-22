@@ -79,6 +79,7 @@ public class SetExerciseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 finishActivity();
             }
+
         });
     }
 
