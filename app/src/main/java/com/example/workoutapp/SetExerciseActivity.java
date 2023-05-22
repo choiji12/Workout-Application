@@ -51,20 +51,38 @@ public class SetExerciseActivity extends AppCompatActivity {
     private Button btnFinish;
 
     private ArrayList<Boolean> submittedList;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_exercise);
 
         /** 이전 엑티비티에서 data 가져오기 */
-        Intent intent = getIntent();
-        userID = getIntent().getStringExtra("userID");
-        date = getIntent().getStringExtra("Date");
-        selectedExercise = (ArrayList) intent.getSerializableExtra("SelectedList");
+        getDataFromActivity();
 
+        /** 엑티비티에 필요한 데이터 초기화 */
+        initView();
 
+        /** 운동 이름 보여주는 TextView 생성 */
+        makeExerciseNameView();
+
+        /** 생성된 TextView에 운동 이름 DB에서 받아와서 할당함 */
+        setExerciseName();
+
+        /** 초기 생성 시에만 호출됌 */
+        for (int i = 1; i <= exerciseLength; i++) {
+            exerciseLayout.addView(addContent(1,i), 1 + (i - 1) * 2);
+        }
+
+        /** 루틴 생성완료 버튼을 누르면 엑티비티 전환 */
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishActivity();
+            }
+        });
+    }
+
+    private void initView(){
         exerciseLength = selectedExercise.size();
         exerciseLayout = findViewById(R.id.exerciseLayout);
         mainFont = getResources().getFont(R.font.jamsil_regular);
@@ -85,32 +103,34 @@ public class SetExerciseActivity extends AppCompatActivity {
 
         btnFinish = findViewById(R.id.btnSubmit);
         btnFinish.setEnabled(false);
+    }
 
-        /** 세트 수 설정하는 버튼 생성 */
+    private void getDataFromActivity(){
+        Intent intent = getIntent();
+        userID = getIntent().getStringExtra("userID");
+        date = getIntent().getStringExtra("Date");
+        selectedExercise = (ArrayList) intent.getSerializableExtra("SelectedList");
+    }
+
+    private void makeExerciseNameView(){
         for (int i = 0; i < exerciseLength; i++) {
             TextView txtExerciseName = new TextView(this);
             /** 운동이름 보여주는 textView ID는 1~ */
             txtExerciseName.setId((int) selectedExercise.get(i));
 
-            /** 운동 이름 추가하시면 됩니다~ */
             txtExerciseName.setText(String.valueOf(i));
             txtExerciseName.setTypeface(mainFont);
             txtExerciseName.setTextSize(20);
             txtExerciseName.setTextColor(getResources().getColor(R.color.blue));
-            txtExerciseName.setGravity(Gravity.LEFT);
             LinearLayout.LayoutParams paramsExercise = new LinearLayout.LayoutParams
                     (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsExercise.setMargins(0, 0, 30, 130);
+            paramsExercise.setMargins(30, 0, 30, 20);
             txtExerciseName.setLayoutParams(paramsExercise);
             exerciseLayout.addView(txtExerciseName);
         }
+    }
 
-
-        /** 초기 생성 시에만 호출됌 */
-        for (int i = 1; i <= exerciseLength; i++) {
-            exerciseLayout.addView(addContent(1,i), 1 + (i - 1) * 2);
-        }
-
+    private void setExerciseName(){
         Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -149,24 +169,17 @@ public class SetExerciseActivity extends AppCompatActivity {
             queue.add(infoRequest);
 
         }
+    }
 
-
-        btnFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Selected Exercise", "Selected :" + exerciseNameList);
-                Intent intent = new Intent(SetExerciseActivity.this,StartExerciseActivity.class);
-                intent.putExtra("timesList",totalTimesList);
-                intent.putExtra("weightList",totalWeightList);
-                intent.putExtra("exerciseList",exerciseNameList);
-                intent.putExtra("userID",userID);
-                intent.putExtra("Date",date);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-
+    private void finishActivity(){
+        Intent intent = new Intent(SetExerciseActivity.this,StartExerciseActivity.class);
+        intent.putExtra("timesList",totalTimesList);
+        intent.putExtra("weightList",totalWeightList);
+        intent.putExtra("exerciseList",exerciseNameList);
+        intent.putExtra("userID",userID);
+        intent.putExtra("Date",date);
+        startActivity(intent);
+        finish();
     }
 
     /** 숫자만 입력가능하게 키보드 제한 */
@@ -187,22 +200,46 @@ public class SetExerciseActivity extends AppCompatActivity {
         LinearLayout frameLayout = new LinearLayout(this);
         frameLayout.setOrientation(LinearLayout.VERTICAL);
 
+        LinearLayout.LayoutParams paramsFrame = new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        paramsFrame.setMargins(30, 0, 30, 30);
+        frameLayout.setLayoutParams(paramsFrame);
+
         LinearLayout contentsLayout = new LinearLayout(this);
         contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
+        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+        LinearLayout.LayoutParams paramsContents = new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        paramsContents.setMargins(0, 0, 0, 5);
+        contentsLayout.setLayoutParams(paramsContents);
 
         TextView txtSetcnt = new TextView(this);
         final int[] counter = {setCnt};
-        txtSetcnt.setText(counter[0] + "세트");
+        txtSetcnt.setText(" " +counter[0] + "세트");
+
+        txtSetcnt.setTypeface(mainFont);
+        txtSetcnt.setTextSize(17);
+        txtSetcnt.setTextColor(getResources().getColor(R.color.black));
         contentsLayout.addView(txtSetcnt);
 
         EditText edtWeight = new EditText(this);
         edtWeight.setHint("KG");
         limitedKey(edtWeight);
+
+        edtWeight.setTypeface(mainFont);
+        edtWeight.setTextSize(17);
+        edtWeight.setTextColor(getResources().getColor(R.color.black));
+        edtWeight.setGravity(Gravity.CENTER);
         contentsLayout.addView(edtWeight);
 
         EditText edtTimes = new EditText(this);
         edtTimes.setHint("회");
         limitedKey(edtTimes);
+
+        edtTimes.setTypeface(mainFont);
+        edtTimes.setTextSize(17);
+        edtTimes.setTextColor(getResources().getColor(R.color.black));
+        edtTimes.setGravity(Gravity.CENTER);
         contentsLayout.addView(edtTimes);
 
         Button btnDeleteSet = new Button(this);
@@ -243,6 +280,7 @@ public class SetExerciseActivity extends AppCompatActivity {
         btnSubmitSet.setText("세트 저장");
         btnSubmitSet.setEnabled(false);
 
+        /** edtWeight나 edtTimes에 공백이 있으면 btnSubmitSet을 비활성화 */
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {            }
@@ -269,13 +307,14 @@ public class SetExerciseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 counter[0]++;
 
-                int lastIndex = frameLayout.getChildCount() - 3;
-                if (lastIndex >= 0) {
-                    frameLayout.addView(simpleAddContent(counter[0]), lastIndex);
-                }
-
                 int exerciseIndexOrigin = exerciseLayout.indexOfChild(frameLayout);
                 int exerciseIndex = ((exerciseIndexOrigin-1) /2);
+
+                int lastIndex = frameLayout.getChildCount() - 3;
+                if (lastIndex >= 0) {
+                    frameLayout.addView(simpleAddContent(counter[0],exerciseIndex), lastIndex);
+                }
+
                 submittedList.set(exerciseIndex, false);
 
                 if (submittedList.contains(false)) {
@@ -302,8 +341,21 @@ public class SetExerciseActivity extends AppCompatActivity {
                     EditText weightText = (EditText) contentsLayout.getChildAt(1);
                     EditText timesText = (EditText) contentsLayout.getChildAt(2);
 
-                    weightList.add(Integer.parseInt(weightText.getText().toString()));
-                    timesList.add(Integer.parseInt(timesText.getText().toString()));
+                    String weight = weightText.getText().toString().trim();
+                    String times = timesText.getText().toString().trim();
+
+                    if(weight.isEmpty()){
+                        Toast.makeText(getApplicationContext(),"무게를 입력하세요",Toast.LENGTH_SHORT);
+                        weightList.add(0);
+                    } else {
+                        weightList.add(Integer.parseInt(weight));
+                    }
+                    if(times.isEmpty()){
+                        Toast.makeText(getApplicationContext(),"세트 수를 입력하세요",Toast.LENGTH_SHORT);
+                        timesList.add(0);
+                    } else {
+                        timesList.add(Integer.parseInt(times));
+                    }
                 }
 
                 while (totalWeightList.size() <= exerciseIndex) {
@@ -333,22 +385,45 @@ public class SetExerciseActivity extends AppCompatActivity {
         return frameLayout;
     }
 
-    private LinearLayout simpleAddContent(int setCnt) {
+    private LinearLayout simpleAddContent(int setCnt,int Id) {
         LinearLayout contentsLayout = new LinearLayout(this);
         contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
 
+        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+        LinearLayout.LayoutParams paramsContents = new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        paramsContents.setMargins(0, 0, 0, 5);
+        contentsLayout.setLayoutParams(paramsContents);
+
+        Button btnSubmitSet = findViewById(1001+Id);
+        btnSubmitSet.setEnabled(false);
+
         TextView txtSetcnt = new TextView(this);
-        txtSetcnt.setText(setCnt + "세트");
+        txtSetcnt.setText(" " +setCnt + "세트");
+
+        txtSetcnt.setTypeface(mainFont);
+        txtSetcnt.setTextSize(17);
+        txtSetcnt.setTextColor(getResources().getColor(R.color.black));
         contentsLayout.addView(txtSetcnt);
 
         EditText edtWeight = new EditText(this);
         edtWeight.setHint("KG");
         limitedKey(edtWeight);
+
+        edtWeight.setTypeface(mainFont);
+        edtWeight.setTextSize(17);
+        edtWeight.setTextColor(getResources().getColor(R.color.black));
+        edtWeight.setGravity(Gravity.CENTER);
         contentsLayout.addView(edtWeight);
 
         EditText edtTimes = new EditText(this);
         edtTimes.setHint("회");
         limitedKey(edtTimes);
+
+        edtTimes.setTypeface(mainFont);
+        edtTimes.setTextSize(17);
+        edtTimes.setTextColor(getResources().getColor(R.color.black));
+        edtTimes.setGravity(Gravity.CENTER);
         contentsLayout.addView(edtTimes);
 
         TextWatcher textWatcher = new TextWatcher() {
@@ -359,12 +434,6 @@ public class SetExerciseActivity extends AppCompatActivity {
                 // 텍스트 변경 중 이벤트
                 String weightString = edtWeight.getText().toString();
                 String timesString = edtTimes.getText().toString();
-
-                int exerciseIndexOrigin = exerciseLayout.indexOfChild((View) contentsLayout.getParent());
-                int exerciseIndex = ((exerciseIndexOrigin-1) /2);
-
-                Button btnSubmitSet = findViewById(exerciseIndex+1001);
-                btnSubmitSet.setEnabled(false);
 
                 // 버튼 활성화 또는 비활성화
                 boolean enableButton = !weightString.isEmpty() && !timesString.isEmpty();
@@ -379,5 +448,4 @@ public class SetExerciseActivity extends AppCompatActivity {
 
         return contentsLayout;
     }
-
 }
