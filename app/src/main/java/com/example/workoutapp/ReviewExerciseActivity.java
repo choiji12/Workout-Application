@@ -63,8 +63,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         Log.d("Selected Exercise", "Selected Exercise :" + totalWeightList);
         Log.d("Selected Exercise", "Selected Exercise :" + totalTimesList);
         Log.d("Selected Exercise", "Selected Exercise :" + exerciseTime);
-    }
-}
+
 
         //------------------------------------------------------------------------------------------------------
         // 중량 총합
@@ -93,7 +92,6 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         //------------------------------------------------------------------------------------------------------
     }
 
-
     /*
     * 루틴 입력란 만들기 convertToStringList
     * */
@@ -103,25 +101,19 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             strTimesList = convertToStringList(totalTimesList);
             strWeightList = convertToStringList(totalWeightList);
             strSetList = new ArrayList<>();
-//            String setlist = "";
-            StringBuilder setlist = new StringBuilder();
+            String setlist = "";
             for(int i=0; i<totalTimesList.size(); i++){
                 for(int j=0; j<totalTimesList.get(i).size(); j++){
-//                    setlist += j+1;
-//                    setlist += ", ";
-                    setlist.append(j+1).append(", ");
+                    setlist += j+1;
+                    setlist += ", ";
                 }
-//                StringBuilder sb = new StringBuilder(setlist);
-//                if (sb.length() > 0) {
-//                    sb.setLength(sb.length() - 2); // 마지막 쉼표와 공백 제거
-//                }
-//                strSetList.add(sb.toString());
-//                setlist = "";
-                if (setlist.length() > 0) {
-                    setlist.setLength(setlist.length() - 2); // 마지막 쉼표와 공백 제거
+                StringBuilder sb = new StringBuilder(setlist);
+                if (sb.length() > 0) {
+                    sb.setLength(sb.length() - 2); // 마지막 쉼표와 공백 제거
                 }
-                strSetList.add(setlist.toString());
-                setlist.setLength(0);
+                strSetList.add(sb.toString());
+                setlist = "";
+
             }
 
 
@@ -152,7 +144,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
                 RoutineIsRequest routineIsRequest = new RoutineIsRequest(/*routineName*/"테스트용", userID,
                         String.valueOf(selectedExercise.get(idx)),
                         strSetList.get(idx), strTimesList.get(idx),
-                        strWeightList.get(idx), idx+1, responseListener);
+                        strWeightList.get(idx), String.valueOf(idx+1), responseListener);
                 RequestQueue queue = Volley.newRequestQueue(ReviewExerciseActivity.this);
                 queue.add(routineIsRequest);
             }

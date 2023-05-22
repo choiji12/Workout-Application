@@ -39,10 +39,18 @@ public class LoadExerciseActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     SlidingUpPanelLayout slidingLayout = findViewById(R.id.main_frame);
-                    slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
+                    slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);//COLLAPSED
                 }
             });
         }
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SlidingUpPanelLayout slidingLayout = findViewById(R.id.main_frame);
+                slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            }
+        });
 
     }
 
