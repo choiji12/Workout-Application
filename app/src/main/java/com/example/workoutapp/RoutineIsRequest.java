@@ -15,7 +15,7 @@ public class RoutineIsRequest extends StringRequest {
 
 
     public RoutineIsRequest(String routineName, String userID, String routineEvent, String routineSet,
-                             String routineReps ,String routineWeight, Response.Listener<String> listener) {
+                             String routineReps ,String routineWeight, int routineNo, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
@@ -25,7 +25,7 @@ public class RoutineIsRequest extends StringRequest {
         map.put("routineSet",routineSet);
         map.put("routineReps",routineReps);
         map.put("routineWeight",routineWeight);
-
+        map.put("routineNo",routineNo+"");
     }
 
     @Override
