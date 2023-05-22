@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 public class SetExerciseActivity extends AppCompatActivity {
@@ -140,9 +142,6 @@ public class SetExerciseActivity extends AppCompatActivity {
                         String eventExercise = jsonObject.getString("eventExercise");
                         String eventNO = jsonObject.getString("eventNo");
                         TextView txtExerciseName = (TextView) findViewById(Integer.parseInt(eventNO));
-
-                        exerciseNameList.add(eventExercise);
-
                         txtExerciseName.setText(eventExercise);
                     } else {
 
@@ -152,7 +151,10 @@ public class SetExerciseActivity extends AppCompatActivity {
                 } finally {
                     requestCount--;
                     if (requestCount == 0) {
-                        exerciseNameList = exerciseNameList;
+                        for(int idx=0; idx<exerciseLength; idx++){
+                            TextView tvName = findViewById((int) selectedExercise.get(idx));
+                            exerciseNameList.add(tvName.getText());
+                        }
 
                     }
                 }
@@ -199,6 +201,7 @@ public class SetExerciseActivity extends AppCompatActivity {
         LinearLayout frameLayout = new LinearLayout(this);
         frameLayout.setOrientation(LinearLayout.VERTICAL);
 
+        frameLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
         LinearLayout.LayoutParams paramsFrame = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         paramsFrame.setMargins(30, 0, 30, 30);
@@ -206,7 +209,7 @@ public class SetExerciseActivity extends AppCompatActivity {
 
         LinearLayout contentsLayout = new LinearLayout(this);
         contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
-        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+//        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
         LinearLayout.LayoutParams paramsContents = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         paramsContents.setMargins(0, 0, 0, 5);
@@ -242,7 +245,10 @@ public class SetExerciseActivity extends AppCompatActivity {
         contentsLayout.addView(edtTimes);
 
         Button btnDeleteSet = new Button(this);
-        btnDeleteSet.setText("세트 삭제");
+        btnDeleteSet.setBackground(getResources().getDrawable(R.drawable.minus));
+        LinearLayout.LayoutParams paramsDeleteSet = new LinearLayout.LayoutParams
+                ((int) (30 * getResources().getDisplayMetrics().density), (int) (30 * getResources().getDisplayMetrics().density));
+        btnDeleteSet.setLayoutParams(paramsDeleteSet);
 
         btnDeleteSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,8 +276,11 @@ public class SetExerciseActivity extends AppCompatActivity {
         });
 
         Button btnAddSet = new Button(this);
-        btnAddSet.setText("세트 추가");
-
+        btnAddSet.setBackground(getResources().getDrawable(R.drawable.plus));
+        LinearLayout.LayoutParams paramsAddSet = new LinearLayout.LayoutParams
+                ((int) (30 * getResources().getDisplayMetrics().density), (int) (30 * getResources().getDisplayMetrics().density));
+        btnAddSet.setGravity(Gravity.RIGHT);
+        btnAddSet.setLayoutParams(paramsAddSet);
 
         Button btnSubmitSet = new Button(this);
         // ID는 1001~
@@ -388,7 +397,7 @@ public class SetExerciseActivity extends AppCompatActivity {
         LinearLayout contentsLayout = new LinearLayout(this);
         contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+//        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
         LinearLayout.LayoutParams paramsContents = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         paramsContents.setMargins(0, 0, 0, 5);

@@ -17,6 +17,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 
     private ArrayList<ArrayList<Integer>> totalWeightList;
     private ArrayList<ArrayList<Integer>> totalTimesList;
+    private String exerciseTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userID = getIntent().getStringExtra("userID");
         date = getIntent().getStringExtra("Date");
+        exerciseTime = getIntent().getStringExtra("ExerciseTime");
         totalWeightList = (ArrayList) intent.getSerializableExtra("weightList");
         totalTimesList = (ArrayList) intent.getSerializableExtra("timesList");
         selectedExercise = (ArrayList) intent.getSerializableExtra("exerciseList");
@@ -34,5 +36,6 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         Log.d("Selected Exercise", "Selected Exercise :" + selectedExercise);
         Log.d("Selected Exercise", "Selected Exercise :" + totalWeightList);
         Log.d("Selected Exercise", "Selected Exercise :" + totalTimesList);
+        Log.d("Selected Exercise", "Selected Exercise :" + exerciseTime);
     }
 }

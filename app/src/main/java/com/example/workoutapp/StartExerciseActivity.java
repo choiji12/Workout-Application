@@ -178,6 +178,7 @@ public class StartExerciseActivity extends AppCompatActivity {
         intent.putExtra("exerciseList",selectedExercise);
         intent.putExtra("userID",userID);
         intent.putExtra("Date",date);
+        intent.putExtra("ExerciseTime",String.valueOf(minutes));
         startActivity(intent);
         finish();
     }
