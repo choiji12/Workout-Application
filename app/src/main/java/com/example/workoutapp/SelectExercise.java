@@ -441,12 +441,8 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
     /** 슬라이딩 업 , 운동 설명과 운동DB */
     @Override
     public void onClick(View view){
-
-
-
         int idx = 10001;
         while(true){
-
 
             if(view.getId() == idx){
                 int ID = idx - 10000;
@@ -498,7 +494,6 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
 
     }
-
 
     View.OnClickListener youtubeSearch = new View.OnClickListener() {
         @Override

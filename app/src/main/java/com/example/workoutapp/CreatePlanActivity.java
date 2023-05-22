@@ -57,6 +57,7 @@ public class CreatePlanActivity extends AppCompatActivity {
     private int day;
 
     private LocalDate calenderDate;
+    private Button btnLoadPlan;
 
     private void todayWidgetVisible(){
         Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
@@ -171,7 +172,7 @@ public class CreatePlanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_plan);
 
         calendar = findViewById(R.id.weekCalendar);
-
+        btnLoadPlan = findViewById(R.id.btnLoadPlan);
 
         /** 이전 프레그먼트에서 데이터 가져오기,  */
         userID = getIntent().getStringExtra("userID");
@@ -180,8 +181,6 @@ public class CreatePlanActivity extends AppCompatActivity {
         selectedyear = Integer.parseInt(dateArray[0]);
         selectedmonth = Integer.parseInt(dateArray[1]);
         seletedday = Integer.parseInt(dateArray[2]);
-
-        Log.d("user ID","User ID :" + userID);
 
         // 달력에 표시하기 위해 CalendarDay 변수로 변환
         CalendarDay date = CalendarDay.from(selectedyear, selectedmonth, seletedday);
@@ -193,15 +192,12 @@ public class CreatePlanActivity extends AppCompatActivity {
         calendar.setSelectedDate(date);
         calendar.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
 
-
         LocalDate now = LocalDate.now();
-
 
         year = Integer.parseInt(String.valueOf(now.getYear()));
         month = Integer.parseInt(String.valueOf(now.getMonth().getValue()));
         day = Integer.parseInt(String.valueOf(now.getDayOfMonth()));
         selectedDate = year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day);
-
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -216,8 +212,8 @@ public class CreatePlanActivity extends AppCompatActivity {
         }else if(LocalDate.parse(selectedDate, formatter).compareTo(dateForIntent) > 0 ){ //과거
             todayWidgetGone();
             pastVisibleFutureGone();
-
         }
+
 
 
         /** 사용자가 선택한 날짜 저장 */
@@ -329,10 +325,6 @@ public class CreatePlanActivity extends AppCompatActivity {
             }
         });
 
-//        dateForIntent = LocalDate.of(selectedyear,selectedmonth,seletedday);
-
-
-
         Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
         btnCreatePlan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -343,6 +335,20 @@ public class CreatePlanActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+            }
+        });
+
+
+        btnLoadPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreatePlanActivity.this,LoadExerciseActivity.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("Date",dateForIntent.toString());
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+
             }
         });
 
