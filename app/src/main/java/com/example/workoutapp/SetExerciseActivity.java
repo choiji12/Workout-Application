@@ -29,6 +29,8 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+
 public class SetExerciseActivity extends AppCompatActivity {
 
     private String userID;
@@ -161,15 +163,12 @@ public class SetExerciseActivity extends AppCompatActivity {
                 }
             }
         };
+
         for (int j = 0; j < exerciseLength; j++) {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             InfoRequest infoRequest = new InfoRequest(Integer.toString((int) selectedExercise.get(j)), infoResponseListener);
             RequestQueue queue = Volley.newRequestQueue(SetExerciseActivity.this);
             queue.add(infoRequest);
+
         }
     }
 

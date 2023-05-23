@@ -74,8 +74,6 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
         selectedmonth = Integer.parseInt(dateArray[1]);
         seletedday = Integer.parseInt(dateArray[2]);
 
-        Log.d("user ID","User ID :" + userID);
-
         TextView txtDate = findViewById(R.id.txtDate);
         txtDate.setText(selectedmonth + "월 " +seletedday +"일");
 
@@ -231,7 +229,6 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra("userID",userID);
                 intent.putExtra("Date",dateFor);
                 intent.putExtra("SelectedList",selectedExercise);
-                Log.d("Selected Exercise","Selected Exercise :" + selectedExercise);
                 startActivity(intent);
             }
         });
@@ -265,7 +262,6 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 for (int j = 0; j < LegLength; j++) {
                     int id = j + 101;
                     LinearLayout LegLayout = (LinearLayout) findViewById(id);
-                    Log.d("Leg Id", "LEGID :" +LegLayout.getId());
                     LegLayout.setVisibility(View.VISIBLE);
 
                     int chkId = j+101-100;
