@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -78,6 +79,7 @@ public class CalendarFragment extends Fragment {
 
     private LocalDate dateFor;
 
+    private ImageButton btnSetting;
     private String userID;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -134,6 +136,16 @@ public class CalendarFragment extends Fragment {
                 startActivity(intent);
                 getActivity().finish();
                 getActivity().overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
+            }
+        });
+
+        btnSetting = view.findViewById(R.id.btnSetting);
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),SettingActivity.class);
+                intent.putExtra("userID",userID);
+                startActivity(intent);
             }
         });
 

@@ -1,6 +1,7 @@
 package com.example.workoutapp;
 
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -71,6 +73,8 @@ public class AnalysisFragment extends Fragment {
     private LineChart chart;
     private String userID;
 
+    private ImageButton btnSetting;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -91,6 +95,16 @@ public class AnalysisFragment extends Fragment {
         RadioButton btnWeight = view.findViewById(R.id.btnWeight);
         btnWeek.setChecked(true);
         btnWeight.setChecked(true);
+
+        btnSetting=view.findViewById(R.id.btnSetting);
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),SettingActivity.class);
+                intent.putExtra("userID",userID);
+                startActivity(intent);
+            }
+        });
 
         /** 버튼 누르면 Chart Update */
         updateGraph(chart);

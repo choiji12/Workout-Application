@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,6 +82,8 @@ public class HomeFragment extends Fragment {
     private int seletedday;
     private LocalDate dateFor;
     private String userID;
+
+    private ImageButton btnSetting;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -145,6 +148,17 @@ public class HomeFragment extends Fragment {
                 getActivity().finish();
                 getActivity().overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
 
+            }
+        });
+
+
+        btnSetting=view.findViewById(R.id.btnSetting);
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),SettingActivity.class);
+                intent.putExtra("userID",userID);
+                startActivity(intent);
             }
         });
         return view;
