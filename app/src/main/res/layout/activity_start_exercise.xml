@@ -1,56 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StartExerciseActivity">
+    tools:context=".SelectExercise"
+    android:gravity="bottom"
+    app:umanoPanelHeight="0dp"
+    app:umanoDragView="@id/back_layout">
 
-    <TextView
-        android:id="@+id/txtExerciseName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:text="운동이름"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".StartExerciseActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnFinishSet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtExerciseName">
-
-        <LinearLayout
-            android:id="@+id/mainLayout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txtExerciseName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:text="운동이름"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnFinishSet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="세트 완료"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnFinishSet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtExerciseName">
 
-    <TextView
-        android:id="@+id/txtExerciseTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:text="운동시간 : 00:00"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/mainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btnFinishSet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="세트 완료"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txtExerciseTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="운동시간 : 00:00"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/back_layout"
+        android:layout_width="match_parent"
+        android:layout_height="700dp"
+        android:background="@drawable/exercise_sliding_up_view">
+
+        <ProgressBar
+            android:id="@+id/pbTimer"
+            style="@style/TimerProgressBar"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_marginTop="80dp"
+            android:backgroundTint="@color/white"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/timer_progressbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnMinusTen"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/rounded_grey_button"
+            android:fontFamily="@font/jamsil_regular"
+            android:onClick="onMinusClick"
+            android:text="- 10초"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pbTimer" />
+
+        <Button
+            android:id="@+id/btnPlusTen"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="35dp"
+            android:text="+ 10초"
+            android:fontFamily="@font/jamsil_regular"
+            android:textColor="@color/black"
+            android:background="@drawable/rounded_grey_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnMinusTen"
+            android:onClick="onPlusClick"
+            />
+
+        <Button
+            android:id="@+id/btnFinishRest"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/round_blue_button"
+            android:fontFamily="@font/jamsil_bold"
+            android:onClick="finishButtonClick"
+            android:text="휴식 종료"
+            android:textColor="@color/white_to_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnMinusTen" />
+
+        <TextView
+            android:id="@+id/txtRemainingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jamsil_bold"
+            android:text="00 : 00"
+            android:textColor="@color/blue"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="@+id/pbTimer"
+            app:layout_constraintEnd_toEndOf="@+id/pbTimer"
+            app:layout_constraintStart_toStartOf="@+id/pbTimer"
+            app:layout_constraintTop_toTopOf="@+id/pbTimer" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

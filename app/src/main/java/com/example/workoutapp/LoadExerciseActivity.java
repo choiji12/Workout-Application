@@ -23,6 +23,7 @@ public class LoadExerciseActivity extends AppCompatActivity {
     private Button btnNo;
     private LinearLayout mainLayout;
     private String userID;
+    private String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class LoadExerciseActivity extends AppCompatActivity {
     private void getIntentData(){
         Intent intent =getIntent();
         userID = intent.getStringExtra("userID");
+        date = intent.getStringExtra("Date");
     }
 
 }
