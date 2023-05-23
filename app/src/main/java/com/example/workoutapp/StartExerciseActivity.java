@@ -77,8 +77,12 @@ public class StartExerciseActivity extends AppCompatActivity {
         }
     }
 
-    private void finishSet(int exerciseSequenceFor){
 
+    private void removeViews(LinearLayout parent) {
+        parent.removeAllViews();
+    }
+
+    private void finishSet(int exerciseSequenceFor){
         eachSetCount++;
         int setCount = totalWeightList.get(exerciseSequenceFor).size();
         if(eachSetCount == setCount){
@@ -89,12 +93,8 @@ public class StartExerciseActivity extends AppCompatActivity {
             if(exerciseFinishedCount == exerciseLength) {
                 return;
             }
-            addExerciseView(exerciseSequenceFor+1);
+            addExerciseView(exerciseSequence);
         }
-    }
-
-    private void removeViews(LinearLayout parent) {
-        parent.removeAllViews();
     }
 
     private void getIntentData(){
@@ -108,6 +108,9 @@ public class StartExerciseActivity extends AppCompatActivity {
 
     private void addExerciseView(int exerciseSequenceFor){
         txtExerciseName.setText((CharSequence) selectedExercise.get(exerciseSequenceFor));
+
+        Log.d("First Set","First Set Cnt" + selectedExercise);
+
         int setCount = totalWeightList.get(exerciseSequenceFor).size();
         Log.d("First Set","First Set Cnt" + setCount);
         for (int i=0; i<setCount; i++){
@@ -119,12 +122,12 @@ public class StartExerciseActivity extends AppCompatActivity {
             txtSetNum.setText(setNumString + "세트");
 
             TextView txtWeight = new TextView(this);
-            int weight = totalWeightList.get(0).get(i);
+            int weight = totalWeightList.get(exerciseSequenceFor).get(i);
             String weightString = String.valueOf(weight);
             txtWeight.setText(weightString + "KG");
 
             TextView txtTimes = new TextView(this);
-            int times = totalTimesList.get(0).get(i);
+            int times = totalTimesList.get(exerciseSequenceFor).get(i);
             String timesString = String.valueOf(times);
             txtTimes.setText(timesString + "회");
 

@@ -2,6 +2,7 @@ package com.example.workoutapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,11 +22,14 @@ public class LoadExerciseActivity extends AppCompatActivity {
     private Button btnYes;
     private Button btnNo;
     private LinearLayout mainLayout;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_exercise);
+
+        getIntentData();
 
         initView();
 
@@ -50,6 +54,11 @@ public class LoadExerciseActivity extends AppCompatActivity {
         btnYes = findViewById(R.id.btnYes);
         btnNo = findViewById(R.id.btnNo);
         mainLayout = findViewById(R.id.mainLayout);
+    }
+
+    private void getIntentData(){
+        Intent intent =getIntent();
+        userID = intent.getStringExtra("userID");
     }
 
 }
