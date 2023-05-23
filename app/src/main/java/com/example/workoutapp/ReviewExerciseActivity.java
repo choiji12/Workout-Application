@@ -141,7 +141,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             };
 
             for(int idx=0; idx<selectedExercise.size(); idx++){
-                RoutineIsRequest routineIsRequest = new RoutineIsRequest(/*routineName*/"테스트용", userID,
+                RoutineIsRequest routineIsRequest = new RoutineIsRequest(/*routineName*/"테스트용3", userID,
                         String.valueOf(selectedExercise.get(idx)),
                         strSetList.get(idx), strTimesList.get(idx),
                         strWeightList.get(idx), String.valueOf(idx+1), responseListener);
@@ -187,7 +187,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             };
                                         // volume = 무게 * 횟스
             CalenderIsRequest calenderIsRequest = new CalenderIsRequest(date, userID, "",
-                    "10" ,"5", "80.5", String.valueOf(volumeSum), routine, responseListener);
+                    exerciseTime ,"5", "80.5", String.valueOf(volumeSum), routine, responseListener);
             RequestQueue queue = Volley.newRequestQueue(ReviewExerciseActivity.this);
             queue.add(calenderIsRequest);
         }
