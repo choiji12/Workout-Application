@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,6 +94,7 @@ public class HomeFragment extends Fragment {
         welcome = view.findViewById(R.id.welcome);
         txtToday = view.findViewById(R.id.txtToday);
         btnExercise = view.findViewById(R.id.btnExerciseToday);
+
         // txtToday 꾸미는 함수
 
 

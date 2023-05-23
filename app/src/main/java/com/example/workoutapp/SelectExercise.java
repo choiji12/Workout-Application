@@ -74,6 +74,8 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
         selectedmonth = Integer.parseInt(dateArray[1]);
         seletedday = Integer.parseInt(dateArray[2]);
 
+        Log.d("user ID","User ID :" + userID);
+
         TextView txtDate = findViewById(R.id.txtDate);
         txtDate.setText(selectedmonth + "월 " +seletedday +"일");
 
@@ -156,6 +158,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             mainLayout.addView(contentsLayout);
 
         }
+        testArray2 = new ArrayList();
 
         testArray = new ArrayList<>();
         Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
@@ -180,27 +183,23 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
                 } catch (JSONException e){
                     e.printStackTrace();
-                } finally {
-                    requestCount--;
-                    if (requestCount == 0) {
-                        testArray= testArray;
-                        Log.d("TestArray","FirstTest" + testArray);
-                    }
                 }
+//                finally {
+//                    requestCount--;
+//                    if (requestCount == 0) {
+//                        Log.d("TestArray", "userName" + testArray);
+//                        testArray2 = testArray;
+//                    }
+//                }
             }
         };
         for (int i = 0; i < 100; i++){
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             InfoRequest infoRequest = new InfoRequest(Integer.toString(i+1), infoResponseListener);
         RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
         queue.add(infoRequest);}
+        Log.d("TestArray","uesrssName" + testArray2);
 
 
-        Log.d("TestArray","FinalTest" + testArray);
         for (int j = 1; j < 101; j++) {
             int id = j + 100;
             LinearLayout LegLayout = (LinearLayout) findViewById(id);
@@ -232,6 +231,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra("userID",userID);
                 intent.putExtra("Date",dateFor);
                 intent.putExtra("SelectedList",selectedExercise);
+                Log.d("Selected Exercise","Selected Exercise :" + selectedExercise);
                 startActivity(intent);
             }
         });
@@ -265,6 +265,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 for (int j = 0; j < LegLength; j++) {
                     int id = j + 101;
                     LinearLayout LegLayout = (LinearLayout) findViewById(id);
+                    Log.d("Leg Id", "LEGID :" +LegLayout.getId());
                     LegLayout.setVisibility(View.VISIBLE);
 
                     int chkId = j+101-100;
