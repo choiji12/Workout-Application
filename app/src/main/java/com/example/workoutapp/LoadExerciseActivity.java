@@ -187,6 +187,7 @@ public class LoadExerciseActivity extends AppCompatActivity {
                                     intent.putExtra("exerciseList",EventList);
                                     intent.putExtra("userID",userID);
                                     intent.putExtra("Date",date);
+                                    intent.putExtra("NewOrOld","old");
                                     startActivity(intent);
                                     finish();
                                 }
