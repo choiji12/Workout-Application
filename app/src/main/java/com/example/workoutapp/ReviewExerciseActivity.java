@@ -187,7 +187,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             };
                                         // volume = 무게 * 횟스
             CalenderIsRequest calenderIsRequest = new CalenderIsRequest(date, userID, "",
-                    exerciseTime ,"5", "80.5", String.valueOf(volumeSum), routine, responseListener);
+                    exerciseTime ,"5", "80.5", String.valueOf(volumeSum), routine, /*bmi*/20.1, responseListener);
             RequestQueue queue = Volley.newRequestQueue(ReviewExerciseActivity.this);
             queue.add(calenderIsRequest);
         }
