@@ -6,23 +6,107 @@
     android:layout_height="match_parent"
     tools:context=".ReviewExerciseActivity">
 
-    <Button
-        android:id="@+id/btnCompletion"
+    <TextView
+        android:id="@+id/textView30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="43dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="운동리뷰"
+        android:fontFamily="@font/jamsil_bold"
+        android:textColor="@color/blue"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnCompletion"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="30dp"
         android:text="운동 완료"
+        android:fontFamily="@font/jamsil_bold"
+        android:textColor="@color/white_to_blue"
+        android:textSize="18sp"
+        android:background="@drawable/round_blue_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnRoutineStore"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/blackrounded_white_button"
+        android:fontFamily="@font/jamsil_regular"
+        android:text="루틴 저장"
+        android:textColor="@drawable/black_to_white_ablebutton_text"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/edtWeight"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/edtWeight"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:ems="10"
+        android:fontFamily="@font/jamsil_regular"
+        android:gravity="center"
+        android:hint="체중(KG)"
+
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/btnCompletion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RatingBar
+        android:id="@+id/rateExercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginBottom="153dp"
-        android:text="루틴 저장"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/edtRoutineName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:progressTint="@color/yellow"/>
+
+    <ScrollView
+        android:id="@+id/scrollView4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/rateExercise"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView30">
+
+        <TextView
+            android:id="@+id/txtExerciseList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="운동리스트"
+            android:fontFamily="@font/jamsil_regular"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="18sp"/>
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/edtRoutineName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:maxLength="10"
+        android:hint="루틴 이름을 입력하세요."
+        android:gravity="center"
+        android:fontFamily="@font/jamsil_regular"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/btnRoutineStore"
+        app:layout_constraintEnd_toStartOf="@+id/btnRoutineStore" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

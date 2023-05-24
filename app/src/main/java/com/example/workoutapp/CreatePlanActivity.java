@@ -2,19 +2,13 @@ package com.example.workoutapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.FrameLayout;
+import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -32,13 +26,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
-import java.util.Observable;
-import java.util.Observer;
 
 public class CreatePlanActivity extends AppCompatActivity {
 
@@ -58,6 +47,8 @@ public class CreatePlanActivity extends AppCompatActivity {
 
     private LocalDate calenderDate;
     private Button btnLoadPlan;
+    RatingBar rateExercise;
+    private float star;
 
     private void todayWidgetVisible(){
         Button btnCreatePlan = findViewById(R.id.btnCreatePlan);
@@ -92,7 +83,7 @@ public class CreatePlanActivity extends AppCompatActivity {
     }
 
     private void pastAndFutureGone(){
-        TextView textView22 = findViewById(R.id.textView22);
+        RatingBar reteExercise = findViewById(R.id.rateExercise);
         TextView textView23 = findViewById(R.id.textView23);
         TextView textView24 = findViewById(R.id.textView24);
         TextView textView25 = findViewById(R.id.textView25);
@@ -101,7 +92,7 @@ public class CreatePlanActivity extends AppCompatActivity {
         TextView textView28 = findViewById(R.id.textView28);
         ScrollView scrollView = findViewById(R.id.scrollView2);
 
-        textView22.setVisibility(View.GONE);
+        reteExercise.setVisibility(View.GONE);
         textView23.setVisibility(View.GONE);
         textView24.setVisibility(View.GONE);
         textView25.setVisibility(View.GONE);
@@ -116,7 +107,7 @@ public class CreatePlanActivity extends AppCompatActivity {
     }
 
     private void pastGoneFutureVisible(){
-        TextView textView22 = findViewById(R.id.textView22);
+        RatingBar reteExercise = findViewById(R.id.rateExercise);
         TextView textView23 = findViewById(R.id.textView23);
         TextView textView24 = findViewById(R.id.textView24);
         TextView textView25 = findViewById(R.id.textView25);
@@ -124,7 +115,7 @@ public class CreatePlanActivity extends AppCompatActivity {
         TextView textView27 = findViewById(R.id.textView27);
         ScrollView scrollView = findViewById(R.id.scrollView2);
 
-        textView22.setVisibility(View.GONE);
+        reteExercise.setVisibility(View.GONE);
         textView23.setVisibility(View.GONE);
         textView24.setVisibility(View.GONE);
         textView25.setVisibility(View.GONE);
@@ -141,7 +132,7 @@ public class CreatePlanActivity extends AppCompatActivity {
 //        textView27.setText("");
     }
     private void pastVisibleFutureGone(){
-        TextView textView22 = findViewById(R.id.textView22);
+        RatingBar reteExercise = findViewById(R.id.rateExercise);
         TextView textView23 = findViewById(R.id.textView23);
         TextView textView24 = findViewById(R.id.textView24);
         TextView textView25 = findViewById(R.id.textView25);
@@ -149,7 +140,7 @@ public class CreatePlanActivity extends AppCompatActivity {
         TextView textView27 = findViewById(R.id.textView27);
         ScrollView scrollView = findViewById(R.id.scrollView2);
 
-        textView22.setVisibility(View.VISIBLE);
+        reteExercise.setVisibility(View.VISIBLE);
         textView23.setVisibility(View.VISIBLE);
         textView24.setVisibility(View.VISIBLE);
         textView25.setVisibility(View.VISIBLE);
@@ -170,6 +161,8 @@ public class CreatePlanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_plan);
+
+        rateExercise = findViewById(R.id.rateExercise);
 
         calendar = findViewById(R.id.weekCalendar);
         btnLoadPlan = findViewById(R.id.btnLoadPlan);
@@ -262,7 +255,7 @@ public class CreatePlanActivity extends AppCompatActivity {
                             JSONArray tuples = jsonObject.getJSONArray("tuples"); // 튜플 배열을 가져옵니다.
 
                             if(success){
-                                TextView textView22 = findViewById(R.id.textView22);
+                                RatingBar reteExercise = findViewById(R.id.rateExercise);
                                 TextView textView23 = findViewById(R.id.textView23);
                                 TextView textView24 = findViewById(R.id.textView24);
                                 TextView textView25 = findViewById(R.id.textView25);
@@ -278,6 +271,10 @@ public class CreatePlanActivity extends AppCompatActivity {
                                 String calenderTime;
                                 String calenderWeight;
 
+                                float starSum = 0;
+                                star = 0;
+
+
                                 for (int i = 0; i < tuples.length(); i++) {
                                     JSONObject tuple = tuples.getJSONObject(i);
 
@@ -286,6 +283,9 @@ public class CreatePlanActivity extends AppCompatActivity {
                                     calenderTime = tuple.getString("calenderTime");
                                     calenderWeight = tuple.getString("calenderWeight");
 
+                                    starSum += Float.parseFloat( tuple.getString("calenderStar"));
+
+
                                     routine += "\n" + calenderRoutine + "\n";
                                     time += Integer.parseInt(calenderTime);
                                     weight = calenderWeight;
@@ -293,13 +293,16 @@ public class CreatePlanActivity extends AppCompatActivity {
 
                                 int hour = time / 60;
                                 int minute = time % 60;
+                                star = starSum / tuples.length();
 
                                 textView23.setText((routine.equals("")) ? "\n\n\n\n\n이날은 운동을 하지 않았습니다." : routine);
                                 textView25.setText((weight.equals("")) ? "0kg" : weight + "kg");
                                 textView27.setText((time == 0) ? "0H 0M" : hour + "H " + minute + "M");
+
+                                rateExercise.setRating(star);
                             }
                             else {
-                                TextView textView22 = findViewById(R.id.textView22);
+                                RatingBar reteExercise = findViewById(R.id.rateExercise);
                                 TextView textView23 = findViewById(R.id.textView23);
                                 TextView textView24 = findViewById(R.id.textView24);
                                 TextView textView25 = findViewById(R.id.textView25);
@@ -362,7 +365,7 @@ public class CreatePlanActivity extends AppCompatActivity {
                     JSONArray tuples = jsonObject.getJSONArray("tuples"); // 튜플 배열을 가져옵니다.
 
                     if(success){
-                        TextView textView22 = findViewById(R.id.textView22);
+                        RatingBar reteExercise = findViewById(R.id.rateExercise);
                         TextView textView23 = findViewById(R.id.textView23);
                         TextView textView24 = findViewById(R.id.textView24);
                         TextView textView25 = findViewById(R.id.textView25);
@@ -378,6 +381,9 @@ public class CreatePlanActivity extends AppCompatActivity {
                         String calenderTime;
                         String calenderWeight;
 
+                        float starSum = 0;
+                        star = 0;
+
                         for (int i = 0; i < tuples.length(); i++) {
                             JSONObject tuple = tuples.getJSONObject(i);
 
@@ -386,6 +392,8 @@ public class CreatePlanActivity extends AppCompatActivity {
                             calenderTime = tuple.getString("calenderTime");
                             calenderWeight = tuple.getString("calenderWeight");
 
+                            starSum += Float.parseFloat( tuple.getString("calenderStar"));
+
                             routine += "\n" + calenderRoutine + "\n";
                             time += Integer.parseInt(calenderTime);
                             weight = calenderWeight;
@@ -393,14 +401,17 @@ public class CreatePlanActivity extends AppCompatActivity {
 
                         int hour = time / 60;
                         int minute = time % 60;
+                        star = starSum / tuples.length();
 
                         textView23.setText((routine.equals("")) ? "\n\n\n\n\n이날은 운동을 하지 않았습니다." : routine);
                         textView25.setText((weight.equals("")) ? "0kg" : weight + "kg");
                         textView27.setText((time == 0) ? "0H 0M" : hour + "H " + minute + "M");
 
+                        rateExercise.setRating(star);
+
                     }
                     else {
-                        TextView textView22 = findViewById(R.id.textView22);
+                        RatingBar reteExercise = findViewById(R.id.rateExercise);
                         TextView textView23 = findViewById(R.id.textView23);
                         TextView textView24 = findViewById(R.id.textView24);
                         TextView textView25 = findViewById(R.id.textView25);

@@ -173,7 +173,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                         CheckBox checkBox = (CheckBox) findViewById(Integer.parseInt(eventNo));
 
                         checkBox.setText(eventExercise);
-                        testArray.add(eventExercise);
+//                        testArray.add(eventExercise);
                     }
                     else {
 
@@ -182,13 +182,15 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
-//                finally {
+                finally {
 //                    requestCount--;
 //                    if (requestCount == 0) {
-//                        Log.d("TestArray", "userName" + testArray);
-//                        testArray2 = testArray;
+//                        for(int i=0; i<100; i++){
+//                            CheckBox checkBox = (CheckBox) findViewById(i);
+//                            testArray.add(checkBox.getText());
+//                        }
 //                    }
-//                }
+                }
             }
         };
         for (int i = 0; i < 100; i++){

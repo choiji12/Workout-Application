@@ -53,6 +53,7 @@ public class StartExerciseActivity extends AppCompatActivity {
     private int minutes = 0;
     private int seconds = 0;
     private Handler handler;
+    private String newOrOld;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +124,7 @@ public class StartExerciseActivity extends AppCompatActivity {
         totalWeightList = (ArrayList) intent.getSerializableExtra("weightList");
         totalTimesList = (ArrayList) intent.getSerializableExtra("timesList");
         selectedExercise = (ArrayList) intent.getSerializableExtra("exerciseList");
+        newOrOld = intent.getStringExtra("NewOrOld");
     }
 
     private void addExerciseView(int exerciseSequenceFor){
@@ -308,6 +310,7 @@ public class StartExerciseActivity extends AppCompatActivity {
         intent.putExtra("userID",userID);
         intent.putExtra("Date",date);
         intent.putExtra("ExerciseTime",String.valueOf(minutes));
+        intent.putExtra("NewOrOld",newOrOld);
         startActivity(intent);
         finish();
     }

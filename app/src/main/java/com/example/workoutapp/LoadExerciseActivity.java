@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class LoadExerciseActivity extends AppCompatActivity {
     private Button btnYes;
     private Button btnNo;
+    private Button btnDelete;
     private LinearLayout mainLayout;
     private String userID;
     private String date;
@@ -126,21 +127,20 @@ public class LoadExerciseActivity extends AppCompatActivity {
             Button exerciseName = new Button(this);
             /** 버튼의 ID는 1~ */
             exerciseName.setId(i+1);
-//            exerciseName.setText(i +"번째 운동");
             exerciseName.setText(String.valueOf(routineNames.get(i)));
             Log.d("Selected Exercise", "Selectedtime :" + exerciseName.getId());
             Log.d("Selected Exercise", "Selectedtime :" + routineNames.get(i));
 
-            exerciseName.setOnClickListener(test);
+            exerciseName.setOnClickListener(info);
+
             mainLayout.addView(exerciseName);
         }
-
     }
 
-    View.OnClickListener test = new View.OnClickListener() {
+
+    View.OnClickListener info = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
             Response.Listener<String> rResponseListener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -187,6 +187,7 @@ public class LoadExerciseActivity extends AppCompatActivity {
                                     intent.putExtra("exerciseList",EventList);
                                     intent.putExtra("userID",userID);
                                     intent.putExtra("Date",date);
+                                    intent.putExtra("NewOrOld","old");
                                     startActivity(intent);
                                     finish();
                                 }
@@ -208,8 +209,42 @@ public class LoadExerciseActivity extends AppCompatActivity {
             queue.add(routineReadRequest);
 
 
-//                    SlidingUpPanelLayout slidingLayout = findViewById(R.id.main_frame);
-//                    slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);//COLLAPSED
+            // delete
+            btnDelete = findViewById(R.id.btnDelete);
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Response.Listener<String> delResponseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                boolean success = jsonObject.getBoolean("success");
+
+                                if (success) {
+                                    Button delBtn = findViewById(v.getId());
+                                    mainLayout.removeView(delBtn);
+
+                                    SlidingUpPanelLayout slidingLayout = findViewById(R.id.main_frame);
+                                    slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+                                    Toast.makeText(getApplicationContext(), "루틴을 삭제 했습니다.", Toast.LENGTH_SHORT).show();
+
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "루틴을 삭제하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    RoutineDeleteRequest routineDeleteRequest = new RoutineDeleteRequest(String.valueOf(routineNames.get((int)v.getId()-1)), userID, delResponseListener);
+                    RequestQueue queue = Volley.newRequestQueue(LoadExerciseActivity.this);
+                    queue.add(routineDeleteRequest);
+                }
+            });
+
         }
     };
 

@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -33,39 +37,72 @@ public class ReviewExerciseActivity extends AppCompatActivity {
     private ArrayList<ArrayList<Integer>> totalWeightList;
     private ArrayList<ArrayList<Integer>> totalTimesList;
     private String exerciseTime;
+    private String newOrOld;
 
     //------------------------------------------------------------------------------------------------------
     private Button btnCompletion;
     private Button btnRoutineStore;
+    private EditText edtWeight;
+    private EditText edtRoutineName;
+    private RatingBar rateExercise;
+
 
     ArrayList<String> strTimesList;
     ArrayList<String> strWeightList;
     ArrayList<String> strSetList;
 
     private int volumeSum;
-    //------------------------------------------------------------------------------------------------------
+    private float ExerciseRating;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_exercise);
 
-        Intent intent = getIntent();
-        userID = getIntent().getStringExtra("userID");
-        date = getIntent().getStringExtra("Date");
-        exerciseTime = getIntent().getStringExtra("ExerciseTime");
-        totalWeightList = (ArrayList) intent.getSerializableExtra("weightList");
-        totalTimesList = (ArrayList) intent.getSerializableExtra("timesList");
-        selectedExercise = (ArrayList) intent.getSerializableExtra("exerciseList");
+        getIntentData();
 
-        Log.d("Selected Exercise", "Selected Exercise :" + userID);
-        Log.d("Selected Exercise", "Selected Exercise :" + date);
-        Log.d("Selected Exercise", "Selected Exercise :" + selectedExercise);
-        Log.d("Selected Exercise", "Selected Exercise :" + totalWeightList);
-        Log.d("Selected Exercise", "Selected Exercise :" + totalTimesList);
-        Log.d("Selected Exercise", "Selected Exercise :" + exerciseTime);
+        initView();
 
+        if(newOrOld.equals("old")){
+            edtRoutineName.setVisibility(View.GONE);
+            btnRoutineStore.setVisibility(View.GONE);
+        }
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 텍스트 변경 중 이벤트
+                String weightString = edtWeight.getText().toString();
+                String routineNameString = edtRoutineName.getText().toString();
 
-        //------------------------------------------------------------------------------------------------------
+                // 버튼 활성화 또는 비활성화
+                boolean submitButtonEnable = !weightString.isEmpty();
+                btnCompletion.setEnabled(submitButtonEnable);
+
+                boolean saveRoutineButtonEnable = !routineNameString.isEmpty();
+                btnRoutineStore.setEnabled(saveRoutineButtonEnable);
+            }
+            @Override
+            public void afterTextChanged(Editable s) {            }
+        };
+
+        edtWeight.addTextChangedListener(textWatcher);
+        edtRoutineName.addTextChangedListener(textWatcher);
+
+        btnCompletion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishActivity();
+            }
+        });
+
+        rateExercise.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                ExerciseRating = rating;
+                Log.d("Rating","Rating" + ExerciseRating);
+            }
+        });
         // 중량 총합
         ArrayList<Integer> multipliedArray = new ArrayList<>();
         int result = 0;
@@ -82,12 +119,6 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             volumeSum += num;
         }
 
-
-        btnCompletion = findViewById(R.id.btnCompletion);
-        btnCompletion.setOnClickListener(calenderStore);
-
-        btnRoutineStore = findViewById(R.id.btnRoutineStore);
-        btnRoutineStore.setOnClickListener(routineStore);
 
         //------------------------------------------------------------------------------------------------------
     }
@@ -152,6 +183,40 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         }
     };
 
+    private void getIntentData(){
+
+        Intent intent = getIntent();
+        userID = getIntent().getStringExtra("userID");
+        date = getIntent().getStringExtra("Date");
+        exerciseTime = getIntent().getStringExtra("ExerciseTime");
+        totalWeightList = (ArrayList) intent.getSerializableExtra("weightList");
+        totalTimesList = (ArrayList) intent.getSerializableExtra("timesList");
+        selectedExercise = (ArrayList) intent.getSerializableExtra("exerciseList");
+        newOrOld = getIntent().getStringExtra("NewOrOld");
+    }
+
+    private void initView(){
+        btnCompletion = findViewById(R.id.btnCompletion);
+        btnCompletion.setOnClickListener(calenderStore);
+
+        btnRoutineStore = findViewById(R.id.btnRoutineStore);
+        btnRoutineStore.setOnClickListener(routineStore);
+
+        edtRoutineName = findViewById(R.id.edtRoutineName);
+
+        edtWeight = findViewById(R.id.edtWeight);
+
+        rateExercise = findViewById(R.id.rateExercise);
+
+        btnCompletion.setEnabled(false);
+        btnRoutineStore.setEnabled(false);
+    }
+
+    private void finishActivity(){
+        Intent intent = new Intent(ReviewExerciseActivity.this,MainActivity.class);
+        intent.putExtra("userID",userID);
+        finish();
+    }
 
     View.OnClickListener calenderStore = new View.OnClickListener() {
         @Override
