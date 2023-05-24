@@ -69,7 +69,8 @@
         android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toTopOf="@+id/edtRoutineName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:progressTint="@color/yellow"/>
 
     <ScrollView
         android:id="@+id/scrollView4"

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -64,6 +66,35 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             edtRoutineName.setVisibility(View.GONE);
             btnRoutineStore.setVisibility(View.GONE);
         }
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 텍스트 변경 중 이벤트
+                String weightString = edtWeight.getText().toString();
+                String routineNameString = edtRoutineName.getText().toString();
+
+                // 버튼 활성화 또는 비활성화
+                boolean submitButtonEnable = !weightString.isEmpty();
+                btnCompletion.setEnabled(submitButtonEnable);
+
+                boolean saveRoutineButtonEnable = !routineNameString.isEmpty();
+                btnRoutineStore.setEnabled(saveRoutineButtonEnable);
+            }
+            @Override
+            public void afterTextChanged(Editable s) {            }
+        };
+
+        edtWeight.addTextChangedListener(textWatcher);
+        edtRoutineName.addTextChangedListener(textWatcher);
+
+        btnCompletion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishActivity();
+            }
+        });
 
         rateExercise.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -176,12 +207,15 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         edtWeight = findViewById(R.id.edtWeight);
 
         rateExercise = findViewById(R.id.rateExercise);
+
+        btnCompletion.setEnabled(false);
+        btnRoutineStore.setEnabled(false);
     }
 
     private void finishActivity(){
         Intent intent = new Intent(ReviewExerciseActivity.this,MainActivity.class);
         intent.putExtra("userID",userID);
-        finishActivity();
+        finish();
     }
 
     View.OnClickListener calenderStore = new View.OnClickListener() {

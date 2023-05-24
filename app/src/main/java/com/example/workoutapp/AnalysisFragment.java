@@ -583,11 +583,11 @@ public class AnalysisFragment extends Fragment {
 
         YAxis leftAxis = chart.getAxisLeft();
         if(function.equals("weight")){
-            leftAxis.setAxisMinimum(maxWeight-30);
+            leftAxis.setAxisMinimum(0);
             leftAxis.setAxisMaximum(maxWeight+8);
             leftAxis.setEnabled(false);
         } else if(function.equals("calory")){
-            leftAxis.setAxisMinimum(minCalory-20);
+            leftAxis.setAxisMinimum(0);
             leftAxis.setAxisMaximum(maxCalory+20);
             leftAxis.setEnabled(false);
         }

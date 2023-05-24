@@ -179,6 +179,7 @@ public class SetExerciseActivity extends AppCompatActivity {
         intent.putExtra("exerciseList",exerciseNameList);
         intent.putExtra("userID",userID);
         intent.putExtra("Date",date);
+        intent.putExtra("NewOrOld","new");
         startActivity(intent);
         finish();
     }
