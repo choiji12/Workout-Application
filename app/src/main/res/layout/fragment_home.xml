@@ -142,7 +142,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/jamsil_regular"
                 android:textColor="@color/black"
-                tools:text="Calory" />
+                tools:text="Volume" />
 
             <TextView
                 android:id="@+id/txtUserCalory"

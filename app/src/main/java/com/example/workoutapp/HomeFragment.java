@@ -83,8 +83,14 @@ public class HomeFragment extends Fragment {
     private int seletedday;
     private LocalDate dateFor;
     private String userID;
-
+    private TextView userWeight;
+    private TextView userBmi;
+    private TextView userVolume;
+    private TextView changeWeight;
+    private TextView changeBmi;
+    private TextView changeVolume;
     private ImageButton btnSetting;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,6 +100,12 @@ public class HomeFragment extends Fragment {
         welcome = view.findViewById(R.id.welcome);
         txtToday = view.findViewById(R.id.txtToday);
         btnExercise = view.findViewById(R.id.btnExerciseToday);
+        userWeight = view.findViewById(R.id.txtUserWeight);
+        userBmi = view.findViewById(R.id.txtUserBMI);
+        userVolume = view.findViewById(R.id.txtUserCalory);
+        changeWeight = view.findViewById(R.id.txtUserWeightChange);
+        changeBmi = view.findViewById(R.id.txtUserBMI);
+        changeVolume = view.findViewById(R.id.txtUserCaloryChange);
 
         // txtToday 꾸미는 함수
 
@@ -118,10 +130,55 @@ public class HomeFragment extends Fragment {
                     if(success){
                         String userID = jsonObject.getString("userID");
                         String userName = jsonObject.getString("userName");
+                        String userOldWeight = jsonObject.getString("userOldWeight");
+                        String userNewWeight = jsonObject.getString("userNewWeight");
+                        String userOldVolume = jsonObject.getString("userOldVolume");
+                        String userNewVolume = jsonObject.getString("userNewVolume");
+                        String userHeight = jsonObject.getString("userHeight");
+
 
                         Log.d("user ID","User ID :" + userName);
 
                         welcome.setText(userName+"님 화이팅!!!");
+                        userWeight.setText(userNewWeight);
+                        userVolume.setText(userNewVolume);
+
+                        float newWeight = Float.parseFloat(userNewWeight);
+                        float oldWeight = Float.parseFloat(userOldWeight);
+                        float Height = Float.parseFloat(userHeight);
+                        int newVolume = Integer.parseInt(userNewVolume);
+                        int oldVolume = Integer.parseInt(userOldVolume);
+
+                        double bmiuh = Height/100;
+                        double result = newWeight / Math.pow(bmiuh,2);
+                        String bmi = String.format("%.2f", result);
+
+                        userBmi.setText(bmi);
+
+                        float weight = newWeight - oldWeight;
+                        if(weight > 0){
+                            changeWeight.setText(Float.toString(weight) + "KG ▲️️");
+                            changeWeight.setTextColor(getResources().getColor(R.color.blue));
+                        } else if(weight == 0){
+                            changeWeight.setText(Float.toString(weight) + "KG --️");
+                            changeWeight.setTextColor(Color.BLACK);
+                        }else{
+                            changeWeight.setText(Float.toString(weight) + "KG ▼️️");
+                            changeWeight.setTextColor(Color.RED);
+                        }
+
+                        int volume = newVolume - oldVolume;
+                        if(volume > 0){
+                            changeVolume.setText(Integer.toString(volume) + "KG ▲️️");
+                            changeVolume.setTextColor(getResources().getColor(R.color.blue));
+                        } else if(volume == 0){
+                            changeVolume.setText(Float.toString(volume) + "KG --️");
+                            changeVolume.setTextColor(Color.BLACK);
+                        }else{
+                            changeVolume.setText(Integer.toString(Math.abs(volume)) + "KG ▼️️");
+                            changeVolume.setTextColor(Color.RED);
+                        }
+
 
                     }else {
 
