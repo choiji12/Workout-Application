@@ -178,6 +178,12 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         rateExercise = findViewById(R.id.rateExercise);
     }
 
+    private void finishActivity(){
+        Intent intent = new Intent(ReviewExerciseActivity.this,MainActivity.class);
+        intent.putExtra("userID",userID);
+        finishActivity();
+    }
+
     View.OnClickListener calenderStore = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
