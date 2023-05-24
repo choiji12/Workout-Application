@@ -381,7 +381,7 @@ public class AnalysisFragment extends Fragment {
 
         int peroidCheckedId= peroid.getCheckedRadioButtonId();
         int functionCheckedId = function.getCheckedRadioButtonId();
-
+//384
         if (peroidCheckedId == R.id.btnWeek && functionCheckedId == R.id.btnWeight) {
             // 주간 체중 변화량 그래프
             float[] weights = new float[testArray.size()];
