@@ -89,12 +89,12 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         edtWeight.addTextChangedListener(textWatcher);
         edtRoutineName.addTextChangedListener(textWatcher);
 
-        btnCompletion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finishActivity();
-            }
-        });
+//        btnCompletion.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finishActivity();
+//            }
+//        });
 
         rateExercise.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -172,7 +172,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             };
 
             for(int idx=0; idx<selectedExercise.size(); idx++){
-                RoutineIsRequest routineIsRequest = new RoutineIsRequest(/*routineName*/"테스트용3", userID,
+                RoutineIsRequest routineIsRequest = new RoutineIsRequest(edtRoutineName.getText().toString(), userID,
                         String.valueOf(selectedExercise.get(idx)),
                         strSetList.get(idx), strTimesList.get(idx),
                         strWeightList.get(idx), String.valueOf(idx+1), responseListener);
@@ -240,6 +240,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
                         boolean success = jsonObject.getBoolean("success");
                         if(success){
                             Toast.makeText(getApplicationContext(),"운동 완료 하였습니다.",Toast.LENGTH_SHORT).show();
+                            finishActivity();
                         }else {
                             Toast.makeText(getApplicationContext(),"운동 완료에 실패하였습니다.",Toast.LENGTH_SHORT).show();
                             return;
@@ -252,9 +253,11 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             };
                                         // volume = 무게 * 횟스
             CalenderIsRequest calenderIsRequest = new CalenderIsRequest(date, userID, "",
-                    exerciseTime ,String.valueOf(ExerciseRating), "80.5", String.valueOf(volumeSum), routine, /*bmi*/20.1, responseListener);
+                    exerciseTime ,String.valueOf(ExerciseRating), edtWeight.getText().toString(),
+                    String.valueOf(volumeSum), routine, /*bmi*/20.1, responseListener);
             RequestQueue queue = Volley.newRequestQueue(ReviewExerciseActivity.this);
             queue.add(calenderIsRequest);
+
         }
     };
 

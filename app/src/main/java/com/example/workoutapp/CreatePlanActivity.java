@@ -347,7 +347,7 @@ public class CreatePlanActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CreatePlanActivity.this,LoadExerciseActivity.class);
                 intent.putExtra("userID",userID);
-                intent.putExtra("Date",dateForIntent);
+                intent.putExtra("Date",dateForIntent.toString());
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
