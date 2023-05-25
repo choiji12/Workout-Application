@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -47,6 +48,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
     private EditText edtWeight;
     private EditText edtRoutineName;
     private RatingBar rateExercise;
+    private TextView txtExerciseList;
 
 
     ArrayList<String> strTimesList;
@@ -63,6 +65,8 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         getIntentData();
 
         initView();
+
+        txtExercise();
 
         if(newOrOld.equals("old")){
             edtRoutineName.setVisibility(View.GONE);
@@ -90,13 +94,6 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 
         edtWeight.addTextChangedListener(textWatcher);
         edtRoutineName.addTextChangedListener(textWatcher);
-
-//        btnCompletion.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finishActivity();
-//            }
-//        });
 
         rateExercise.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -210,11 +207,27 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 
         rateExercise = findViewById(R.id.rateExercise);
 
+        txtExerciseList = findViewById(R.id.txtExerciseList);
+
         btnCompletion.setEnabled(false);
         btnRoutineStore.setEnabled(false);
 
         limitedKey(edtWeight);
     }
+
+    private void txtExercise(){
+        String routine = "";
+        for(int i=0; i<selectedExercise.size(); i++){
+            routine += selectedExercise.get(i) + "\n\n";
+            for(int j=0; j<totalWeightList.get(i).size(); j++){
+                routine += String.valueOf(j+1) + "세트 " + totalWeightList.get(i).get(j) + "kg "
+                        + totalTimesList.get(i).get(j) + "회\n";
+            }
+            routine += "\n\n";
+        }
+        txtExerciseList.setText(routine);
+    }
+
 
     private void finishActivity(){
         Intent intent = new Intent(ReviewExerciseActivity.this,MainActivity.class);
@@ -227,12 +240,12 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         public void onClick(View v) {
             String routine = "";
             for(int i=0; i<selectedExercise.size(); i++){
-                routine += selectedExercise.get(i) + "\n";
+                routine += selectedExercise.get(i) + "\n\n";
                 for(int j=0; j<totalWeightList.get(i).size(); j++){
                     routine += String.valueOf(j+1) + "세트 " + totalWeightList.get(i).get(j) + "kg "
                                     + totalTimesList.get(i).get(j) + "회\n";
                 }
-                routine += "\n";
+                routine += "\n\n";
             }
 
             //자바 코드
