@@ -97,10 +97,6 @@ public class LoadExerciseActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(LoadExerciseActivity.this);
         queue.add(routineNameRequest);
 
-
-
-
-
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,6 +128,20 @@ public class LoadExerciseActivity extends AppCompatActivity {
             Log.d("Selected Exercise", "Selectedtime :" + routineNames.get(i));
 
             exerciseName.setOnClickListener(info);
+
+            exerciseName.setBackground(getResources().getDrawable(R.drawable.round_blue_button));
+            exerciseName.setTextColor(getResources().getColor(R.color.white));
+            exerciseName.setTypeface(getResources().getFont(R.font.jamsil_regular));
+            exerciseName.setTextSize(16);
+
+            LinearLayout.LayoutParams paramsExerciseName = new LinearLayout.LayoutParams(
+
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            paramsExerciseName.height = 170; // 높이 설정 (픽셀 단위)
+            paramsExerciseName.setMargins(10,20,10,20);
+            exerciseName.setLayoutParams(paramsExerciseName);
 
             mainLayout.addView(exerciseName);
         }
@@ -283,6 +293,18 @@ public class LoadExerciseActivity extends AppCompatActivity {
         }
 
         return outputList;
+    }
+
+    private long backKeyPressedTime = 0;
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(LoadExerciseActivity.this,MainActivity.class);
+        intent.putExtra("userID",userID);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
+        backKeyPressedTime = System.currentTimeMillis();
+        return;
     }
 
 }

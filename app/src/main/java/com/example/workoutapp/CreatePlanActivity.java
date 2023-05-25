@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -100,10 +101,6 @@ public class CreatePlanActivity extends AppCompatActivity {
         textView27.setVisibility(View.GONE);
         textView28.setVisibility(View.GONE);
         scrollView.setVisibility(View.GONE);
-
-//        textView23.setText("");
-//        textView25.setText("");
-//        textView27.setText("");
     }
 
     private void pastGoneFutureVisible(){
@@ -126,10 +123,6 @@ public class CreatePlanActivity extends AppCompatActivity {
 
         TextView textView28 = findViewById(R.id.textView28);
         textView28.setVisibility(View.VISIBLE);
-
-//        textView23.setText("");
-//        textView25.setText("");
-//        textView27.setText("");
     }
     private void pastVisibleFutureGone(){
         RatingBar reteExercise = findViewById(R.id.rateExercise);
@@ -150,10 +143,6 @@ public class CreatePlanActivity extends AppCompatActivity {
 
         TextView textView28 = findViewById(R.id.textView28);
         textView28.setVisibility(View.GONE);
-
-//        textView23.setText("");
-//        textView25.setText("");
-//        textView27.setText("");
     }
 
 
@@ -347,7 +336,7 @@ public class CreatePlanActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CreatePlanActivity.this,LoadExerciseActivity.class);
                 intent.putExtra("userID",userID);
-                intent.putExtra("Date",dateForIntent);
+                intent.putExtra("Date",dateForIntent.toString());
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
@@ -433,7 +422,18 @@ public class CreatePlanActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(CreatePlanActivity.this);
         queue.add(calenderRequest);
 
-
+        Button btnRest = findViewById(R.id.btnRest);
+        btnRest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CreatePlanActivity.this,MainActivity.class);
+                intent.putExtra("userID",userID);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
+                Toast.makeText(getApplicationContext(),"내일부터 다시 열심히 해요! \uD83D\uDD25",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /** 오늘 날짜 색깔 지정 Decorator */

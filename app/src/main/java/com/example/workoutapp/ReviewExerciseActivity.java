@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -45,6 +48,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
     private EditText edtWeight;
     private EditText edtRoutineName;
     private RatingBar rateExercise;
+    private TextView txtExerciseList;
 
 
     ArrayList<String> strTimesList;
@@ -61,6 +65,8 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         getIntentData();
 
         initView();
+
+        txtExercise();
 
         if(newOrOld.equals("old")){
             edtRoutineName.setVisibility(View.GONE);
@@ -88,13 +94,6 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 
         edtWeight.addTextChangedListener(textWatcher);
         edtRoutineName.addTextChangedListener(textWatcher);
-
-        btnCompletion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finishActivity();
-            }
-        });
 
         rateExercise.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -172,7 +171,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             };
 
             for(int idx=0; idx<selectedExercise.size(); idx++){
-                RoutineIsRequest routineIsRequest = new RoutineIsRequest(/*routineName*/"테스트용3", userID,
+                RoutineIsRequest routineIsRequest = new RoutineIsRequest(edtRoutineName.getText().toString(), userID,
                         String.valueOf(selectedExercise.get(idx)),
                         strSetList.get(idx), strTimesList.get(idx),
                         strWeightList.get(idx), String.valueOf(idx+1), responseListener);
@@ -208,9 +207,27 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 
         rateExercise = findViewById(R.id.rateExercise);
 
+        txtExerciseList = findViewById(R.id.txtExerciseList);
+
         btnCompletion.setEnabled(false);
         btnRoutineStore.setEnabled(false);
+
+        limitedKey(edtWeight);
     }
+
+    private void txtExercise(){
+        String routine = "";
+        for(int i=0; i<selectedExercise.size(); i++){
+            routine += selectedExercise.get(i) + "\n\n";
+            for(int j=0; j<totalWeightList.get(i).size(); j++){
+                routine += String.valueOf(j+1) + "세트 " + totalWeightList.get(i).get(j) + "kg "
+                        + totalTimesList.get(i).get(j) + "회\n";
+            }
+            routine += "\n\n";
+        }
+        txtExerciseList.setText(routine);
+    }
+
 
     private void finishActivity(){
         Intent intent = new Intent(ReviewExerciseActivity.this,MainActivity.class);
@@ -223,12 +240,12 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         public void onClick(View v) {
             String routine = "";
             for(int i=0; i<selectedExercise.size(); i++){
-                routine += selectedExercise.get(i) + "\n";
+                routine += selectedExercise.get(i) + "\n\n";
                 for(int j=0; j<totalWeightList.get(i).size(); j++){
                     routine += String.valueOf(j+1) + "세트 " + totalWeightList.get(i).get(j) + "kg "
                                     + totalTimesList.get(i).get(j) + "회\n";
                 }
-                routine += "\n";
+                routine += "\n\n";
             }
 
             //자바 코드
@@ -240,6 +257,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
                         boolean success = jsonObject.getBoolean("success");
                         if(success){
                             Toast.makeText(getApplicationContext(),"운동 완료 하였습니다.",Toast.LENGTH_SHORT).show();
+                            finishActivity();
                         }else {
                             Toast.makeText(getApplicationContext(),"운동 완료에 실패하였습니다.",Toast.LENGTH_SHORT).show();
                             return;
@@ -252,11 +270,27 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             };
                                         // volume = 무게 * 횟스
             CalenderIsRequest calenderIsRequest = new CalenderIsRequest(date, userID, "",
-                    exerciseTime ,"5", "80.5", String.valueOf(volumeSum), routine, /*bmi*/20.1, responseListener);
+                    exerciseTime ,String.valueOf(ExerciseRating), edtWeight.getText().toString(),
+                    String.valueOf(volumeSum), routine, /*bmi*/20.1, responseListener);
             RequestQueue queue = Volley.newRequestQueue(ReviewExerciseActivity.this);
             queue.add(calenderIsRequest);
+
         }
     };
+
+    /** 숫자만 입력가능하게 키보드 제한 */
+    private void limitedKey(EditText editText){
+        editText.setKeyListener(new DigitsKeyListener(false,true){
+            @Override
+            public int getInputType(){
+                return InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL;
+            }
+            @Override
+            protected char[] getAcceptedChars(){
+                return new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+            }
+        });
+    }
 
     public static ArrayList<String> convertToStringList(ArrayList<ArrayList<Integer>> twoDimensionalArrayList) {
         ArrayList<String> convertedList = new ArrayList<>();
@@ -276,6 +310,20 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         }
 
         return convertedList;
+    }
+
+
+    /** 뒤로가기 버튼 기능 구현 */
+    private long backKeyPressedTime = 0;
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ReviewExerciseActivity.this,MainActivity.class);
+        intent.putExtra("userID",userID);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit);
+        backKeyPressedTime = System.currentTimeMillis();
+        return;
     }
 }
 
