@@ -14,6 +14,7 @@ import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -53,6 +54,7 @@ public class SetExerciseActivity extends AppCompatActivity {
     private Button btnFinish;
 
     private ArrayList<Boolean> submittedList;
+    private Boolean submitIsClicked = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -210,10 +212,9 @@ public class SetExerciseActivity extends AppCompatActivity {
 
         LinearLayout contentsLayout = new LinearLayout(this);
         contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
-//        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
         LinearLayout.LayoutParams paramsContents = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        paramsContents.setMargins(0, 0, 0, 5);
+        paramsContents.setMargins(10, 0, 0, 5);
         contentsLayout.setLayoutParams(paramsContents);
 
         TextView txtSetcnt = new TextView(this);
@@ -227,6 +228,16 @@ public class SetExerciseActivity extends AppCompatActivity {
 
         EditText edtWeight = new EditText(this);
         edtWeight.setHint("KG");
+
+        LinearLayout.LayoutParams paramsEdtWeight = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        paramsEdtWeight.width = 150;  // 너비 설정 (픽셀 단위)
+        paramsEdtWeight.height = 110; // 높이 설정 (픽셀 단위)
+        paramsEdtWeight.setMargins(10,0,10,0);
+        edtWeight.setLayoutParams(paramsEdtWeight);
+
         limitedKey(edtWeight);
 
         edtWeight.setTypeface(mainFont);
@@ -237,6 +248,16 @@ public class SetExerciseActivity extends AppCompatActivity {
 
         EditText edtTimes = new EditText(this);
         edtTimes.setHint("회");
+
+        LinearLayout.LayoutParams paramsEdtTimes = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        paramsEdtTimes.width = 150;  // 너비 설정 (픽셀 단위)
+        paramsEdtTimes.height = 110; // 높이 설정 (픽셀 단위)
+        paramsEdtTimes.setMargins(10,0,10,0);
+        edtTimes.setLayoutParams(paramsEdtTimes);
+
         limitedKey(edtTimes);
 
         edtTimes.setTypeface(mainFont);
@@ -248,13 +269,14 @@ public class SetExerciseActivity extends AppCompatActivity {
         Button btnDeleteSet = new Button(this);
         btnDeleteSet.setBackground(getResources().getDrawable(R.drawable.minus));
         LinearLayout.LayoutParams paramsDeleteSet = new LinearLayout.LayoutParams
-                ((int) (30 * getResources().getDisplayMetrics().density), (int) (30 * getResources().getDisplayMetrics().density));
+                ((int) (28 * getResources().getDisplayMetrics().density), (int) (28 * getResources().getDisplayMetrics().density));
+        paramsDeleteSet.setMarginEnd(15);
         btnDeleteSet.setLayoutParams(paramsDeleteSet);
 
         btnDeleteSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int lastIndex = frameLayout.getChildCount() - 4;
+                int lastIndex = frameLayout.getChildCount() - 3;
                 if (lastIndex >= 1) {
                     View lastChild = frameLayout.getChildAt(lastIndex);
                     frameLayout.removeView(lastChild);
@@ -279,14 +301,23 @@ public class SetExerciseActivity extends AppCompatActivity {
         Button btnAddSet = new Button(this);
         btnAddSet.setBackground(getResources().getDrawable(R.drawable.plus));
         LinearLayout.LayoutParams paramsAddSet = new LinearLayout.LayoutParams
-                ((int) (30 * getResources().getDisplayMetrics().density), (int) (30 * getResources().getDisplayMetrics().density));
-        btnAddSet.setGravity(Gravity.RIGHT);
+                ((int) (28 * getResources().getDisplayMetrics().density), (int) (28 * getResources().getDisplayMetrics().density));
+        paramsAddSet.setMarginEnd(10);
         btnAddSet.setLayoutParams(paramsAddSet);
 
         Button btnSubmitSet = new Button(this);
         // ID는 1001~
         btnSubmitSet.setId(Id + 1000);
         btnSubmitSet.setText("세트 저장");
+        btnSubmitSet.setBackground(getResources().getDrawable(R.drawable.blue_round_enable_button));
+        btnSubmitSet.setTextColor(getResources().getColor(R.color.black_to_white_enable));
+        btnSubmitSet.setTypeface(mainFont);
+
+        LinearLayout.LayoutParams paramsBtnSubmit = new LinearLayout.LayoutParams
+                (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        paramsBtnSubmit.setMargins(10,10,10,10);
+        btnSubmitSet.setLayoutParams(paramsBtnSubmit);
+
         btnSubmitSet.setEnabled(false);
 
         /** edtWeight나 edtTimes에 공백이 있으면 btnSubmitSet을 비활성화 */
@@ -319,7 +350,7 @@ public class SetExerciseActivity extends AppCompatActivity {
                 int exerciseIndexOrigin = exerciseLayout.indexOfChild(frameLayout);
                 int exerciseIndex = ((exerciseIndexOrigin-1) /2);
 
-                int lastIndex = frameLayout.getChildCount() - 3;
+                int lastIndex = frameLayout.getChildCount() - 2;
                 if (lastIndex >= 0) {
                     frameLayout.addView(simpleAddContent(counter[0],exerciseIndex), lastIndex);
                 }
@@ -338,7 +369,7 @@ public class SetExerciseActivity extends AppCompatActivity {
         btnSubmitSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int contentsLength = frameLayout.getChildCount()-3;
+                int contentsLength = frameLayout.getChildCount()-2;
                 ArrayList<Integer> weightList = new ArrayList<>();
                 ArrayList<Integer> timesList = new ArrayList<>();
 
@@ -386,9 +417,16 @@ public class SetExerciseActivity extends AppCompatActivity {
             }
         });
 
+        LinearLayout buttonsLayout = new LinearLayout(this);
+        buttonsLayout.setOrientation(LinearLayout.HORIZONTAL);
+        buttonsLayout.setGravity(Gravity.RIGHT);
+
+        buttonsLayout.addView(btnDeleteSet);
+        buttonsLayout.addView(btnAddSet);
+
         frameLayout.addView(contentsLayout);
-        frameLayout.addView(btnDeleteSet);
-        frameLayout.addView(btnAddSet);
+
+        frameLayout.addView(buttonsLayout);
         frameLayout.addView(btnSubmitSet);
 
         return frameLayout;
@@ -398,10 +436,9 @@ public class SetExerciseActivity extends AppCompatActivity {
         LinearLayout contentsLayout = new LinearLayout(this);
         contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-//        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
         LinearLayout.LayoutParams paramsContents = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        paramsContents.setMargins(0, 0, 0, 5);
+        paramsContents.setMargins(10, 0, 0, 5);
         contentsLayout.setLayoutParams(paramsContents);
 
         Button btnSubmitSet = findViewById(1001+Id);
@@ -417,6 +454,16 @@ public class SetExerciseActivity extends AppCompatActivity {
 
         EditText edtWeight = new EditText(this);
         edtWeight.setHint("KG");
+
+        LinearLayout.LayoutParams paramsEdtWeight = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        paramsEdtWeight.width = 150;  // 너비 설정 (픽셀 단위)
+        paramsEdtWeight.height = 110; // 높이 설정 (픽셀 단위)
+        paramsEdtWeight.setMargins(10,0,10,0);
+        edtWeight.setLayoutParams(paramsEdtWeight);
+
         limitedKey(edtWeight);
 
         edtWeight.setTypeface(mainFont);
@@ -427,6 +474,16 @@ public class SetExerciseActivity extends AppCompatActivity {
 
         EditText edtTimes = new EditText(this);
         edtTimes.setHint("회");
+
+        LinearLayout.LayoutParams paramsEdtTimes = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        paramsEdtTimes.width = 150;  // 너비 설정 (픽셀 단위)
+        paramsEdtTimes.height = 110; // 높이 설정 (픽셀 단위)
+        paramsEdtTimes.setMargins(10,0,10,0);
+        edtTimes.setLayoutParams(paramsEdtTimes);
+
         limitedKey(edtTimes);
 
         edtTimes.setTypeface(mainFont);

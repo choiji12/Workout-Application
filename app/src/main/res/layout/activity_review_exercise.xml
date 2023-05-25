@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/blackrounded_white_button"
+        android:background="@drawable/round_white_enable_button"
         android:fontFamily="@font/jamsil_regular"
         android:text="루틴 저장"
         android:textColor="@drawable/black_to_white_ablebutton_text"
