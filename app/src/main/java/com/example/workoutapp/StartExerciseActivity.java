@@ -6,12 +6,14 @@ import androidx.core.content.ContextCompat;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
@@ -54,6 +56,7 @@ public class StartExerciseActivity extends AppCompatActivity {
     private int seconds = 0;
     private Handler handler;
     private String newOrOld;
+    private Typeface mainFont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +96,11 @@ public class StartExerciseActivity extends AppCompatActivity {
     private void finishedSetDecorator(){
         if(eachSetCount != 0) {
             LinearLayout decoratedLayout = (LinearLayout) mainLayout.getChildAt(eachSetCount - 1);
-            decoratedLayout.setBackgroundColor(Color.BLUE);
+            decoratedLayout.setBackgroundColor(getResources().getColor(R.color.blue));
+            for(int i=0; i<3; i++) {
+                TextView decoratedText = (TextView) decoratedLayout.getChildAt(i);
+                decoratedText.setTextColor(getResources().getColor(R.color.white));
+            }
         }
     }
 
@@ -130,27 +137,67 @@ public class StartExerciseActivity extends AppCompatActivity {
     private void addExerciseView(int exerciseSequenceFor){
         txtExerciseName.setText((CharSequence) selectedExercise.get(exerciseSequenceFor));
 
-        Log.d("First Set","First Set Cnt" + selectedExercise);
-
         int setCount = totalWeightList.get(exerciseSequenceFor).size();
-        Log.d("First Set","First Set Cnt" + setCount);
         for (int i=0; i<setCount; i++){
             LinearLayout contentsLayout = new LinearLayout(this);
             contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
+            contentsLayout.setGravity(Gravity.CENTER_HORIZONTAL);
 
             TextView txtSetNum = new TextView(this);
             String setNumString = String.valueOf(i+1);
             txtSetNum.setText(setNumString + "세트");
+
+            LinearLayout.LayoutParams paramsTxtSetNum = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            paramsTxtSetNum.width = 150;  // 너비 설정 (픽셀 단위)
+            paramsTxtSetNum.height = 110; // 높이 설정 (픽셀 단위)
+            paramsTxtSetNum.setMargins(0,0,15,0);
+            txtSetNum.setLayoutParams(paramsTxtSetNum);
+            txtSetNum.setGravity(Gravity.CENTER_VERTICAL);
+
+            txtSetNum.setTypeface(mainFont);
+            txtSetNum.setTextColor(getResources().getColor(R.color.black));
+            txtSetNum.setTextSize(17);
 
             TextView txtWeight = new TextView(this);
             int weight = totalWeightList.get(exerciseSequenceFor).get(i);
             String weightString = String.valueOf(weight);
             txtWeight.setText(weightString + "KG");
 
+            LinearLayout.LayoutParams paramsTxtWeight = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            paramsTxtWeight.width = 150;  // 너비 설정 (픽셀 단위)
+            paramsTxtWeight.height = 110; // 높이 설정 (픽셀 단위)
+            paramsTxtWeight.setMargins(0,0,15,0);
+            txtWeight.setLayoutParams(paramsTxtWeight);
+            txtWeight.setGravity(Gravity.CENTER_VERTICAL);
+
+            txtWeight.setTypeface(mainFont);
+            txtWeight.setTextColor(getResources().getColor(R.color.black));
+            txtWeight.setTextSize(17);
+
             TextView txtTimes = new TextView(this);
             int times = totalTimesList.get(exerciseSequenceFor).get(i);
             String timesString = String.valueOf(times);
             txtTimes.setText(timesString + "회");
+
+            LinearLayout.LayoutParams paramsTxtTimes = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            paramsTxtTimes.width = 150;  // 너비 설정 (픽셀 단위)
+            paramsTxtTimes.height = 110; // 높이 설정 (픽셀 단위)
+            paramsTxtTimes.setMargins(0,0,15,0);
+            txtTimes.setLayoutParams(paramsTxtTimes);
+            txtTimes.setGravity(Gravity.CENTER_VERTICAL);
+
+            txtTimes.setTypeface(mainFont);
+            txtTimes.setTextColor(getResources().getColor(R.color.black));
+            txtTimes.setTextSize(17);
 
             contentsLayout.addView(txtSetNum);
             contentsLayout.addView(txtWeight);
@@ -173,6 +220,7 @@ public class StartExerciseActivity extends AppCompatActivity {
         pbTimer = findViewById(R.id.pbTimer);
         txtRemainTime = findViewById(R.id.txtRemainingTime);
         slidingLayout = findViewById(R.id.main_frame);
+        mainFont = getResources().getFont(R.font.jamsil_regular);
 
         /** DB에서 휴식시간 받아와서 restTime에 할당 필요 */
         restTime = 60;  // 1000은 1초

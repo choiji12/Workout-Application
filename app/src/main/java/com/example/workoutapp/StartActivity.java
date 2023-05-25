@@ -27,18 +27,6 @@ private Button btnLogin,btnRegister,btnFindAccount;
         animationDrawable.setExitFadeDuration(1000);
         animationDrawable.start();
 
-        /** 나중에 꼭 없애야 됌!!! */
-        Button Test = findViewById(R.id.btnTest);
-        Test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent testIntent = new Intent(StartActivity.this,TimerActivity.class);
-                startActivity(testIntent);
-            }
-        });
-
-        /** ------------------------------------------------------------- */
-
         // 화면전환 애니메이션
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {

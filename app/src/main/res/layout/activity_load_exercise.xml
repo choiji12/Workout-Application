@@ -86,14 +86,13 @@
 
         <Button
             android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="루틴 삭제"
-            android:fontFamily="@font/jamsil_regular"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/trash"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/scrollView"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="0dp"
             android:layout_marginEnd="20dp"
             />
 
@@ -115,7 +114,7 @@
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="30dp"
             app:layout_constraintBottom_toTopOf="@id/txtQuestion"
             app:layout_constraintTop_toTopOf="parent">
