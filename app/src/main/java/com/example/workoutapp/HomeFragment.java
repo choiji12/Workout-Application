@@ -163,6 +163,7 @@ public class HomeFragment extends Fragment {
                         userBmi.setText(userNewBmi);
 
                         float weight = newWeight - oldWeight;
+                        weight = Math.round(weight * 100) / 100f;
                         if(weight > 0){
                             changeWeight.setText(Float.toString(weight) + "KG ▲️️");
                             changeWeight.setTextColor(Color.RED);
