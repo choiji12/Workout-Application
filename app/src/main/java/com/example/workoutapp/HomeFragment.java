@@ -165,37 +165,41 @@ public class HomeFragment extends Fragment {
                         float weight = newWeight - oldWeight;
                         if(weight > 0){
                             changeWeight.setText(Float.toString(weight) + "KG ▲️️");
-                            changeWeight.setTextColor(getResources().getColor(R.color.blue));
+                            changeWeight.setTextColor(Color.RED);
                         } else if(weight == 0){
                             changeWeight.setText(Float.toString(weight) + "KG --️");
                             changeWeight.setTextColor(Color.BLACK);
                         }else{
                             changeWeight.setText(Float.toString(weight) + "KG ▼️️");
+                            changeWeight.setTextColor(getResources().getColor(R.color.blue));
                             changeWeight.setTextColor(Color.RED);
                         }
 
                         int volume = newVolume - oldVolume;
                         if(volume > 0){
                             changeVolume.setText(Integer.toString(volume) + "KG ▲️️");
-                            changeVolume.setTextColor(getResources().getColor(R.color.blue));
+                            changeVolume.setTextColor(Color.RED);
                         } else if(volume == 0){
                             changeVolume.setText(Float.toString(volume) + "KG --️");
                             changeVolume.setTextColor(Color.BLACK);
                         }else{
                             changeVolume.setText(Integer.toString(Math.abs(volume)) + "KG ▼️️");
-                            changeVolume.setTextColor(Color.RED);
+                            changeVolume.setTextColor(getResources().getColor(R.color.blue));
                         }
 
                         float bmi = newBmi - oldBmi;
+                        bmi = Math.round(bmi * 100) / 100f;
+
                         if(bmi > 0){
                             changeBmi.setText(Float.toString(bmi) + " ▲️️");
-                            changeBmi.setTextColor(getResources().getColor(R.color.blue));
+                            changeBmi.setTextColor(Color.RED);
                         } else if(bmi == 0){
                             changeBmi.setText(Float.toString(bmi) + " --️");
                             changeBmi.setTextColor(Color.BLACK);
                         }else{
                             changeBmi.setText(Float.toString(bmi) + " ▼️️");
-                            changeBmi.setTextColor(Color.RED);
+                            changeBmi.setTextColor(getResources().getColor(R.color.blue));
+
                         }
 
 
