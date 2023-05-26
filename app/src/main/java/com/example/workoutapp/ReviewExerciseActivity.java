@@ -352,7 +352,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 //            // volume = 무게 * 횟스
 //            CalenderIsRequest calenderIsRequest = new CalenderIsRequest(date, userID, "",
 //                    exerciseTime ,String.valueOf(ExerciseRating), edtWeight.getText().toString(),
-//                    String.valueOf(volumeSum), routine, /*bmi*/20.1, responseListener);
+//                    String.valueOf(volumeSum), routine, /*bmi*/"20.1", responseListener);
 //            RequestQueue queue1 = Volley.newRequestQueue(ReviewExerciseActivity.this);
 //            queue1.add(calenderIsRequest);
 
