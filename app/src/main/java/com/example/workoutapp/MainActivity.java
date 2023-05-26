@@ -24,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-//회원탈퇴 기능 구현 => mFirebaseAuth.getCurrentUser().delete();
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
