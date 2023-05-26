@@ -210,7 +210,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/textView9"
+            android:id="@+id/btnWithdrawal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="showChangedeletePopup"

@@ -57,10 +57,13 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 
     private int volumeSum;
     private float ExerciseRating;
+
+    private int routineStoreCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_exercise);
+        routineStoreCount = 0;
 
         getIntentData();
 
@@ -158,7 +161,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
                         JSONObject jsonObject = new JSONObject(response);
                         boolean success = jsonObject.getBoolean("success");
                         if(success){
-                            Toast.makeText(getApplicationContext(),"루틴을 저장 하였습니다.",Toast.LENGTH_SHORT).show();
+                            toastText();
                         }else {
                             Toast.makeText(getApplicationContext(),"루틴 저장에 실패하였습니다.",Toast.LENGTH_SHORT).show();
                             return;
@@ -181,6 +184,13 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 
         }
     };
+
+    private void toastText(){
+        if(routineStoreCount == 0){
+            Toast.makeText(getApplicationContext(),"루틴을 저장 하였습니다.",Toast.LENGTH_SHORT).show();
+            routineStoreCount++;
+        }
+    }
 
     private void getIntentData(){
 
