@@ -44,6 +44,7 @@ public class SettingActivity extends AppCompatActivity {
     private void getIntentData(){
         Intent idIntent = getIntent();
         userID = idIntent.getStringExtra("userID");
+        Log.d("user","ss"+userID);
     }
 
     //------------------------------------------------------------------------------------------- 탈퇴 코드
@@ -283,7 +284,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
                 };
 
-                upDateRequest nameupRequest = new upDateRequest("userName",newNickname, "wlgur0914@naver.com", responseListener);
+                upDateRequest nameupRequest = new upDateRequest("userName",newNickname, userID, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(SettingActivity.this);
                 queue.add(nameupRequest);}
                 else {
@@ -356,7 +357,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
                 };
 
-                upDateRequest nameupRequest = new upDateRequest("userGender",newGender, "wlgur0914@naver.com", responseListener);
+                upDateRequest nameupRequest = new upDateRequest("userGender",newGender, userID, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(SettingActivity.this);
                 queue.add(nameupRequest);
 
@@ -418,7 +419,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
                 };
 
-                upDateRequest nameupRequest = new upDateRequest("userLocation",newLocation, "wlgur0914@naver.com", responseListener);
+                upDateRequest nameupRequest = new upDateRequest("userLocation",newLocation, userID, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(SettingActivity.this);
                 queue.add(nameupRequest);
 
@@ -491,7 +492,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
                 };
 
-                upDateRequest nameupRequest = new upDateRequest("userClass",newClass, "wlgur0914@naver.com", responseListener);
+                upDateRequest nameupRequest = new upDateRequest("userClass",newClass, userID, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(SettingActivity.this);
                 queue.add(nameupRequest);
 
@@ -544,7 +545,7 @@ public class SettingActivity extends AppCompatActivity {
                             };
 
                             String newHeightString = String.valueOf(newHeight);
-                            upDateRequest heightUpdateRequest = new upDateRequest("userHeight", newHeightString, "wlgur0914@naver.com", responseListener);
+                            upDateRequest heightUpdateRequest = new upDateRequest("userHeight", newHeightString, userID, responseListener);
                             RequestQueue queue = Volley.newRequestQueue(SettingActivity.this);
                             queue.add(heightUpdateRequest);
                         } else {
@@ -616,7 +617,7 @@ public class SettingActivity extends AppCompatActivity {
                 };
 
 
-                upDateRequest heightUpdateRequest = new upDateRequest("userBirthday", newBirthday, "wlgur0914@naver.com", responseListener);
+                upDateRequest heightUpdateRequest = new upDateRequest("userBirthday", newBirthday, userID, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(SettingActivity.this);
                 queue.add(heightUpdateRequest);
 
@@ -663,7 +664,7 @@ public class SettingActivity extends AppCompatActivity {
                 };
 
 
-                DeleteRequest deleteRequest = new DeleteRequest("wlgur0914@naver.com", responseListener);
+                DeleteRequest deleteRequest = new DeleteRequest(userID, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(SettingActivity.this);
                 queue.add(deleteRequest);
 
