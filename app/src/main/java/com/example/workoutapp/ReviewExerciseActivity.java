@@ -248,32 +248,90 @@ public class ReviewExerciseActivity extends AppCompatActivity {
                 routine += "\n\n";
             }
 
-            //자바 코드
-            Response.Listener<String> responseListener = new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean success = jsonObject.getBoolean("success");
-                        if(success){
-                            Toast.makeText(getApplicationContext(),"운동 완료 하였습니다.",Toast.LENGTH_SHORT).show();
-                            finishActivity();
-                        }else {
-                            Toast.makeText(getApplicationContext(),"운동 완료에 실패하였습니다.",Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+            String finalRoutine = routine;
+            Response.Listener<String> bmiListener = new Response.Listener<String>() {
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if(success){
+                        String userHeight = jsonObject.getString("userHeight");
 
+                        String userWeight = String.valueOf(Double.parseDouble(edtWeight.getText().toString()));
+                        double height = Double.parseDouble(userHeight);
+                        double weight = Double.parseDouble(userWeight);
+                        double bmiuh = height/100;
+                        double result = weight / Math.pow(bmiuh,2);
+                        String bmi = String.format("%.2f", result);
+
+
+                        Response.Listener<String> responseListener = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    boolean success = jsonObject.getBoolean("success");
+                                    if(success){
+                                        Toast.makeText(getApplicationContext(),"운동 완료 하였습니다.",Toast.LENGTH_SHORT).show();
+                                        finishActivity();
+                                    }else {
+                                        Toast.makeText(getApplicationContext(),"운동 완료에 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        };
+
+
+                        CalenderIsRequest calenderIsRequest = new CalenderIsRequest(date, userID, "",
+                                exerciseTime, String.valueOf(ExerciseRating), edtWeight.getText().toString(),
+                                String.valueOf(volumeSum), finalRoutine, bmi, responseListener);
+                        RequestQueue queue1 = Volley.newRequestQueue(ReviewExerciseActivity.this);
+                        queue1.add(calenderIsRequest);
+                    }else {
+
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            };
-                                        // volume = 무게 * 횟스
-            CalenderIsRequest calenderIsRequest = new CalenderIsRequest(date, userID, "",
-                    exerciseTime ,String.valueOf(ExerciseRating), edtWeight.getText().toString(),
-                    String.valueOf(volumeSum), routine, /*bmi*/20.1, responseListener);
+
+            }
+        };
+            MemberRequest memberRequest = new MemberRequest(userID, bmiListener);
             RequestQueue queue = Volley.newRequestQueue(ReviewExerciseActivity.this);
-            queue.add(calenderIsRequest);
+            queue.add(memberRequest);
+
+            //자바 코드
+//            Response.Listener<String> responseListener = new Response.Listener<String>() {
+//                @Override
+//                public void onResponse(String response) {
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(response);
+//                        boolean success = jsonObject.getBoolean("success");
+//                        if(success){
+//                            Toast.makeText(getApplicationContext(),"운동 완료 하였습니다.",Toast.LENGTH_SHORT).show();
+//                            finishActivity();
+//                        }else {
+//                            Toast.makeText(getApplicationContext(),"운동 완료에 실패하였습니다.",Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//            };
+//
+//            // volume = 무게 * 횟스
+//            CalenderIsRequest calenderIsRequest = new CalenderIsRequest(date, userID, "",
+//                    exerciseTime ,String.valueOf(ExerciseRating), edtWeight.getText().toString(),
+//                    String.valueOf(volumeSum), routine, /*bmi*/20.1, responseListener);
+//            RequestQueue queue1 = Volley.newRequestQueue(ReviewExerciseActivity.this);
+//            queue1.add(calenderIsRequest);
 
         }
     };

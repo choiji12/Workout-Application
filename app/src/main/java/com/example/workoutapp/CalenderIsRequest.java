@@ -16,7 +16,7 @@ public class CalenderIsRequest extends StringRequest {
 
     public CalenderIsRequest(String calenderDate, String userID, String calenderMessage, String calenderTime,
                              String calenderStar ,String calenderWeight, String calenderVolume, String calenderRoutine,
-                             double calenderBmi, Response.Listener<String> listener) {
+                             String calenderBmi, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();

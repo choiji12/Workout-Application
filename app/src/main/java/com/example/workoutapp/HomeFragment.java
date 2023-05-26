@@ -91,6 +91,7 @@ public class HomeFragment extends Fragment {
     private TextView changeVolume;
     private ImageButton btnSetting;
 
+    private TextView volumee;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,17 +101,21 @@ public class HomeFragment extends Fragment {
         welcome = view.findViewById(R.id.welcome);
         txtToday = view.findViewById(R.id.txtToday);
         btnExercise = view.findViewById(R.id.btnExerciseToday);
+        volumee = view.findViewById(R.id.textView77);
+
         userWeight = view.findViewById(R.id.txtUserWeight);
         userBmi = view.findViewById(R.id.txtUserBMI);
         userVolume = view.findViewById(R.id.txtUserCalory);
+
+
         changeWeight = view.findViewById(R.id.txtUserWeightChange);
-        changeBmi = view.findViewById(R.id.txtUserBMI);
+        changeBmi = view.findViewById(R.id.txtUserBMIChange);
         changeVolume = view.findViewById(R.id.txtUserCaloryChange);
 
         // txtToday 꾸미는 함수
 
 
-
+        volumee.setText("Volume");
 
         setTxtToday();
 
@@ -135,7 +140,8 @@ public class HomeFragment extends Fragment {
                         String userOldVolume = jsonObject.getString("userOldVolume");
                         String userNewVolume = jsonObject.getString("userNewVolume");
                         String userHeight = jsonObject.getString("userHeight");
-
+                        String userOldBmi = jsonObject.getString("userOldBmi");
+                        String userNewBmi = jsonObject.getString("userNewBmi");
 
                         Log.d("user ID","User ID :" + userName);
 
@@ -148,12 +154,13 @@ public class HomeFragment extends Fragment {
                         float Height = Float.parseFloat(userHeight);
                         int newVolume = Integer.parseInt(userNewVolume);
                         int oldVolume = Integer.parseInt(userOldVolume);
+                        float newBmi = Float.parseFloat(userNewBmi);
+                        float oldBmi = Float.parseFloat(userOldBmi);
 
-                        double bmiuh = Height/100;
-                        double result = newWeight / Math.pow(bmiuh,2);
-                        String bmi = String.format("%.2f", result);
 
-                        userBmi.setText(bmi);
+
+
+                        userBmi.setText(userNewBmi);
 
                         float weight = newWeight - oldWeight;
                         if(weight > 0){
@@ -177,6 +184,18 @@ public class HomeFragment extends Fragment {
                         }else{
                             changeVolume.setText(Integer.toString(Math.abs(volume)) + "KG ▼️️");
                             changeVolume.setTextColor(Color.RED);
+                        }
+
+                        float bmi = newBmi - oldBmi;
+                        if(bmi > 0){
+                            changeBmi.setText(Float.toString(bmi) + " ▲️️");
+                            changeBmi.setTextColor(getResources().getColor(R.color.blue));
+                        } else if(bmi == 0){
+                            changeBmi.setText(Float.toString(bmi) + " --️");
+                            changeBmi.setTextColor(Color.BLACK);
+                        }else{
+                            changeBmi.setText(Float.toString(bmi) + " ▼️️");
+                            changeBmi.setTextColor(Color.RED);
                         }
 
 
@@ -240,4 +259,5 @@ public class HomeFragment extends Fragment {
         spannableString.setSpan(foregroundColorSpan, spanStartIndex, spanEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         txtToday.setText(spannableString);
     }
+
 }
