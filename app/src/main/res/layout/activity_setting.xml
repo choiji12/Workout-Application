@@ -12,8 +12,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="설 정"
 
+        android:text="설 정"
+        android:fontFamily="@font/jamsil_bold"
+        android:textColor="@color/blue"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,8 +24,8 @@
     <View
         android:id="@+id/line"
         android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
         android:background="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -32,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/line">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,26 +44,39 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="닉네임
-" />
+                android:layout_marginLeft="10dp"
+                android:text="닉네임"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"
+                />
 
             <TextView
                 android:id="@+id/textViewName"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="닉" />
+                android:text="닉"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/buttonChangeNickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
                 android:onClick="showChangeNicknamePopup"
-                android:text="변경 닉" />
+                android:text="닉네임 변경"
+                android:fontFamily="@font/jamsil_regular"
+                android:textSize="16sp"
+
+                android:textColor="@color/white_to_blue"
+                android:background="@drawable/round_blue_button"
+                android:layout_marginBottom="10dp"
+                />
         </LinearLayout>
 
 
@@ -70,27 +86,38 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView4"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="성별" />
+                android:layout_marginLeft="10dp"
+                android:text="성별"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
 
             <TextView
                 android:id="@+id/textViewGender"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/buttonChangeGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
                 android:onClick="showChangeGenderPopup"
-                android:text="Button 성
-" />
+                android:text="성별 변경"
+                android:fontFamily="@font/jamsil_regular"
+                android:textSize="16sp"
+
+                android:textColor="@color/white_to_blue"
+                android:background="@drawable/round_blue_button"
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -99,27 +126,38 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView5"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="장소" />
+                android:text="장소"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"/>
 
             <TextView
                 android:id="@+id/textViewLocation"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/buttonChangeLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
                 android:onClick="showChangeLocationPopup"
-                android:text="Button장
-" />
+                android:text="장소 변경"
+                android:fontFamily="@font/jamsil_regular"
+                android:textSize="16sp"
+
+                android:textColor="@color/white_to_blue"
+                android:background="@drawable/round_blue_button"
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -128,27 +166,38 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="수준" />
+                android:layout_marginLeft="10dp"
+                android:text="수준"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
 
             <TextView
                 android:id="@+id/textViewClass"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/buttonChangeClass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
                 android:onClick="showChangeClassPopup"
-                android:text="Button수
-" />
+                android:text="수준 변경"
+                android:fontFamily="@font/jamsil_regular"
+                android:textSize="16sp"
+
+                android:textColor="@color/white_to_blue"
+                android:background="@drawable/round_blue_button"
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -157,27 +206,38 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView7"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="키" />
+                android:layout_marginLeft="10dp"
+                android:text="키"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
 
             <TextView
                 android:id="@+id/textViewHeight"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/buttonChangeHeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
                 android:onClick="showChangeHeightPopup"
-                android:text="Button키
-" />
+                android:text="키 변경"
+                android:fontFamily="@font/jamsil_regular"
+                android:textSize="16sp"
+
+                android:textColor="@color/white_to_blue"
+                android:background="@drawable/round_blue_button"
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -186,47 +246,85 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView8"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="생년월일" />
+                android:layout_marginLeft="10dp"
+                android:text="생년월일"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
 
             <TextView
                 android:id="@+id/textViewBirth"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                android:fontFamily="@font/jamsil_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/buttonChangeBirthday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
                 android:onClick="showChangeNicknamePopup"
-                android:text="Button생" />
+                android:text="생일 변경"
+                android:fontFamily="@font/jamsil_regular"
+                android:textSize="16sp"
+
+                android:textColor="@color/white_to_blue"
+                android:background="@drawable/round_blue_button"
+                android:layout_marginBottom="50dp"/>
 
         </LinearLayout>
 
         <Button
             android:id="@+id/textView9"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:onClick="showChangedeletePopup"
-            android:text="탈퇴하기" />
+            android:text="탈퇴하기"
+            android:fontFamily="@font/jamsil_regular"
+            android:textSize="16sp"
+
+            android:textColor="@color/white_to_blue"
+            android:background="@drawable/round_blue_button"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
 
         <Button
             android:id="@+id/textView10"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:onClick="showChangeCallPopup"
-            android:text="고객센터" />
+            android:text="고객센터"
+            android:fontFamily="@font/jamsil_regular"
+            android:textSize="16sp"
+
+            android:textColor="@color/white_to_blue"
+            android:background="@drawable/round_blue_button"
+
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
 
         <Button
-            android:id="@+id/textView7"
+            android:id="@+id/btnVersion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="VERSION (V1.0.0)" />
+            android:layout_height="50dp"
+            android:text="VERSION (V1.0.0)"
+            android:fontFamily="@font/jamsil_regular"
+            android:textSize="16sp"
+
+            android:textColor="@color/white_to_blue"
+            android:background="@drawable/round_blue_button"
+
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
