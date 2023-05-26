@@ -1,6 +1,8 @@
 package com.example.workoutapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -59,6 +61,8 @@ public class ReviewExerciseActivity extends AppCompatActivity {
     private float ExerciseRating;
 
     private int routineStoreCount;
+
+    HomeFragment homeFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,29 +79,10 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             edtRoutineName.setVisibility(View.GONE);
             btnRoutineStore.setVisibility(View.GONE);
         }
-        TextWatcher textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // 텍스트 변경 중 이벤트
-                String weightString = edtWeight.getText().toString();
-                String routineNameString = edtRoutineName.getText().toString();
 
-                // 버튼 활성화 또는 비활성화
-                boolean submitButtonEnable = !weightString.isEmpty();
-                btnCompletion.setEnabled(submitButtonEnable);
+        disableButton();
 
-                boolean saveRoutineButtonEnable = !routineNameString.isEmpty();
-                btnRoutineStore.setEnabled(saveRoutineButtonEnable);
-            }
-            @Override
-            public void afterTextChanged(Editable s) {            }
-        };
-
-        edtWeight.addTextChangedListener(textWatcher);
-        edtRoutineName.addTextChangedListener(textWatcher);
-
+        /** 별점 저장 */
         rateExercise.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -184,6 +169,32 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 
         }
     };
+
+    /** 공백란 입력 시 버튼 비활성화 */
+    private void disableButton(){
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 텍스트 변경 중 이벤트
+                String weightString = edtWeight.getText().toString();
+                String routineNameString = edtRoutineName.getText().toString();
+
+                // 버튼 활성화 또는 비활성화
+                boolean submitButtonEnable = !weightString.isEmpty();
+                btnCompletion.setEnabled(submitButtonEnable);
+
+                boolean saveRoutineButtonEnable = !routineNameString.isEmpty();
+                btnRoutineStore.setEnabled(saveRoutineButtonEnable);
+            }
+            @Override
+            public void afterTextChanged(Editable s) {            }
+        };
+
+        edtWeight.addTextChangedListener(textWatcher);
+        edtRoutineName.addTextChangedListener(textWatcher);
+    }
 
     private void toastText(){
         if(routineStoreCount == 0){
@@ -315,6 +326,8 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             RequestQueue queue = Volley.newRequestQueue(ReviewExerciseActivity.this);
             queue.add(memberRequest);
 
+            finishActivity();
+
             //자바 코드
 //            Response.Listener<String> responseListener = new Response.Listener<String>() {
 //                @Override
@@ -355,7 +368,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             }
             @Override
             protected char[] getAcceptedChars(){
-                return new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+                return new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9','.'};
             }
         });
     }

@@ -4,14 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -309,9 +312,6 @@ public class StartExerciseActivity extends AppCompatActivity {
 
                 if(remainTime < 5){
                     txtRemainTime.setTextColor(Color.RED);
-//                알림음 코드... R.raw에 파일을 추가해야함
-//                MediaPlayer mediaPlayer = MediaPlayer.create(TimerActivity.this,R.raw.alarmsound);
-//                mediaPlayer.start();
                     Drawable progressDrawable = ContextCompat.getDrawable(StartExerciseActivity.this, R.drawable.timer_progressbar_finished);
 
                     pbTimer.setProgressDrawable(progressDrawable);
@@ -329,21 +329,20 @@ public class StartExerciseActivity extends AppCompatActivity {
             }
             @Override
             public void onFinish(){
-//                txtRemainTime.setTextColor(Color.RED);
-////                알림음 코드... R.raw에 파일을 추가해야함
-////                MediaPlayer mediaPlayer = MediaPlayer.create(TimerActivity.this,R.raw.alarmsound);
-////                mediaPlayer.start();
-//                Drawable progressDrawable = ContextCompat.getDrawable(StartExerciseActivity.this, R.drawable.timer_progressbar_finished);
-//
-//                pbTimer.setProgressDrawable(progressDrawable);
-//                pbTimer.invalidate();
-                /** 타이머가 종료되고 1초뒤에 자동으로 Intent 실행 */
+                // 알림음 울림
+                MediaPlayer mediaPlayer = MediaPlayer.create(StartExerciseActivity.this,R.raw.timer_end);
+                mediaPlayer.start();
+                // 진동
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(1000);
+                /** 타이머가 종료되고 1초뒤에 자동으로 SlidingView Close */
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         closeSliding();
                     }
                 },1000);
+
             }
         }.start();
 

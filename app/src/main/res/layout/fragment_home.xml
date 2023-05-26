@@ -49,27 +49,24 @@
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:fontFamily="@font/jamsil_regular"
-                android:text="Weight"
+                android:text="체중"
                 android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/txtUserWeight"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:fontFamily="@font/jamsil_regular"
-                android:text="\t\t100 KG"
+                android:text="100 KG"
                 android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/txtUserWeightChange"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:fontFamily="@font/jamsil_regular"
                 android:gravity="end"
                 android:text="2KG 👎"
@@ -93,27 +90,24 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="BMI  "
+                android:text="BMI"
                 android:fontFamily="@font/jamsil_regular"
                 android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/txtUserBMI"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="\t\t 30.5"
+                android:text="30.5"
                 android:fontFamily="@font/jamsil_regular"
                 android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/txtUserBMIChange"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="0.4 👍"
                 android:gravity="end"
                 android:fontFamily="@font/jamsil_regular"
@@ -137,29 +131,26 @@
 
             <TextView
                 android:id="@+id/textView77"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:text="Volume"
+                tools:text="중량"
                 android:fontFamily="@font/jamsil_regular"
                 android:textColor="@color/black"
                  />
 
             <TextView
                 android:id="@+id/txtUserCalory"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="\t\t400 Kcal"
+                android:text="400 KG"
                 android:fontFamily="@font/jamsil_regular"
                 android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/txtUserCaloryChange"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="300 👍"
+                android:text="300KG 👍"
                 android:gravity="end"
                 android:fontFamily="@font/jamsil_regular"
                 android:textColor="@color/blue"/>

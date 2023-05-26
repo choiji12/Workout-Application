@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReviewExerciseActivity">
+    tools:context=".ReviewExerciseActivity"
+    android:id="@+id/mainLayout">
 
     <TextView
         android:id="@+id/textView30"
@@ -38,7 +39,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/round_white_enable_button"
         android:fontFamily="@font/jamsil_regular"
         android:text="루틴 저장"
@@ -51,7 +52,7 @@
         android:id="@+id/edtWeight"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:fontFamily="@font/jamsil_regular"
         android:gravity="center"
@@ -66,7 +67,7 @@
         android:id="@+id/rateExercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/edtRoutineName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,9 +77,9 @@
         android:id="@+id/scrollView4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/rateExercise"
+        app:layout_constraintBottom_toTopOf="@+id/txtWeightSum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView30">
@@ -87,11 +88,11 @@
             android:id="@+id/txtExerciseList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="운동리스트"
             android:fontFamily="@font/jamsil_regular"
-            android:textColor="@color/black"
             android:gravity="center"
-            android:textSize="18sp"/>
+            android:text="운동리스트"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
     </ScrollView>
 
     <EditText
@@ -108,5 +109,18 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/btnRoutineStore"
         app:layout_constraintEnd_toStartOf="@+id/btnRoutineStore" />
+
+    <TextView
+        android:id="@+id/txtWeightSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="무게 총량"
+        android:fontFamily="@font/jamsil_regular"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/rateExercise"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
