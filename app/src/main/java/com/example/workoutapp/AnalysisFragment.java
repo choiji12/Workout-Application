@@ -68,19 +68,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AnalysisFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AnalysisFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -89,7 +82,6 @@ public class AnalysisFragment extends Fragment {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static AnalysisFragment newInstance(String param1, String param2) {
         AnalysisFragment fragment = new AnalysisFragment();
         Bundle args = new Bundle();
@@ -457,6 +449,15 @@ public class AnalysisFragment extends Fragment {
     private void setChart(LineChart chart, float[] datas,String peroid,String function){
         List<Entry> values = new ArrayList<>();
 
+        Log.d("Datas","Datass"+datas);
+
+
+        for(int j=datas.length-1; j>-1; j--){
+            if(datas[j] == 0.0){
+                datas[j] = datas[j+1];
+            }
+        }
+
         float maxWeight = 0;
         float minWeight = 0;
         float maxCalory = 0;
@@ -476,6 +477,7 @@ public class AnalysisFragment extends Fragment {
                 }
             }
         } else if(function == "calory"){
+            minCalory = 200;
             for(int i =0; i<datas.length; i++){
                 values.add(new Entry(i,datas[i]));
             }
@@ -488,7 +490,6 @@ public class AnalysisFragment extends Fragment {
                 }
             }
         }
-//        Typeface font = Typeface.createFromAsset(asset);
 
         LineDataSet dataSet = new LineDataSet(values,"weight");
         dataSet.setColor(Color.parseColor("#6C91FA"));
@@ -497,9 +498,7 @@ public class AnalysisFragment extends Fragment {
         dataSet.setValueTextColor(Color.BLACK);
         dataSet.setLineWidth(3.0f);
         dataSet.setCircleSize(5.0f);
-//        dataSet.setDrawCircles(false);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-//        dataSet.setCubicIntensity(0.2f);
         dataSet.setDrawFilled(true);
         dataSet.setFillDrawable(ContextCompat.getDrawable(getContext(), R.drawable.main_gradation_color_alpha50));
         dataSet.setValueTextSize(12);
@@ -507,7 +506,7 @@ public class AnalysisFragment extends Fragment {
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
 
-        /** X축 label을 날짜를 추가하는 기능 추가해야됌... */
+        /** X축을 날짜로 설정 */
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
@@ -531,8 +530,6 @@ public class AnalysisFragment extends Fragment {
             // X축 데이터에 날짜 추가하는 곳
             xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]
                     {
-                            //yearArray[29],yearArray[28],yearArray[27],yearArray[26],yearArray[25],yearArray[24],yearArray[23],yearArray[22],yearArray[21],yearArray[20],yearArray[19],yearArray[18],
-                            //yearArray[17],yearArray[16],yearArray[15]
                             yearArray[13],yearArray[12],yearArray[11],yearArray[10],yearArray[9],yearArray[8],yearArray[7],yearArray[6],yearArray[5],
                             yearArray[4],yearArray[3],yearArray[2],yearArray[1],yearArray[0]
                             }));
@@ -558,7 +555,6 @@ public class AnalysisFragment extends Fragment {
             }
             xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]
                     {
-                            //monthArray[11],monthArray[10],monthArray[9],monthArray[8],monthArray[7],monthArray[6],
                            monthArray[5],monthArray[4],monthArray[3],monthArray[2],monthArray[1],monthArray[0]}));
         } else if(peroid.equals("year")){
             chart.setVisibleXRangeMinimum(3);
@@ -583,12 +579,12 @@ public class AnalysisFragment extends Fragment {
 
         YAxis leftAxis = chart.getAxisLeft();
         if(function.equals("weight")){
-            leftAxis.setAxisMinimum(0);
-            leftAxis.setAxisMaximum(maxWeight+8);
+            leftAxis.setAxisMinimum(minWeight-1);
+            leftAxis.setAxisMaximum(maxWeight+1);
             leftAxis.setEnabled(false);
         } else if(function.equals("calory")){
-            leftAxis.setAxisMinimum(0);
-            leftAxis.setAxisMaximum(maxCalory+20);
+            leftAxis.setAxisMinimum(minCalory);
+            leftAxis.setAxisMaximum(maxCalory+100);
             leftAxis.setEnabled(false);
         }
 

@@ -232,6 +232,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra("Date",dateFor);
                 intent.putExtra("SelectedList",selectedExercise);
                 startActivity(intent);
+                finish();
             }
         });
 

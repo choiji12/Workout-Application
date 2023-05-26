@@ -227,7 +227,7 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("userID",userID);
                 intent.putExtra("Date",today.toString());
                 startActivity(intent);
-                getActivity().finish();
+//                getActivity().finish();
                 getActivity().overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
 
             }

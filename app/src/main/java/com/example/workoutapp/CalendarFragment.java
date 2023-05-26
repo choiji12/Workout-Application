@@ -134,7 +134,7 @@ public class CalendarFragment extends Fragment {
                 intent.putExtra("userID",userID);
                 intent.putExtra("Date",dateFor.toString());
                 startActivity(intent);
-                getActivity().finish();
+//                getActivity().finish();
                 getActivity().overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
         });

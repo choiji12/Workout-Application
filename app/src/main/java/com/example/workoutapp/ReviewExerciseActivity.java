@@ -1,6 +1,8 @@
 package com.example.workoutapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,10 +59,15 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 
     private int volumeSum;
     private float ExerciseRating;
+
+    private int routineStoreCount;
+
+    HomeFragment homeFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_exercise);
+        routineStoreCount = 0;
 
         getIntentData();
 
@@ -72,29 +79,10 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             edtRoutineName.setVisibility(View.GONE);
             btnRoutineStore.setVisibility(View.GONE);
         }
-        TextWatcher textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // 텍스트 변경 중 이벤트
-                String weightString = edtWeight.getText().toString();
-                String routineNameString = edtRoutineName.getText().toString();
 
-                // 버튼 활성화 또는 비활성화
-                boolean submitButtonEnable = !weightString.isEmpty();
-                btnCompletion.setEnabled(submitButtonEnable);
+        disableButton();
 
-                boolean saveRoutineButtonEnable = !routineNameString.isEmpty();
-                btnRoutineStore.setEnabled(saveRoutineButtonEnable);
-            }
-            @Override
-            public void afterTextChanged(Editable s) {            }
-        };
-
-        edtWeight.addTextChangedListener(textWatcher);
-        edtRoutineName.addTextChangedListener(textWatcher);
-
+        /** 별점 저장 */
         rateExercise.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -158,7 +146,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
                         JSONObject jsonObject = new JSONObject(response);
                         boolean success = jsonObject.getBoolean("success");
                         if(success){
-                            Toast.makeText(getApplicationContext(),"루틴을 저장 하였습니다.",Toast.LENGTH_SHORT).show();
+                            toastText();
                         }else {
                             Toast.makeText(getApplicationContext(),"루틴 저장에 실패하였습니다.",Toast.LENGTH_SHORT).show();
                             return;
@@ -181,6 +169,39 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 
         }
     };
+
+    /** 공백란 입력 시 버튼 비활성화 */
+    private void disableButton(){
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 텍스트 변경 중 이벤트
+                String weightString = edtWeight.getText().toString();
+                String routineNameString = edtRoutineName.getText().toString();
+
+                // 버튼 활성화 또는 비활성화
+                boolean submitButtonEnable = !weightString.isEmpty();
+                btnCompletion.setEnabled(submitButtonEnable);
+
+                boolean saveRoutineButtonEnable = !routineNameString.isEmpty();
+                btnRoutineStore.setEnabled(saveRoutineButtonEnable);
+            }
+            @Override
+            public void afterTextChanged(Editable s) {            }
+        };
+
+        edtWeight.addTextChangedListener(textWatcher);
+        edtRoutineName.addTextChangedListener(textWatcher);
+    }
+
+    private void toastText(){
+        if(routineStoreCount == 0){
+            Toast.makeText(getApplicationContext(),"루틴을 저장 하였습니다.",Toast.LENGTH_SHORT).show();
+            routineStoreCount++;
+        }
+    }
 
     private void getIntentData(){
 
@@ -305,6 +326,8 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             RequestQueue queue = Volley.newRequestQueue(ReviewExerciseActivity.this);
             queue.add(memberRequest);
 
+            finishActivity();
+
             //자바 코드
 //            Response.Listener<String> responseListener = new Response.Listener<String>() {
 //                @Override
@@ -329,7 +352,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
 //            // volume = 무게 * 횟스
 //            CalenderIsRequest calenderIsRequest = new CalenderIsRequest(date, userID, "",
 //                    exerciseTime ,String.valueOf(ExerciseRating), edtWeight.getText().toString(),
-//                    String.valueOf(volumeSum), routine, /*bmi*/20.1, responseListener);
+//                    String.valueOf(volumeSum), routine, /*bmi*/"20.1", responseListener);
 //            RequestQueue queue1 = Volley.newRequestQueue(ReviewExerciseActivity.this);
 //            queue1.add(calenderIsRequest);
 
@@ -345,7 +368,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             }
             @Override
             protected char[] getAcceptedChars(){
-                return new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+                return new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9','.'};
             }
         });
     }

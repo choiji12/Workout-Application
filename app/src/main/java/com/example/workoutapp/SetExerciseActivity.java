@@ -54,7 +54,7 @@ public class SetExerciseActivity extends AppCompatActivity {
     private Button btnFinish;
 
     private ArrayList<Boolean> submittedList;
-    private Boolean submitIsClicked = false;
+    private Boolean submitIsClicked = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -273,6 +273,7 @@ public class SetExerciseActivity extends AppCompatActivity {
         paramsDeleteSet.setMarginEnd(15);
         btnDeleteSet.setLayoutParams(paramsDeleteSet);
 
+
         btnDeleteSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,6 +290,8 @@ public class SetExerciseActivity extends AppCompatActivity {
                 int exerciseIndexOrigin = exerciseLayout.indexOfChild(frameLayout);
                 int exerciseIndex = ((exerciseIndexOrigin-1) /2);
                 submittedList.set(exerciseIndex, false);
+
+                submitIsClicked = false;
 
                 if (submittedList.contains(false)) {
                     btnFinish.setEnabled(false); // 아직 모든 버튼이 눌리지 않음
@@ -363,12 +366,17 @@ public class SetExerciseActivity extends AppCompatActivity {
                     btnFinish.setEnabled(true); // 모든 버튼이 눌림
                 }
 
+                submitIsClicked = false;
+
             }
         });
 
         btnSubmitSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                submitIsClicked = true;
+
                 int contentsLength = frameLayout.getChildCount()-2;
                 ArrayList<Integer> weightList = new ArrayList<>();
                 ArrayList<Integer> timesList = new ArrayList<>();
@@ -408,6 +416,8 @@ public class SetExerciseActivity extends AppCompatActivity {
                 totalTimesList.set(exerciseIndex, timesList);
                 submittedList.set(exerciseIndex, true);
 
+                Toast.makeText(getApplicationContext(),"세트저장 완료",Toast.LENGTH_SHORT);
+
                 // 모든 btnSubmitSet 버튼이 눌렸는지 확인
                 if (submittedList.contains(false)) {
                     btnFinish.setEnabled(false); // 아직 모든 버튼이 눌리지 않음
@@ -416,6 +426,14 @@ public class SetExerciseActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        if(submitIsClicked == false){
+            btnSubmitSet.setBackground(getResources().getDrawable(R.drawable.white_round_button));
+        }
+        if(submitIsClicked == true){
+            btnSubmitSet.setBackground(getResources().getDrawable(R.drawable.blue_round_enable_button));
+        }
 
         LinearLayout buttonsLayout = new LinearLayout(this);
         buttonsLayout.setOrientation(LinearLayout.HORIZONTAL);
