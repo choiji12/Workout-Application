@@ -86,6 +86,7 @@ public class HomeFragment extends Fragment {
     private int selectedyear;
     private int selectedmonth;
     private int seletedday;
+    //ㅏ
     private LocalDate dateFor;
     private String userID;
     private TextView userWeight;
