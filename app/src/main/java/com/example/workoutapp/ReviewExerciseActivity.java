@@ -51,6 +51,8 @@ public class ReviewExerciseActivity extends AppCompatActivity {
     private EditText edtRoutineName;
     private RatingBar rateExercise;
     private TextView txtExerciseList;
+    private TextView txtWeightSum;
+    private int sum;
 
 
     ArrayList<String> strTimesList;
@@ -74,6 +76,16 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         initView();
 
         txtExercise();
+
+        sum = 0;
+        for( ArrayList<Integer> num : totalWeightList){
+            for(int value : num){
+                sum += value;
+            }
+        }
+        String weight = "오늘 든 무게: " + String.valueOf(sum) + "kg";
+        txtWeightSum.setText(weight);
+
 
         if(newOrOld.equals("old")){
             edtRoutineName.setVisibility(View.GONE);
@@ -229,6 +241,8 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         rateExercise = findViewById(R.id.rateExercise);
 
         txtExerciseList = findViewById(R.id.txtExerciseList);
+
+        txtWeightSum = findViewById(R.id.txtWeightSum);
 
         btnCompletion.setEnabled(false);
         btnRoutineStore.setEnabled(false);
