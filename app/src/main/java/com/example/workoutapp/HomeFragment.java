@@ -2,6 +2,7 @@ package com.example.workoutapp;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -34,6 +35,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,6 +52,9 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextView saying;
+    private ImageButton imgAd;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -111,8 +116,50 @@ public class HomeFragment extends Fragment {
         changeWeight = view.findViewById(R.id.txtUserWeightChange);
         changeBmi = view.findViewById(R.id.txtUserBMIChange);
         changeVolume = view.findViewById(R.id.txtUserCaloryChange);
+        saying = view.findViewById(R.id.textView35);
+        imgAd = view.findViewById(R.id.textView36);
 
         // txtToday 꾸미는 함수
+
+
+        Response.Listener<String> wiseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    String wiseSaying = jsonObject.getString("wiseSaying");
+                    Log.d("rand","rnad"+wiseSaying);
+
+                    saying.setText(wiseSaying);
+                    saying.setTextColor(Color.BLACK);
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+        Random random = new Random();
+        int randomNumber = random.nextInt(41);
+        Log.d("rand","rnad"+randomNumber);
+
+        WiseRequest wiseRequest = new WiseRequest(Integer.toString(randomNumber), wiseListener);
+        RequestQueue queuew = Volley.newRequestQueue(getActivity());
+        queuew.add(wiseRequest);
+
+        imgAd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://www.hdex.co.kr/";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
 
 
         volumee.setText("Volume");
