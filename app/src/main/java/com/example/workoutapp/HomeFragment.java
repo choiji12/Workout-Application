@@ -1,9 +1,11 @@
 package com.example.workoutapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -23,6 +25,11 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,19 +42,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -55,8 +54,6 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -90,8 +87,17 @@ public class HomeFragment extends Fragment {
     private TextView changeBmi;
     private TextView changeVolume;
     private ImageButton btnSetting;
+    private AdView adView;
 
     private TextView volumee;
+
+    private Context context;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -107,14 +113,21 @@ public class HomeFragment extends Fragment {
         userBmi = view.findViewById(R.id.txtUserBMI);
         userVolume = view.findViewById(R.id.txtUserCalory);
 
-
         changeWeight = view.findViewById(R.id.txtUserWeightChange);
         changeBmi = view.findViewById(R.id.txtUserBMIChange);
         changeVolume = view.findViewById(R.id.txtUserCaloryChange);
 
+        MobileAds.initialize(context, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        adView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
         // txtToday 꾸미는 함수
-
-
         volumee.setText("Volume");
 
         setTxtToday();
@@ -124,7 +137,6 @@ public class HomeFragment extends Fragment {
         if (bundle !=null) {
             userID = bundle.getString("userID");
         }
-        Log.d("user ID","User ID :" + userID);
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
