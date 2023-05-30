@@ -16,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,8 +58,12 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
     private ArrayList testArray;
     private ArrayList testArray2;
 
+    private SearchView searchView;
+
     int requestCount = 100;
     private JSONObject jsonObject;
+
+    String searchText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +96,22 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
         btnShoulder = findViewById(R.id.btnShoulder);
         btnCardio = findViewById(R.id.btnCardio);
         btnAbs = findViewById(R.id.btnAbs);
+
+        searchView = findViewById(R.id.searchView);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchText = newText;
+                filterExercise(newText);
+                return false;
+            }
+        });
 
         /** 선택된 운동 ID를 저장할 ArrayList */
         selectedExercise = new ArrayList();
@@ -269,6 +290,15 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
                     int chkId = j+101-100;
                     CheckBox checkBox = findViewById(chkId);
+
+
+                    if(searchText!=null) {
+                        if (checkBox.getText().toString().toLowerCase().contains(searchText.toLowerCase())) {
+                            LegLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            LegLayout.setVisibility(View.GONE);
+                        }
+                    }
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -300,6 +330,15 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
                     int chkId = j+101-100;
                     CheckBox checkBox = findViewById(chkId);
+
+
+                    if(searchText!=null) {
+                        if (checkBox.getText().toString().toLowerCase().contains(searchText.toLowerCase())) {
+                            LegLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            LegLayout.setVisibility(View.GONE);
+                        }
+                    }
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -329,6 +368,15 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
                     int chkId = j+101-100;
                     CheckBox checkBox = findViewById(chkId);
+
+
+                    if(searchText!=null) {
+                        if (checkBox.getText().toString().toLowerCase().contains(searchText.toLowerCase())) {
+                            LegLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            LegLayout.setVisibility(View.GONE);
+                        }
+                    }
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -358,6 +406,15 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
                     int chkId = j+101-100;
                     CheckBox checkBox = findViewById(chkId);
+
+
+                    if(searchText!=null) {
+                        if (checkBox.getText().toString().toLowerCase().contains(searchText.toLowerCase())) {
+                            LegLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            LegLayout.setVisibility(View.GONE);
+                        }
+                    }
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -387,6 +444,15 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
                     int chkId = j+101-100;
                     CheckBox checkBox = findViewById(chkId);
+
+
+                    if(searchText!=null) {
+                        if (checkBox.getText().toString().toLowerCase().contains(searchText.toLowerCase())) {
+                            LegLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            LegLayout.setVisibility(View.GONE);
+                        }
+                    }
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -416,6 +482,15 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
                     int chkId = j+101-100;
                     CheckBox checkBox = findViewById(chkId);
+
+                    if(searchText!=null ) {
+                        if (checkBox.getText().toString().toLowerCase().contains(searchText.toLowerCase())) {
+                            LegLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            LegLayout.setVisibility(View.GONE);
+                        }
+                    }
+
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -493,6 +568,20 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
 
     }
+
+    private void filterExercise(String query) {
+        for (int i = 1; i <= 100; i++) {
+            LinearLayout layout = findViewById(i + 100);
+            CheckBox checkBox = findViewById(i);
+
+            if (checkBox.getText().toString().toLowerCase().contains(query.toLowerCase())) {
+                layout.setVisibility(View.VISIBLE);
+            } else {
+                layout.setVisibility(View.GONE);
+            }
+        }
+    }
+
 
     View.OnClickListener youtubeSearch = new View.OnClickListener() {
         @Override
