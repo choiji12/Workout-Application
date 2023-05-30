@@ -393,14 +393,16 @@ public class SetExerciseActivity extends AppCompatActivity {
                     String times = timesText.getText().toString().trim();
 
                     if(weight.isEmpty()){
-                        Toast.makeText(getApplicationContext(),"무게를 입력하세요",Toast.LENGTH_SHORT);
+                        Toast.makeText(getApplicationContext(),"무게를 입력하세요",Toast.LENGTH_SHORT).show();
                         weightList.add(0);
+                        return;
                     } else {
                         weightList.add(Integer.parseInt(weight));
                     }
                     if(times.isEmpty()){
-                        Toast.makeText(getApplicationContext(),"세트 수를 입력하세요",Toast.LENGTH_SHORT);
+                        Toast.makeText(getApplicationContext(),"세트 수를 입력하세요",Toast.LENGTH_SHORT).show();
                         timesList.add(0);
+                        return;
                     } else {
                         timesList.add(Integer.parseInt(times));
                     }
@@ -416,7 +418,7 @@ public class SetExerciseActivity extends AppCompatActivity {
                 totalTimesList.set(exerciseIndex, timesList);
                 submittedList.set(exerciseIndex, true);
 
-                Toast.makeText(getApplicationContext(),"세트저장 완료",Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),"세트저장 완료",Toast.LENGTH_SHORT).show();
 
                 // 모든 btnSubmitSet 버튼이 눌렸는지 확인
                 if (submittedList.contains(false)) {

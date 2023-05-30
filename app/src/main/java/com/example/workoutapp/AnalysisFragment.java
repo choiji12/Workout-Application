@@ -452,12 +452,13 @@ public class AnalysisFragment extends Fragment {
         Log.d("Datas","Datass"+datas);
 
 
-        for(int j=datas.length-1; j>-1; j--){
-            if(datas[j] == 0.0){
-                datas[j] = datas[j+1];
+        if(function.equals("weight")) {
+            for (int j = datas.length - 2; j > -1; j--) {
+                if (datas[j] == 0.0) {
+                    datas[j] = datas[j + 1];
+                }
             }
         }
-
         float maxWeight = 0;
         float minWeight = 0;
         float maxCalory = 0;
