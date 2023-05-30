@@ -167,14 +167,7 @@ public class HomeFragment extends Fragment {
         RequestQueue queuew = Volley.newRequestQueue(getActivity());
         queuew.add(wiseRequest);
 
-        imgAd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "https://www.hdex.co.kr/";
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
-            }
-        });
+
 
 
 
