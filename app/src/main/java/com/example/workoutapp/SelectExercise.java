@@ -173,7 +173,6 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                         CheckBox checkBox = (CheckBox) findViewById(Integer.parseInt(eventNo));
 
                         checkBox.setText(eventExercise);
-//                        testArray.add(eventExercise);
                     }
                     else {
 
@@ -182,22 +181,23 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
-                finally {
+//                finally {
 //                    requestCount--;
 //                    if (requestCount == 0) {
 //                        for(int i=0; i<100; i++){
-//                            CheckBox checkBox = (CheckBox) findViewById(i);
-//                            testArray.add(checkBox.getText());
+//                            CheckBox checkBox = (CheckBox) findViewById(i+1);
+//                            String name = checkBox.getText().toString();
+//                            testArray.add(name);
+//                            testArray2.add(i+1);
 //                        }
 //                    }
-                }
+//                }
             }
         };
         for (int i = 0; i < 100; i++){
             InfoRequest infoRequest = new InfoRequest(Integer.toString(i+1), infoResponseListener);
         RequestQueue queue = Volley.newRequestQueue(SelectExercise.this);
         queue.add(infoRequest);}
-        Log.d("TestArray","uesrssName" + testArray2);
 
 
         for (int j = 1; j < 101; j++) {
