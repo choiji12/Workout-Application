@@ -78,9 +78,10 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         txtExercise();
 
         sum = 0;
-        for( ArrayList<Integer> num : totalWeightList){
-            for(int value : num){
-                sum += value;
+
+        for(int i=0; i < totalWeightList.size(); i++){
+            for(int j=0; j<totalWeightList.get(i).size(); j++){
+                sum += totalWeightList.get(i).get(j) * totalTimesList.get(i).get(j);
             }
         }
         String weight = "오늘 든 무게: " + String.valueOf(sum) + "kg";
