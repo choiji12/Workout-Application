@@ -284,6 +284,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
                 };
 
+
                 upDateRequest nameupRequest = new upDateRequest("userName",newNickname, userID, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(SettingActivity.this);
                 queue.add(nameupRequest);}
