@@ -62,6 +62,7 @@ public class ReviewExerciseActivity extends AppCompatActivity {
     private int volumeSum;
     private float ExerciseRating;
 
+    private boolean isStored = false;
     private int routineStoreCount;
 
     HomeFragment homeFragment;
@@ -129,10 +130,13 @@ public class ReviewExerciseActivity extends AppCompatActivity {
     View.OnClickListener routineStore = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            isStored = true;
             strTimesList = convertToStringList(totalTimesList);
             strWeightList = convertToStringList(totalWeightList);
             strSetList = new ArrayList<>();
             String setlist = "";
+
+            isSaved();
             for(int i=0; i<totalTimesList.size(); i++){
                 for(int j=0; j<totalTimesList.get(i).size(); j++){
                     setlist += j+1;
@@ -146,12 +150,6 @@ public class ReviewExerciseActivity extends AppCompatActivity {
                 setlist = "";
 
             }
-
-
-            Log.d("Selected Exercise", "Selectedtime :" + strTimesList.get(0));
-            Log.d("Selected Exercise", "Selected :" + strWeightList);
-            Log.d("Selected Exercise", "Selected :" + selectedExercise);
-
             Response.Listener<String> responseListener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -216,6 +214,11 @@ public class ReviewExerciseActivity extends AppCompatActivity {
         }
     }
 
+    private void isSaved(){
+        if(isStored){
+            btnRoutineStore.setEnabled(false);
+        }
+    }
     private void getIntentData(){
 
         Intent intent = getIntent();
@@ -342,34 +345,6 @@ public class ReviewExerciseActivity extends AppCompatActivity {
             queue.add(memberRequest);
 
             finishActivity();
-
-            //자바 코드
-//            Response.Listener<String> responseListener = new Response.Listener<String>() {
-//                @Override
-//                public void onResponse(String response) {
-//                    try {
-//                        JSONObject jsonObject = new JSONObject(response);
-//                        boolean success = jsonObject.getBoolean("success");
-//                        if(success){
-//                            Toast.makeText(getApplicationContext(),"운동 완료 하였습니다.",Toast.LENGTH_SHORT).show();
-//                            finishActivity();
-//                        }else {
-//                            Toast.makeText(getApplicationContext(),"운동 완료에 실패하였습니다.",Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            };
-//
-//            // volume = 무게 * 횟스
-//            CalenderIsRequest calenderIsRequest = new CalenderIsRequest(date, userID, "",
-//                    exerciseTime ,String.valueOf(ExerciseRating), edtWeight.getText().toString(),
-//                    String.valueOf(volumeSum), routine, /*bmi*/"20.1", responseListener);
-//            RequestQueue queue1 = Volley.newRequestQueue(ReviewExerciseActivity.this);
-//            queue1.add(calenderIsRequest);
 
         }
     };
