@@ -196,17 +196,41 @@ public class SettingActivity extends AppCompatActivity {
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference("workoutapp").child("UserAccount");
 
                 if (user != null) {
-                    String userId = user.getUid();
-                    mDatabaseRef.child(userId).removeValue();
                     user.delete()
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+                                        String userId = user.getUid();
+                                        mDatabaseRef.child(userId).removeValue();
+
+                                        Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(response);
+                                                    boolean success = jsonObject.getBoolean("success");
+                                                    if(success){
+
+                                                    }else {
+
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                            }
+                                        };
+
+                                        UserDeleteRequest userDeleteRequest = new UserDeleteRequest(userID, responseListener);
+                                        RequestQueue queue = Volley.newRequestQueue(SettingActivity.this);
+                                        queue.add(userDeleteRequest);
+
                                         Toast.makeText(SettingActivity.this, "회원 탈퇴하였습니다.", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                                         startActivity(intent);
                                         finish();
+
                                     } else {
                                         Toast.makeText(SettingActivity.this, "회원 탈퇴는데 실패하였습니다.", Toast.LENGTH_SHORT).show();
                                     }
@@ -217,27 +241,6 @@ public class SettingActivity extends AppCompatActivity {
                     return;
                 }
 
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            boolean success = jsonObject.getBoolean("success");
-                            if(success){
-
-                            }else {
-
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                };
-
-                UserDeleteRequest userDeleteRequest = new UserDeleteRequest(userID, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(SettingActivity.this);
-                queue.add(userDeleteRequest);
             }
         });
 
