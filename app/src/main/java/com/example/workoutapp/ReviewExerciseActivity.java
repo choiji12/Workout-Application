@@ -22,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -279,15 +280,17 @@ public class ReviewExerciseActivity extends AppCompatActivity {
                     boolean success = jsonObject.getBoolean("success");
 
 
+
                     if(success){
-                        String userVolume = jsonObject.getString("calenderVolume");
-                        Log.d("calV","calV"+userVolume);
+                            String calenderVolume = jsonObject.getString("calenderVolume");
+                            int resultVolume = volumeSum + Integer.parseInt(calenderVolume);
 
                         Response.Listener<String> bmiListener = new Response.Listener<String>() {
                             public void onResponse(String response) {
                                 try {
                                     JSONObject jsonObject = new JSONObject(response);
                                     boolean success = jsonObject.getBoolean("success");
+
                                     if(success){
                                         String userHeight = jsonObject.getString("userHeight");
 
@@ -297,8 +300,6 @@ public class ReviewExerciseActivity extends AppCompatActivity {
                                         double bmiuh = height/100;
                                         double result = weight / Math.pow(bmiuh,2);
                                         String bmi = String.format("%.2f", result);
-                                        int resultVolume = volumeSum + Integer.parseInt(userVolume);
-
 
                                         //분석 볼륨
 
