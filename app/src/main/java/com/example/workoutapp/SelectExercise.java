@@ -47,6 +47,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
     private Button btnYoutube;
 
     private LinearLayout contentsLayout;
+    private TextView txtDate;
 
     private Button btnStartExercise;
     private CheckBox chkExercise;
@@ -57,9 +58,12 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
 
     private ArrayList testArray;
     private ArrayList testArray2;
+    private LinearLayout mainLayout;
+    private Typeface mainFont;
 
     private SearchView searchView;
 
+    int exerciseLength = 100;
     int requestCount = 100;
     private JSONObject jsonObject;
 
@@ -72,31 +76,11 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
         testArray = new ArrayList();
 
         /** 이전 프레그먼트에서 데이터 가져오기,  */
-        userID = getIntent().getStringExtra("userID");
-        dateFor = getIntent().getStringExtra("Date");
-        String[] dateArray = dateFor.split("-");
-        selectedyear = Integer.parseInt(dateArray[0]);
-        selectedmonth = Integer.parseInt(dateArray[1]);
-        seletedday = Integer.parseInt(dateArray[2]);
+        getIntentData();
 
-        TextView txtDate = findViewById(R.id.txtDate);
-        txtDate.setText(selectedmonth + "월 " +seletedday +"일");
+        initView();
 
-        Typeface mainFont = getResources().getFont(R.font.jamsil_regular);
-
-        int exerciseLength = 100;
-
-        LinearLayout mainLayout = findViewById(R.id.exerciseLayout);
-
-        btnStartExercise = findViewById(R.id.btnStartExercise);
-
-        btnLeg = findViewById(R.id.btnLeg);
-        btnChest = findViewById(R.id.btnChest);
-        btnBack = findViewById(R.id.btnBack);
-        btnShoulder = findViewById(R.id.btnShoulder);
-        btnCardio = findViewById(R.id.btnCardio);
-        btnAbs = findViewById(R.id.btnAbs);
-
+        createExerciseList();
         searchView = findViewById(R.id.searchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -116,67 +100,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
         /** 선택된 운동 ID를 저장할 ArrayList */
         selectedExercise = new ArrayList();
 
-        for(int i=0; i<exerciseLength; i++) {
-            /** Contents LinearLayout ID는 101~ 201 */
-            contentsLayout = new LinearLayout(this);
-            contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
-            contentsLayout.setId(i + 101);
 
-            /** 운동 CheckBox ID는 1~ 101 */
-            chkExercise = new CheckBox(this);
-            chkExercise.setId(i + 1);
-
-
-
-            chkExercise.setText(eventExercise);
-            chkExercise.setTextColor(getResources().getColorStateList(R.drawable.black_to_white_radio_text));
-            chkExercise.setTypeface(mainFont);
-            chkExercise.setTextSize(15);
-            chkExercise.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-            LinearLayout.LayoutParams paramsExercise = new LinearLayout.LayoutParams
-                    ((int) (350 * getResources().getDisplayMetrics().density), (int) (80 * getResources().getDisplayMetrics().density));
-            paramsExercise.setMargins(5, 5, 5, 5);
-            chkExercise.setLayoutParams(paramsExercise);
-
-            contentsLayout.addView(chkExercise);
-//
-            Button btnExplain = new Button(this);
-            contentsLayout.addView(btnExplain);
-
-            /** 운동설명 Button ID는 10001 ~  */
-
-            btnExplain.setId(i + 10001);
-            btnExplain.setBackground(getResources().getDrawable(R.drawable.info));
-            btnExplain.setTextSize(12f);
-
-            btnExplain.setOnClickListener(this);
-
-            LinearLayout.LayoutParams paramsExplain = new LinearLayout.LayoutParams
-                    ((int) (30 * getResources().getDisplayMetrics().density), (int) (30 * getResources().getDisplayMetrics().density));
-            paramsExplain.gravity = Gravity.CENTER;
-            btnExplain.setLayoutParams(paramsExplain);
-
-            chkExercise.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_checked));
-
-                    } else {
-                        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
-                    }
-                }
-            });
-
-            contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
-            LinearLayout.LayoutParams paramsContents = new LinearLayout.LayoutParams
-                    (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            paramsContents.setMargins(10, 5, 10, 5);
-            contentsLayout.setLayoutParams(paramsContents);
-            contentsLayout.setVisibility(View.VISIBLE);
-            mainLayout.addView(contentsLayout);
-
-        }
         testArray2 = new ArrayList();
 
         testArray = new ArrayList<>();
@@ -248,12 +172,7 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
         btnStartExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SelectExercise.this, SetExerciseActivity.class);
-                intent.putExtra("userID",userID);
-                intent.putExtra("Date",dateFor);
-                intent.putExtra("SelectedList",selectedExercise);
-                startActivity(intent);
-                finish();
+                finishActivity();
             }
         });
 
@@ -596,6 +515,102 @@ public class SelectExercise extends AppCompatActivity implements View.OnClickLis
             startActivity(intent);
         }
     };
+
+    private void getIntentData(){
+        userID = getIntent().getStringExtra("userID");
+        dateFor = getIntent().getStringExtra("Date");
+        String[] dateArray = dateFor.split("-");
+        selectedyear = Integer.parseInt(dateArray[0]);
+        selectedmonth = Integer.parseInt(dateArray[1]);
+        seletedday = Integer.parseInt(dateArray[2]);
+
+    }
+    private void initView(){
+        txtDate = findViewById(R.id.txtDate);
+        txtDate.setText(selectedmonth + "월 " +seletedday +"일");
+
+        mainFont = getResources().getFont(R.font.jamsil_regular);
+        mainLayout = findViewById(R.id.exerciseLayout);
+
+        btnStartExercise = findViewById(R.id.btnStartExercise);
+
+        btnLeg = findViewById(R.id.btnLeg);
+        btnChest = findViewById(R.id.btnChest);
+        btnBack = findViewById(R.id.btnBack);
+        btnShoulder = findViewById(R.id.btnShoulder);
+        btnCardio = findViewById(R.id.btnCardio);
+        btnAbs = findViewById(R.id.btnAbs);
+    }
+
+    private void createExerciseList(){
+        for(int i=0; i<exerciseLength; i++) {
+            /** Contents LinearLayout ID는 101~ 201 */
+            contentsLayout = new LinearLayout(this);
+            contentsLayout.setOrientation(LinearLayout.HORIZONTAL);
+            contentsLayout.setId(i + 101);
+
+            /** 운동 CheckBox ID는 1~ 101 */
+            chkExercise = new CheckBox(this);
+            chkExercise.setId(i + 1);
+
+            chkExercise.setText(eventExercise);
+            chkExercise.setTextColor(getResources().getColorStateList(R.drawable.black_to_white_radio_text));
+            chkExercise.setTypeface(mainFont);
+            chkExercise.setTextSize(15);
+            chkExercise.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+            LinearLayout.LayoutParams paramsExercise = new LinearLayout.LayoutParams
+                    ((int) (350 * getResources().getDisplayMetrics().density), (int) (80 * getResources().getDisplayMetrics().density));
+            paramsExercise.setMargins(5, 5, 5, 5);
+            chkExercise.setLayoutParams(paramsExercise);
+
+            contentsLayout.addView(chkExercise);
+
+            Button btnExplain = new Button(this);
+            contentsLayout.addView(btnExplain);
+
+            /** 운동설명 Button ID는 10001 ~  */
+            btnExplain.setId(i + 10001);
+            btnExplain.setBackground(getResources().getDrawable(R.drawable.info));
+            btnExplain.setTextSize(12f);
+
+            btnExplain.setOnClickListener(this);
+
+            LinearLayout.LayoutParams paramsExplain = new LinearLayout.LayoutParams
+                    ((int) (30 * getResources().getDisplayMetrics().density), (int) (30 * getResources().getDisplayMetrics().density));
+            paramsExplain.gravity = Gravity.CENTER;
+            btnExplain.setLayoutParams(paramsExplain);
+
+            chkExercise.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_checked));
+
+                    } else {
+                        contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+                    }
+                }
+            });
+
+            contentsLayout.setBackground(getResources().getDrawable(R.drawable.exercise_chkbox_unchecked));
+            LinearLayout.LayoutParams paramsContents = new LinearLayout.LayoutParams
+                    (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            paramsContents.setMargins(10, 5, 10, 5);
+            contentsLayout.setLayoutParams(paramsContents);
+            contentsLayout.setVisibility(View.VISIBLE);
+            mainLayout.addView(contentsLayout);
+
+        }
+    }
+
+    private void finishActivity(){
+        Intent intent = new Intent(SelectExercise.this, SetExerciseActivity.class);
+        intent.putExtra("userID",userID);
+        intent.putExtra("Date",dateFor);
+        intent.putExtra("SelectedList",selectedExercise);
+        startActivity(intent);
+        finish();
+    }
 
     /** 뒤로가기 버튼 기능 구현 */
     private long backKeyPressedTime = 0;

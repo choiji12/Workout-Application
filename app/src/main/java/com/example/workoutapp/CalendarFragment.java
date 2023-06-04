@@ -27,30 +27,27 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CalendarFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CalendarFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public CalendarFragment() {
     }
-    // TODO: Rename and change types and number of parameters
     public static CalendarFragment newInstance(String param1, String param2) {
         CalendarFragment fragment = new CalendarFragment();
         Bundle args = new Bundle();
@@ -93,7 +90,7 @@ public class CalendarFragment extends Fragment {
 
         calendar.setSelectionColor(ContextCompat.getColor(requireContext(), R.color.blue));
         calendar.setSelectedDate(CalendarDay.today());
-        calendar.addDecorator(new TodayDecorator(CalendarDay.today(),Color.MAGENTA));
+        calendar.addDecorator(new TodayDecorator(CalendarDay.today(),Color.BLUE));
 
         LocalDate now = LocalDate.now();
 
@@ -134,7 +131,6 @@ public class CalendarFragment extends Fragment {
                 intent.putExtra("userID",userID);
                 intent.putExtra("Date",dateFor.toString());
                 startActivity(intent);
-//                getActivity().finish();
                 getActivity().overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_right_exit);
             }
         });
@@ -149,9 +145,47 @@ public class CalendarFragment extends Fragment {
             }
         });
 
+        DotSpan dotSpan = new DotSpan();
+
+        List<CalendarDay> exercisedDate = new ArrayList<>();
+
+        /** 운동을 한 날짜들... DB에서 받아와야 함 */
+        exercisedDate.add(CalendarDay.from(2023, 6, 1));
+        exercisedDate.add(CalendarDay.from(2023, 6, 5));
+        exercisedDate.add(CalendarDay.from(2023, 6, 10));
+
+        Drawable decorator = ContextCompat.getDrawable(requireContext(), R.drawable.calendar_selected);
+
+        for(CalendarDay date : exercisedDate) {
+            calendar.addDecorator(new EventDecorator(decorator, date));
+        }
 
         return view;
     }
+
+    /** 운동한 날짜를 달력에 꾸미는 Decorator */
+    // 체크 표시를 위한 데코레이터 클래스 생성
+    class EventDecorator implements DayViewDecorator {
+        private final Drawable drawable;
+        private final HashSet<CalendarDay> dates;
+
+        public EventDecorator(Drawable drawable, CalendarDay... dates) {
+            this.drawable = drawable;
+            this.dates = new HashSet<>(Arrays.asList(dates));
+        }
+
+        @Override
+        public boolean shouldDecorate(CalendarDay day) {
+            return dates.contains(day);
+        }
+
+        @Override
+        public void decorate(DayViewFacade view) {
+            view.setBackgroundDrawable(drawable);
+        }
+    }
+
+
 
     /** 수정필요 */
     public class SelectedDecorator implements DayViewDecorator{

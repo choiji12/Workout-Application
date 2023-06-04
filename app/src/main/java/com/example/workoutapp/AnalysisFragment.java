@@ -449,11 +449,12 @@ public class AnalysisFragment extends Fragment {
     private void setChart(LineChart chart, float[] datas,String peroid,String function){
         List<Entry> values = new ArrayList<>();
 
-        Log.d("Datas","Datass"+datas);
-
-
         if(function.equals("weight")) {
-            for (int j = datas.length - 2; j > -1; j--) {
+            for (int j = datas.length - 1; j > -1; j--) {
+                if(datas[datas.length-1] == 0.0){
+                    datas[datas.length-1] = datas[datas.length-2];
+                    continue;
+                }
                 if (datas[j] == 0.0) {
                     datas[j] = datas[j + 1];
                 }

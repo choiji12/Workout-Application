@@ -183,21 +183,41 @@
         android:layout_height="700dp"
         android:background="@drawable/exercise_sliding_up_view">
 
-        <Button
-            android:id="@+id/btnYoutube"
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginBottom="50dp"
-            android:background="@drawable/round_red_button"
-            android:fontFamily="@font/jamsil_bold"
-            android:text="▶  유튜브 검색하기"
-            android:textColor="@color/white_to_blue"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/txtExerciseName"
+            app:layout_constraintBottom_toTopOf="@id/btnYoutube"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="150dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/img_exercise"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:srcCompat="@drawable/img_10001" />
+
+                <TextView
+                    android:id="@+id/txtExerciseExplain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/jamsil_regular"
+                    android:text="Exercise Explain"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    />
+
+            </LinearLayout>
+        </ScrollView>
 
         <TextView
             android:id="@+id/txtExerciseName"
@@ -212,20 +232,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txtExerciseExplain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="100dp"
-            android:fontFamily="@font/jamsil_regular"
-            android:text="Exercise Explain"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtExerciseName" />
+        <Button
+            android:id="@+id/btnYoutube"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/round_red_button"
+            android:fontFamily="@font/jamsil_bold"
+            android:text="▶  유튜브 검색하기"
+            android:textColor="@color/white_to_blue"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/scrollView"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
