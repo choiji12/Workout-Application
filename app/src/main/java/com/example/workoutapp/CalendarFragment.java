@@ -1,5 +1,7 @@
 package com.example.workoutapp;
 
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,7 +22,11 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -28,6 +34,10 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -145,20 +155,57 @@ public class CalendarFragment extends Fragment {
             }
         });
 
-        DotSpan dotSpan = new DotSpan();
-
         List<CalendarDay> exercisedDate = new ArrayList<>();
+        Response.Listener<String> infoResponseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    JSONArray tuples = jsonObject.getJSONArray("tuples"); // 튜플 배열을 가져옵니다.
+
+
+                    if (success) {
+                        for (int i = 0; i < tuples.length(); i++) {
+                            JSONObject tuple = tuples.getJSONObject(i);
+                            String calenderDate= tuple.getString("analyzDate");
+                            Log.d("dat","date"+calenderDate);
+                            String[] dateArray = calenderDate.split("-");
+                            Log.d("addddd","addddd"+dateArray);
+                            selectedyear = Integer.parseInt(dateArray[0]);
+                            selectedmonth = Integer.parseInt(dateArray[1]);
+                            seletedday = Integer.parseInt(dateArray[2]);
+                            Log.d("abcd","ddddd"+seletedday);
+                            exercisedDate.add(CalendarDay.from(selectedyear, selectedmonth, seletedday));
+
+                        }
+                        Drawable decorator = ContextCompat.getDrawable(requireContext(), R.drawable.calendar_selected);
+
+                        for(CalendarDay date : exercisedDate) {
+                            calendar.addDecorator(new EventDecorator(decorator, date));
+                            Log.d("asdsdsad","asdsadasd"+date);
+                        }
+                    } else {
+                       
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        CheckedCalenderRequest checkedCalenderRequest = new CheckedCalenderRequest(userID, infoResponseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(checkedCalenderRequest);
+
+        //DotSpan dotSpan = new DotSpan();
+
+
 
         /** 운동을 한 날짜들... DB에서 받아와야 함 */
-        exercisedDate.add(CalendarDay.from(2023, 6, 1));
-        exercisedDate.add(CalendarDay.from(2023, 6, 5));
-        exercisedDate.add(CalendarDay.from(2023, 6, 10));
 
-        Drawable decorator = ContextCompat.getDrawable(requireContext(), R.drawable.calendar_selected);
 
-        for(CalendarDay date : exercisedDate) {
-            calendar.addDecorator(new EventDecorator(decorator, date));
-        }
+
 
         return view;
     }
