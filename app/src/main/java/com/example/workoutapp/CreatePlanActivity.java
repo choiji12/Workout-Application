@@ -2,10 +2,13 @@ package com.example.workoutapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
@@ -29,6 +32,10 @@ import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 public class CreatePlanActivity extends AppCompatActivity {
 
@@ -434,6 +441,71 @@ public class CreatePlanActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"내일부터 다시 열심히 해요! \uD83D\uDD25",Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        List<CalendarDay> exercisedDate = new ArrayList<>();
+        Response.Listener<String> dateResponseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    JSONArray tuples = jsonObject.getJSONArray("tuples"); // 튜플 배열을 가져옵니다.
+
+
+                    if (success) {
+                        for (int i = 0; i < tuples.length(); i++) {
+                            JSONObject tuple = tuples.getJSONObject(i);
+                            String calenderDate= tuple.getString("analyzDate");
+                            Log.d("dat","date"+calenderDate);
+                            String[] dateArray = calenderDate.split("-");
+                            Log.d("addddd","addddd"+dateArray);
+                            selectedyear = Integer.parseInt(dateArray[0]);
+                            selectedmonth = Integer.parseInt(dateArray[1]);
+                            seletedday = Integer.parseInt(dateArray[2]);
+                            Log.d("abcd","ddddd"+seletedday);
+                            exercisedDate.add(CalendarDay.from(selectedyear, selectedmonth, seletedday));
+
+                        }
+                        Drawable decorator = getResources().getDrawable(R.drawable.calendar_selected);
+
+                        for(CalendarDay date : exercisedDate) {
+                            calendar.addDecorator(new CreatePlanActivity.EventDecorator(decorator, date));
+                            Log.d("asdsdsad","asdsadasd"+date);
+                        }
+                    } else {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        CheckedCalenderRequest checkedCalenderRequest = new CheckedCalenderRequest(userID, dateResponseListener);
+        RequestQueue queue1 = Volley.newRequestQueue(CreatePlanActivity.this);
+        queue1.add(checkedCalenderRequest);
+
+    }
+
+    class EventDecorator implements DayViewDecorator {
+        private final Drawable drawable;
+        private final HashSet<CalendarDay> dates;
+
+        public EventDecorator(Drawable drawable, CalendarDay... dates) {
+            this.drawable = drawable;
+            this.dates = new HashSet<>(Arrays.asList(dates));
+        }
+
+        @Override
+        public boolean shouldDecorate(CalendarDay day) {
+            return dates.contains(day);
+        }
+
+        @Override
+        public void decorate(DayViewFacade view) {
+            view.setBackgroundDrawable(drawable);
+        }
     }
 
     /** 오늘 날짜 색깔 지정 Decorator */
