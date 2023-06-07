@@ -267,9 +267,13 @@ public class SetExerciseActivity extends AppCompatActivity {
         contentsLayout.addView(edtTimes);
 
         Button btnDeleteSet = new Button(this);
-        btnDeleteSet.setBackground(getResources().getDrawable(R.drawable.minus));
+        btnDeleteSet.setText("세트삭제");
+        btnDeleteSet.setTypeface(mainFont);
+        btnDeleteSet.setTextSize(15);
+        btnDeleteSet.setTextColor(getResources().getColor(R.color.black));
+        btnDeleteSet.setBackground(getResources().getDrawable(R.drawable.round_white_button));
         LinearLayout.LayoutParams paramsDeleteSet = new LinearLayout.LayoutParams
-                ((int) (28 * getResources().getDisplayMetrics().density), (int) (28 * getResources().getDisplayMetrics().density));
+                ((int) (80 * getResources().getDisplayMetrics().density), (int) (40 * getResources().getDisplayMetrics().density));
         paramsDeleteSet.setMarginEnd(15);
         btnDeleteSet.setLayoutParams(paramsDeleteSet);
 
@@ -302,9 +306,13 @@ public class SetExerciseActivity extends AppCompatActivity {
         });
 
         Button btnAddSet = new Button(this);
-        btnAddSet.setBackground(getResources().getDrawable(R.drawable.plus));
+        btnAddSet.setText("세트추가");
+        btnAddSet.setTypeface(mainFont);
+        btnAddSet.setTextSize(15);
+        btnAddSet.setTextColor(getResources().getColor(R.color.black));
+        btnAddSet.setBackground(getResources().getDrawable(R.drawable.round_white_button));
         LinearLayout.LayoutParams paramsAddSet = new LinearLayout.LayoutParams
-                ((int) (28 * getResources().getDisplayMetrics().density), (int) (28 * getResources().getDisplayMetrics().density));
+                ((int) (80 * getResources().getDisplayMetrics().density), (int) (40 * getResources().getDisplayMetrics().density));
         paramsAddSet.setMarginEnd(10);
         btnAddSet.setLayoutParams(paramsAddSet);
 

@@ -73,6 +73,18 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         getIntentData();
         Log.d("USER","USERID =="+userID);
+
+        Button btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this,StartActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
         buttonChangeNickname = findViewById(R.id.buttonChangeNickname);
         buttonChangeGender = findViewById(R.id.buttonChangeGender);
         buttonChangeLocation = findViewById(R.id.buttonChangeLocation);

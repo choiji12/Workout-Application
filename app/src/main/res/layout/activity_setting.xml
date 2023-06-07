@@ -282,6 +282,21 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="showChangedeletePopup"
+            android:text="로그아웃"
+            android:fontFamily="@font/jamsil_regular"
+            android:textSize="16sp"
+
+            android:textColor="@color/white_to_blue"
+            android:background="@drawable/round_blue_button"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <Button
             android:id="@+id/btnWithdrawal"
             android:layout_width="match_parent"
             android:layout_height="50dp"
