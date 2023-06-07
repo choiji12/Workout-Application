@@ -204,9 +204,6 @@ public class CalendarFragment extends Fragment {
 
         /** 운동을 한 날짜들... DB에서 받아와야 함 */
 
-
-
-
         return view;
     }
 
