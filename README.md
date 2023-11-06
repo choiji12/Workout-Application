@@ -1,2 +1,2 @@
 # Workout-Application
-WorkOut Application for Android made by Java
+최지혁, 박민우, 김재엽의 프로젝트
