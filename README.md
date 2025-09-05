@@ -72,6 +72,29 @@
 
 <br>
 
+
+## 🔍 문제 해결
+- **문제**: Volley 라이브러리는 비동기적으로 동작하여 요청/응답의 **순서가 보장되지 않는 문제**가 발생  
+- **해결방안**: Request Queue에 요청을 추가할 때 `Thread.sleep()` 메서드를 활용하여  
+  순차적으로 요청이 들어가도록 수정 → **데이터 응답의 순서 보장**  
+
+<br>
+
+ 문제 해결 전
+
+<p align="left">
+  <img src="./images/before.png" width="850" alt="문제 해결 전"/>
+</p>
+
+<br>
+
+ 문제 해결 후
+<p align="left">
+  <img src="./images/after.png" width="850" alt="문제 해결 후"/>
+</p>
+
+<br>
+
 ## 📝 배운 점
 - Volley 라이브러리의 비동기 문제 해결을 통해 데이터 순서 보장 구현  
 - MVC 구조 및 서버-DB 연동 경험 강화  
