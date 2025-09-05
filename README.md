@@ -1,6 +1,8 @@
 <p align="center">
-  <img src="./images/thumbnail.png" width="720" alt="GYMPT Thumbnail"/>
+  <img src="./images/thumb.png" width="650" alt="thumb"/>
 </p>
+
+<br>
 
 # 💪 GYMPT Fitness Application
 
@@ -26,20 +28,26 @@
 
 <br>
 
-<p align="center">
-  <img src="./images/system_architecture.png" width="750" alt="시스템 아키텍처"/>
+<p align="left">
+  <img src="./images/gantt.png" width="900" alt="mysql"/>
 </p>
+
+<br>
 
 ## 🗄️ DB구조
 
+<br>
+
 **MySQL DB 구조**
-<p align="center">
-  <img src="./images/system_architecture.png" width="750" alt="시스템 아키텍처"/>
+<p align="left">
+  <img src="./images/mysql.png" width="600" alt="mysql"/>
 </p>
 
+<br>
+
 **FireBase DB 구조**
-<p align="center">
-  <img src="./images/system_architecture.png" width="750" alt="시스템 아키텍처"/>
+<p align="left">
+  <img src="./images/firebase.png" width="600" alt="firebase"/>
 </p>
 
 
@@ -54,14 +62,16 @@
 - **운동 보조**: 세트 타이머 및 휴식 알림 기능  
 - **설정**: 사용자 정보 변경 및 회원 탈퇴 가능  
 
-<p align="center">
-  <img src="./images/features.png" width="700" alt="주요 기능 화면 예시"/>
+<br>
+
+<p align="left">
+  <img src="./images/funtion.png" width="600" alt="funtion"/>
 </p>
 
 
 <br>
 
-## 📊 배운 점
+## 📝 배운 점
 - Volley 라이브러리의 비동기 문제 해결을 통해 데이터 순서 보장 구현  
 - MVC 구조 및 서버-DB 연동 경험 강화  
 - Firebase와 MySQL을 병행하여 유저 인증 및 데이터 관리 설계  
@@ -81,5 +91,5 @@
 ## 📎 참고 자료
 해당 README는 요약본이며, 자세한 설계 문서 및 이미지 자료는 아래 첨부 문서에서 확인 가능합니다.
 
-- 📄 [INHAYO_DB설계_기술서.docx](./INHAYO_DB설계_기술서.docx)  
-- 📊 [INHAYO_DB설계.pptx](./INHAYO_DB설계.pptx)
+- 📄 [GYMPT_최종보고서.pdf.docx](./GYMPT_최종보고서.pdf)  
+
