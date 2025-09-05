@@ -19,12 +19,13 @@
 <br>
 
 ## 👥 팀 구성 및 역할
+- **최지혁**: 데이터베이스 설계, DB 서버 연동, 운동 데이터 조사, 백엔드 구현  
 - **김재엽**: 프로젝트 기획, FireBase 연동, Google 연동, 백엔드 구현  
 - **박민우**: UI/UX 디자인, 프런트엔드 구현, 로고 디자인, 벤치마킹  
-- **최지혁**: 데이터베이스 설계, DB 서버 연동, 운동 데이터 조사, 백엔드 구현  
 
 <br>
-## 📊 간트차트
+
+## 📅 간트차트
 
 <br>
 
@@ -54,7 +55,7 @@
 <br>
 
 
-## ⚙️ 주요 기능
+## 🛠️주요 기능
 - **회원가입/로그인**: Firebase 기반 계정 생성 및 인증  
 - **운동 루틴 관리**: 운동 일정, 세트, 볼륨 입력 및 저장  
 - **운동 기록**: 일별 기록 저장 및 달력 기반 조회  
@@ -79,7 +80,7 @@
 
 <br>
 
-## 🛠️ 사용 기술 (Tech Stack)
+## ⚙️ 사용 기술 (Tech Stack)
 - **Frontend**: Android (Java), XML 기반 UI, Bootstrap 아이콘  
 - **Backend**: PHP, Firebase Authentication, Firebase Realtime Database  
 - **Database**: MySQL, Firebase (혼합 구조)  
